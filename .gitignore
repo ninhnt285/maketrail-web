@@ -1,4 +1,5 @@
-SX Files
+# --------------------
+# OSX Files
 # --------------------
 .DS_Store
 .AppleDouble
@@ -41,5 +42,3 @@ build/
 # --------------------
 /src/config/index.js
 /.graphqlrc
-
-

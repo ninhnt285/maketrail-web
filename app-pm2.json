@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "MakeTrail",
+      "script": "npm",
+      "args" : "run build",
+      "watch": ["src", "./index.html"],
+      "ignore_watch" : ["node_modules", "build"],
+      "autorestart": false,
+      "restart_delay": 1000
+    }
+  ]
+}

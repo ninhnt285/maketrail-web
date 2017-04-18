@@ -1,0 +1,17 @@
+1. Install Babel
+npm install --save-dev babel-cli babel-preset-es2015 babel-preset-stage-0
+
+Config Babel
+```
+{
+  "presets": ["es2015", "stage-0"]
+}
+```
+
+2. Install Webpack & Loaders
+Install Webpack
+npm install --save-dev webpack webpack-dev-server html-webpack-plugin favicons-webpack-plugin
+
+Install Loader
+- Babel: npm install --save-dev babel-loader
+- Style/CSS/LESS: npm install --save-dev style-loader css-loader postcss-loader less less-loader precss autoprefixer
