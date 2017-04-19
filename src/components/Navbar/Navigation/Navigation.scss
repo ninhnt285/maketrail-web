@@ -1,0 +1,42 @@
+@import '../../variables.scss';
+
+.root {
+  .name {
+    height: 36px;
+    font-size: 18px;
+    padding: 0px;
+    .shortName {
+      border-radius: 4px 0px 0px 4px;
+      background-color: $white;
+      line-height: 36px;
+      color: $black;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: 36px;
+      display: inline-block;
+      vertical-align: top;
+      text-align: center;
+    }
+    .fullname {
+      border-radius: 0px 4px 4px 0px;
+      line-height: 36px;
+      text-align: center;
+      background-color: $blue;
+      color: $white;
+      min-width: 80px;
+      text-transform: capitalize;
+      display: inline-block;
+      vertical-align: top;
+      padding: 0px 10px;
+    }
+    @media screen and (max-width: 768px) {
+      .shortName {
+        border-radius: 4px;
+      }
+      .fullname {
+        display: none;
+      }
+    }
+  }
+
+}

@@ -1,0 +1,12 @@
+@import '../variables.scss';
+
+.root {
+  background-color: $black-light !important;
+  justify-content: center !important;
+  padding: 10px 16px !important;
+
+  a {
+    color: $white !important;
+    text-decoration: none;
+  }
+}

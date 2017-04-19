@@ -12,7 +12,7 @@ let devtool;
 let plugins;
 
 const htmlTemplate = new HtmlWebpackPlugin({
-  title: 'Maketrail.com - Plan and Share your trip',
+  title: 'Maketrail.com',
   template: './index.html',
   mobile: true,
   inject: false
@@ -58,7 +58,7 @@ if (process.env.NODE_ENV === 'production') {
 module.exports = {
   entry: {
     app: appEntry,
-    vendor: ['react', 'react-dom', 'react-mdl', 'react-relay', 'react-router'/*, 'react-router-relay'*/]
+    vendor: ['react', 'react-dom', 'react-mdl', 'react-relay', 'react-router', 'react-router-relay']
   },
   output: {
     path: path.join(__dirname, 'build'),

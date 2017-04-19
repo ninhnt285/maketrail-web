@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "MakeTrail",
+      "name": "MakeTrail Web",
       "script": "npm",
       "args" : "run build",
       "watch": ["src", "./index.html"],

@@ -1,0 +1,48 @@
+@import '../variables.scss';
+
+.root {
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 10px 0;
+
+  a {
+    text-decoration: none;
+  }
+
+  a:hover .project {
+    background-color: #0079a5;
+  }
+
+  a:hover :global(.add).project {
+    background-color: #BBB;
+  }
+
+  .project {
+    background-color: #0095cc;
+    display: block;
+    width: 100%;
+    padding: 10px 10px 40px;
+    min-height: 110px;
+
+    p {
+      color: #FFF;
+      font-weight: bold;
+      align-items: flex-start;
+      text-transform: uppercase;
+    }
+  }
+
+  :global(.add).project, :global(.addForm).project {
+    background-color: #CCC;
+    padding: 0px 20px;
+
+    p {
+      color: #666;
+      line-height: 110px;
+      margin: 0px;
+      text-align: center;
+      text-transform: none;
+      font-weight: normal;
+    }
+  }
+}

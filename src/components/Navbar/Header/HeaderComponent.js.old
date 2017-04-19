@@ -1,0 +1,14 @@
+import React from 'react';
+import { Link } from 'react-router';
+import { Header as MDLHeader } from 'react-mdl';
+import Navigation from '../Navigation/NavigationComponent';
+
+export default class HeaderComponent extends React.Component {
+  render() {
+    return (
+      <MDLHeader waterfall title={<Link id='logo' to='/'>LineSol</Link>}>
+        <Navigation {...this.props} />
+      </MDLHeader>
+    );
+  }
+}
