@@ -3,16 +3,16 @@ import 'normalize.css/normalize.css';
 import 'react-mdl/extra/css/material.cyan-red.min.css';
 import { Link } from 'react-router';
 import { Layout, Content, Menu, MenuItem } from 'react-mdl';
+import PropTypes from 'prop-types';
 import Header from '../Navbar/Header/HeaderComponent';
-// import Drawer from '../Navbar/Drawer/DrawerComponent';
 import Footer from '../Footer/FooterComponent';
 import styles from './App.scss';
 
 export default class App extends React.Component {
   static propTypes = {
-    children: React.PropTypes.object.isRequired,
-    viewer: React.PropTypes.object.isRequired,
-    location: React.PropTypes.object.isRequired
+    children: PropTypes.object.isRequired,
+    viewer: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
   }
 
   onSignout = (event) => {
@@ -39,7 +39,6 @@ export default class App extends React.Component {
     return (
       <Layout className={styles.root} style={{ zIndex: 100001 }}>
         <Header user={user} onClickUser={this.onClickUserMenu} />
-        {/* <Drawer user={user} /> */}
         <Content className={styles.content}>
           {this.props.children}
         </Content>

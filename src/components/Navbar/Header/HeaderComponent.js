@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button } from 'react-mdl';
 import { Link } from 'react-router';
+import PropTypes from 'prop-types';
 import styles from './Header.scss';
 
 export default class HeaderComponent extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object,
-    onClickUser: React.PropTypes.func.isRequired
+    user: PropTypes.object,
+    onClickUser: PropTypes.func.isRequired
   }
 
   static defaultProps = {

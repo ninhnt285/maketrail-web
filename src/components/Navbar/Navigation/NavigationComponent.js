@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { Navigation as MDLNavigation, Menu, MenuItem } from 'react-mdl';
+import PropTypes from 'prop-types';
 import styles from './Navigation.scss';
 
 export default class NavigationComponent extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object
+    user: PropTypes.object
   }
 
   static defaultProps = {
