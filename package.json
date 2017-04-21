@@ -14,11 +14,14 @@
     "url": "ssh://hienlt@maketrail.com/home/hienlt/var/www/maketrail-web"
   },
   "dependencies": {
+    "@google/maps": "^0.3.1",
+    "axios": "^0.16.1",
     "normalize.css": "^6.0.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-mdl": "^1.10.0",
+    "react-modal": "^1.7.7",
     "react-relay": "^0.10.0",
     "react-router": "3.x",
     "react-router-relay": "^0.13.7"

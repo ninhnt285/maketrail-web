@@ -37,7 +37,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <Layout className={styles.root} style={{ zIndex: 100001 }}>
+      <Layout className={styles.root}>
         <Header user={user} onClickUser={this.onClickUserMenu} />
         <Content className={styles.content}>
           {this.props.children}

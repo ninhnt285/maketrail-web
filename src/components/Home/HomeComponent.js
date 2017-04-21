@@ -1,7 +1,8 @@
 import React from 'react';
-import Relay from 'react-relay';
-import { Button } from 'react-mdl';
+import { Grid, Cell, Card, Button } from 'react-mdl';
+import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import Relay from 'react-relay';
 import styles from './Home.scss';
 import Greeting from './Greeting/GreetingComponent';
 
@@ -14,7 +15,7 @@ export default class Home extends React.Component {
 
   static contextTypes = {
     router: PropTypes.object
-  }
+  };
 
   onAddTrip = (event) => {
     event.preventDefault();
@@ -47,10 +48,21 @@ export default class Home extends React.Component {
       return (<Greeting />);
     }
 
+    const trips = this.props.viewer.allTrips.edges;
+
     return (
-      <div className={styles.root}>
+      <Grid className={styles.root}>
+        {trips.map(edge =>
+          <Cell key={edge.node.id} col={12}>
+            <Link to={`/trip/${edge.node.id}`}>
+              <Card className={styles.trip}>
+                <p>{edge.node.name}</p>
+              </Card>
+            </Link>
+          </Cell>
+        )}
         <Button onClick={this.onAddTrip} raised colored ripple style={{ color: '#EEE' }}>New Trip</Button>
-      </div>
+      </Grid>
     );
   }
 }

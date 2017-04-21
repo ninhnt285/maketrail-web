@@ -1,6 +1,12 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
 @import '../variables.scss';
 
+:global {
+  .ReactModal__Overlay {
+    z-index: 1001;
+  }
+}
+
 .root :global {
   display: flex;
   flex-direction: column;

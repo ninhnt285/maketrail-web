@@ -17,7 +17,7 @@
     background-color: #BBB;
   }
 
-  .project {
+  .trip {
     background-color: #0095cc;
     display: block;
     width: 100%;
@@ -29,20 +29,6 @@
       font-weight: bold;
       align-items: flex-start;
       text-transform: uppercase;
-    }
-  }
-
-  :global(.add).project, :global(.addForm).project {
-    background-color: #CCC;
-    padding: 0px 20px;
-
-    p {
-      color: #666;
-      line-height: 110px;
-      margin: 0px;
-      text-align: center;
-      text-transform: none;
-      font-weight: normal;
     }
   }
 }
