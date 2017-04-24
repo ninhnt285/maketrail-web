@@ -44,7 +44,7 @@
   <% } %>
 </script>
 <% } %>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMFSsb4IlS2ReTJmI8HNlPmdNAvRwt-7k&libraries=places"></script>
+
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
 <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>

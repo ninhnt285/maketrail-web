@@ -12,6 +12,20 @@ export default Relay.createContainer(Trip, {
         Trip(id: $tripId) {
           id
           name
+          localities(first: 10) {
+            edges {
+              node {
+                id
+                name
+                description
+                location {
+                  lat
+                  lng
+                }
+                previewPhotoUrl
+              }
+            }
+          }
         }
       }
     `

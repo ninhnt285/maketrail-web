@@ -6,6 +6,7 @@
     "node": true
   },
   "rules": {
+    "no-unused-vars": 1,
     "no-underscore-dangle": 0,
     "comma-dangle": 0,
     "max-len": 0,

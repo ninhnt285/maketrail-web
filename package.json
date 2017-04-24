@@ -14,8 +14,7 @@
     "url": "ssh://hienlt@maketrail.com/home/hienlt/var/www/maketrail-web"
   },
   "dependencies": {
-    "@google/maps": "^0.3.1",
-    "axios": "^0.16.1",
+    "material-components-web": "^0.9.1",
     "normalize.css": "^6.0.0",
     "prop-types": "^15.5.8",
     "react": "^15.5.4",

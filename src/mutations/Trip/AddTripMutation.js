@@ -17,6 +17,7 @@ class AddTripMutation extends Relay.Mutation {
         success
         errors
         trip
+        edge
       }
     `;
   }
@@ -24,14 +25,14 @@ class AddTripMutation extends Relay.Mutation {
   getConfigs() {
     return [
       {
-        type: 'REQUIRED_CHILDREN',
-        children: [Relay.QL`
-          fragment on AddTripPayload {
-            success
-            errors
-            trip
-          }
-        `]
+        type: 'RANGE_ADD',
+        parentName: null,
+        parentID: 'viewer-fixed',
+        connectionName: 'allTrips',
+        edgeName: 'edge',
+        rangeBehaviors: {
+          '': 'append'
+        }
       }
     ];
   }

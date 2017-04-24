@@ -32,8 +32,8 @@ export default class Home extends React.Component {
         onSuccess: (response) => {
           if (response.addTrip) {
             const addTripPayload = response.addTrip;
-            if (addTripPayload.trip) {
-              this.context.router.push(`/trip/${addTripPayload.trip.id}`);
+            if (addTripPayload.edge) {
+              this.context.router.push(`/trip/${addTripPayload.edge.node.id}`);
             }
           }
 

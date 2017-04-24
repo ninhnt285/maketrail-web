@@ -24,7 +24,34 @@
     }
   }
 
-  .localityFinder {
+  .localityFinder :global {
     padding: 0 15px;
+
+    .placesTable {
+      thead {
+        display: none;
+      }
+
+      .placeRow {
+        display: block;
+        border: none;
+        background: none;
+        text-align: left;
+        border-bottom: 1px solid #EEE;
+        width: 300px;
+        max-width: 100%;
+
+        &:hover {
+          background-color: #DDD;
+          cursor: pointer;
+        }
+
+        p {
+          margin: 0;
+          height: 35px;
+          line-height: 35px;
+        }
+      }
+    }
   }
 }
