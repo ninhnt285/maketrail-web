@@ -6,7 +6,7 @@ import LocalityFinder from '../Locality/Finder';
 import styles from './Trip.scss';
 import coverPhoto from '../../assets/trip-cover/cover1.jpg';
 import AddLocalityMutation from '../../mutations/Locality/AddLocalityMutation';
-import Locality from '../Locality/Locality';
+import TripLocality from '../TripLocality';
 
 export default class TripComponent extends React.Component {
   static propTypes = {
@@ -44,7 +44,7 @@ export default class TripComponent extends React.Component {
           <LocalityFinder onAddLocality={this.onAddLocality} />
           <div className={styles.localities}>
             {localities.map(({ node }) => (
-              <Locality key={node.id} locality={node} />
+              <TripLocality key={node.id} tripLocality={node} />
             ))}
           </div>
         </div>

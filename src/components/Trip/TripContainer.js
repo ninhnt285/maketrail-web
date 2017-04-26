@@ -1,6 +1,6 @@
 import Relay from 'react-relay';
 import Trip from './TripComponent';
-import Locality from '../Locality/Locality';
+import TripLocality from '../TripLocality';
 
 export default Relay.createContainer(Trip, {
   initialVariables: {
@@ -17,7 +17,7 @@ export default Relay.createContainer(Trip, {
             edges {
               node {
                 id
-                ${Locality.getFragment('locality')}
+                ${TripLocality.getFragment('tripLocality')}
               }
             }
           }
