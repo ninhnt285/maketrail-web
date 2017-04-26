@@ -1,10 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import { Tabs, Tab } from 'react-mdl';
 import LocalityFinder from '../Locality/Finder';
 import styles from './Trip.scss';
 import coverPhoto from '../../assets/trip-cover/cover1.jpg';
 import AddLocalityMutation from '../../mutations/Locality/AddLocalityMutation';
+import Locality from '../Locality/Locality';
 
 export default class TripComponent extends React.Component {
   static propTypes = {
@@ -13,6 +15,10 @@ export default class TripComponent extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      activeTab: 1
+    };
 
     this.onAddLocality = this.onAddLocality.bind(this);
   }
@@ -31,6 +37,20 @@ export default class TripComponent extends React.Component {
   render() {
     const localities = this.props.viewer.Trip.localities.edges;
 
+    let content = null;
+    if (this.state.activeTab === 1) {
+      content = (
+        <div>
+          <LocalityFinder onAddLocality={this.onAddLocality} />
+          <div className={styles.localities}>
+            {localities.map(({ node }) => (
+              <Locality key={node.id} locality={node} />
+            ))}
+          </div>
+        </div>
+      );
+    }
+
     return (
       <div className={styles.root}>
         <div className={styles.tripCover}>
@@ -38,17 +58,13 @@ export default class TripComponent extends React.Component {
           <h1>{this.props.viewer.Trip.name}</h1>
         </div>
 
-        <LocalityFinder onAddLocality={this.onAddLocality} />
+        <Tabs style={{ backgroundColor: '#FFF' }} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
+          <Tab>Timeline</Tab>
+          <Tab>Plan</Tab>
+          <Tab>Members</Tab>
+        </Tabs>
 
-        {(localities.length > 0) &&
-          <div>
-            {localities.map(edge =>
-              <div key={edge.node.id}>
-                <p>{edge.node.name}</p>
-              </div>
-            )}
-          </div>
-        }
+        {content}
       </div>
     );
   }

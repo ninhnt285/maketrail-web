@@ -1,0 +1,47 @@
+.root {
+  padding: 12px;
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+}
+
+.header {
+  border-bottom: 1px solid #d0d1d5;
+  padding-bottom: 12px;
+  min-height: 150px;
+}
+
+.previewPhoto {
+  float: left;
+  height: 150px;
+}
+
+.detail {
+  padding: 10px 10px 0 10px;
+  margin-left: 150px;
+
+  p, h3 {
+    margin: 0px;
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .previewPhoto {
+    width: 100%;
+    height: auto;
+    float: none;
+  }
+
+  .detail {
+    margin-left: 0px;
+    padding: 10px 0 0 0;
+  }
+}

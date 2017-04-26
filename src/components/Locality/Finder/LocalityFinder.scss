@@ -1,10 +1,27 @@
 .root {
-  width: 300px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+  background-color: #FFF;
+  height: 60px;
+  margin: 10px 0;
+  padding: 0 10px;
+  box-sizing: border-box;
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+
+  :global(.mdl-textfield) {
+    width: 100%;
+  }
 
   .localitieResults {
-    position: relative;
-    top: -28px;
+    position: absolute;
+    top: 50px;
+    left: 0px;
     border: 1px solid rgba(0,0,0,.12);
+    background-color: #FFF;
+    box-shadow: 0 0 10px #777;
+    width: 100%;
 
     .localityWrapper {
       font-size: 12px;

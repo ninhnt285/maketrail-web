@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import ViewerQuery from '../../../routes/ViewerQuery';
-import FinderContainer from './LocalityFinderContainer';
+import LocalityFinderContent from './LocalityFinder';
 
 export default class LocalityFinder extends Component {
   render() {
     return (
       <Relay.RootContainer
-        Component={FinderContainer}
+        Component={LocalityFinderContent}
         route={{ queries: ViewerQuery, name: 'ViewerQuery', params: {} }}
         renderFetched={data =>
-          <FinderContainer {...data} {...this.props} />
+          <LocalityFinderContent {...data} {...this.props} />
         }
       />
     );

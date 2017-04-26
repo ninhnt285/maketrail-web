@@ -33,6 +33,10 @@ class LocalityFinderComponent extends Component {
 
   onQueryChange(event) {
     this.query = event.target.value;
+    if (this.query === '') {
+      this.setState({ showResult: false });
+    }
+
     if ((this.query !== '') && (this.query !== this.oldQuery)) {
       const _that = this;
       if (!this.loadingQuery) {
@@ -86,7 +90,7 @@ class LocalityFinderComponent extends Component {
                 onClick={this.onAddLocality}
               >
                 {edge.node.previewPhotoUrl &&
-                  <img src={`http://localhost:4001/resources${edge.node.previewPhotoUrl.replace('%s', '_150_square')}`} alt={edge.node.name} />
+                  <img src={`${edge.node.previewPhotoUrl.replace('%s', '_150_square')}`} alt={edge.node.name} />
                 }
                 <div className={styles.localityDetail}>
                   <p className={styles.localityName}>{edge.node.name}</p>
