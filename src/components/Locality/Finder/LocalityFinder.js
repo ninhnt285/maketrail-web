@@ -71,23 +71,23 @@ class LocalityFinderComponent extends Component {
       results = this.props.viewer.searchLocality.edges;
     }
 
-    let inputText = (
+    const inputText = (
       <Textfield
         onChange={this.onQueryChange}
         label='Enter the name of State, County or City...'
         floatingLabel
       />
     );
-    if (!this.state.showResult) {
-      inputText = (
-        <Textfield
-          value=''
-          onChange={this.onQueryChange}
-          label='Enter the name of State, County or City...'
-          floatingLabel
-        />
-      );
-    }
+    // if (!this.state.showResult) {
+    //   inputText = (
+    //     <Textfield
+    //       value=''
+    //       onChange={this.onQueryChange}
+    //       label='Enter the name of State, County or City...'
+    //       floatingLabel
+    //     />
+    //   );
+    // }
 
     return (
       <div className={`${styles.root} ${this.props.className}`}>

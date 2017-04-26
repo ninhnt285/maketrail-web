@@ -5,7 +5,7 @@ import { Tabs, Tab } from 'react-mdl';
 import LocalityFinder from '../Locality/Finder';
 import styles from './Trip.scss';
 import coverPhoto from '../../assets/trip-cover/cover1.jpg';
-import AddLocalityMutation from '../../mutations/Locality/AddLocalityMutation';
+import AddTripLocalityMutation from '../../mutations/TripLocality/AddTripLocalityMutation';
 import TripLocality from '../TripLocality';
 
 export default class TripComponent extends React.Component {
@@ -24,13 +24,13 @@ export default class TripComponent extends React.Component {
   }
 
   onAddLocality(localityId) {
-    const addLocalityMutation = new AddLocalityMutation({
+    const addTripLocalityMutation = new AddTripLocalityMutation({
       tripId: this.props.viewer.Trip.id,
       localityId
     });
 
     Relay.Store.commitUpdate(
-      addLocalityMutation
+      addTripLocalityMutation
     );
   }
 

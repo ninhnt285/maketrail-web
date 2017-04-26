@@ -1,8 +1,8 @@
 import Relay from 'react-relay';
 
-class AddLocalityMutation extends Relay.Mutation {
+class AddTripLocalityMutation extends Relay.Mutation {
   getMutation() {
-    return Relay.QL`mutation {addLocality}`;
+    return Relay.QL`mutation {addTripLocality}`;
   }
 
   getVariables() {
@@ -14,7 +14,7 @@ class AddLocalityMutation extends Relay.Mutation {
 
   getFatQuery() {
     return Relay.QL`
-      fragment on AddLocalityPayload {
+      fragment on AddTripLocalityPayload {
         success
         errors
         edge
@@ -39,4 +39,4 @@ class AddLocalityMutation extends Relay.Mutation {
   }
 }
 
-export default AddLocalityMutation;
+export default AddTripLocalityMutation;
