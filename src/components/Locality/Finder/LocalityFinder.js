@@ -59,8 +59,7 @@ class LocalityFinderComponent extends Component {
     }
   }
 
-  onAddLocality(event) {
-    const localityId = event.target.id.replace('localityResult_', '');
+  onAddLocality(localityId) {
     this.props.onAddLocality(localityId);
     this.query = '';
     this.setState({ showResult: false });
@@ -72,22 +71,35 @@ class LocalityFinderComponent extends Component {
       results = this.props.viewer.searchLocality.edges;
     }
 
-    return (
-      <div className={`${styles.root} ${this.props.className}`}>
+    let inputText = (
+      <Textfield
+        onChange={this.onQueryChange}
+        label='Enter the name of State, County or City...'
+        floatingLabel
+      />
+    );
+    if (!this.state.showResult) {
+      inputText = (
         <Textfield
+          value=''
           onChange={this.onQueryChange}
           label='Enter the name of State, County or City...'
           floatingLabel
         />
+      );
+    }
+
+    return (
+      <div className={`${styles.root} ${this.props.className}`}>
+        {inputText}
 
         {(results.length > 0) &&
           <div className={styles.localitieResults}>
             {results.map(edge =>
               <Button
-                id={`localityResult_${edge.node.id}`}
                 key={edge.node.id}
                 className={styles.localityWrapper}
-                onClick={this.onAddLocality}
+                onClick={this.onAddLocality.bind(this, edge.node.id)}
               >
                 {edge.node.previewPhotoUrl &&
                   <img src={`${edge.node.previewPhotoUrl.replace('%s', '_150_square')}`} alt={edge.node.name} />
