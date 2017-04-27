@@ -36,7 +36,7 @@ export default class HeaderComponent extends React.Component {
 
     return (
       <div className={styles.root}>
-        <div className={styles.logo} />
+        <Link to='/' className={styles.logo} />
         <div className={styles.link}>
           <Link to='/register'>Register</Link>
           <Link to='/login'>Login</Link>

@@ -9,6 +9,10 @@
   *:not(html) {
     -webkit-transform: translate3d(0, 0, 0);
   }
+
+  input.mdl-textfield__input {
+    border-radius: 0px;
+  }
 }
 
 .root :global {

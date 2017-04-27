@@ -64,6 +64,7 @@ export default class TripComponent extends React.Component {
           <Tab>Timeline</Tab>
           <Tab>Plan</Tab>
           <Tab>Members</Tab>
+          <Tab>Discuss</Tab>
         </Tabs>
 
         {content}
