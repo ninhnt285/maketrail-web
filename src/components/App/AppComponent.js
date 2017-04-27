@@ -51,7 +51,6 @@ export default class App extends React.Component {
             </Menu>
           </div>
         }
-        <Footer />
       </Layout>
     );
   }
