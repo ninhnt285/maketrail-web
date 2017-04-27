@@ -80,11 +80,6 @@
     padding: 10px 0;
     border-bottom: 1px solid #efefef;
 
-    &:last-child {
-      border-bottom: none;
-      padding-bottom: 0px;
-    }
-
     img {
       width: 30px;
       height: 30px;
@@ -94,6 +89,34 @@
 
     span {
       padding-left: 10px;
+    }
+  }
+
+  .recommend {
+    margin-top: 10px;
+
+    .title {
+      font-weight: bold;
+    }
+
+    .recommendItem {
+      background-color: #DDD;
+      border-radius: 10px;
+      height: 20px;
+      display: inline-block;
+      margin: 5px 5px 0;
+      padding: 0 2px;
+      cursor: pointer;
+
+      img {
+        height: 18px;
+        width: 18px;
+        border-radius: 9px;
+      }
+
+      span {
+        padding: 0 5px;
+      }
     }
   }
 }

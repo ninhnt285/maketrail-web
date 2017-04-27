@@ -39,7 +39,7 @@ class Locality extends Component {
     const todoItems = [
       {
         id: 'abc1',
-        name: 'Check-in at Statue of Liberty',
+        name: 'Statue of Liberty',
         imageUrl: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Liberty-statue-from-below_cropped.jpg'
       },
       {
@@ -49,7 +49,7 @@ class Locality extends Component {
       },
       {
         id: 'abc3',
-        name: 'Check-in at Timesquare',
+        name: 'Time Square',
         imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEHMxAQ2ICRjsV3eHysaboyvh1Bsz3_kmoEg3W-S8WKwWubs0_7AmsfyJjBwPtl1vTPg8'
       }
     ];
@@ -87,7 +87,7 @@ class Locality extends Component {
         </div>
         <div className={styles.content}>
           <div className={styles.todoList}>
-            <h4>To-do List</h4>
+            <h4>Check-in Places</h4>
             <button>Add More</button>
             {todoItems.map(node =>
               <div key={node.id} className={styles.todoItem}>
@@ -95,6 +95,23 @@ class Locality extends Component {
                 <span>{node.name}</span>
               </div>
             )}
+            <div className={styles.recommend}>
+              <span className={styles.title}>Recommend:</span>
+              <span className={styles.recommendItem}>
+                <img src='https://upload.wikimedia.org/wikipedia/en/a/a5/Liberty-statue-from-below_cropped.jpg' alt='Statue of Liberty' />
+                <span>Statue of Liberty</span>
+              </span>
+
+              <span className={styles.recommendItem}>
+                <img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEHMxAQ2ICRjsV3eHysaboyvh1Bsz3_kmoEg3W-S8WKwWubs0_7AmsfyJjBwPtl1vTPg8' alt='Time Square' />
+                <span>Time Square</span>
+              </span>
+
+              <span className={styles.recommendItem}>
+                <img src='https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTEDaZXYITG8ieFAPJ4YSUKCA4vK--tq6MNj5VD9zB4k1v_Iu7EypvKaYM89sDmWeppNao' alt='Central Park Zoo' />
+                <span>Central Park Zoo</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
