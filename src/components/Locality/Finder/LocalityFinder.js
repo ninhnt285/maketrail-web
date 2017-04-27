@@ -74,7 +74,7 @@ class LocalityFinderComponent extends Component {
     const inputText = (
       <Textfield
         onChange={this.onQueryChange}
-        label='Enter the name of State, County or City...'
+        label='Enter a City...'
         floatingLabel
       />
     );

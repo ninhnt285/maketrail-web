@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { IconButton } from 'react-mdl';
 import Modal from 'react-modal';
+import VenuesManager from '../VenuesManager';
 import styles from './TodoList.scss';
 
 export default class TodoList extends Component {
@@ -51,8 +52,18 @@ export default class TodoList extends Component {
           onRequestClose={this.onCloseManager}
           shouldCloseOnOverlayClick={true}
           contentLabel='Manage Places'
+          className='venuesManagerModal'
+          style={{
+            overlay: { backgroundColor: 'rgba(0, 0, 0, 0.75)' },
+            content: {
+              backgroundColor: '#e9ebee',
+              width: '600px',
+              maxWidth: 'calc(100% - 60px)',
+              margin: '80px auto 0'
+            }
+          }}
         >
-          <h1>AAAA</h1>
+          <VenuesManager tripLocalityId='AAA' />
         </Modal>
 
         {todoItems.map(node =>
