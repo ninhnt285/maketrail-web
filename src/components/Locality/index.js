@@ -43,7 +43,7 @@ class Locality extends Component {
         <div className={styles.header}>
           <div className={styles.actions}>
             <IconButton name='keyboard_arrow_down' id={`actions_${locality.id}`} />
-            <Menu target={`actions_${locality.id}`} align='right' ripple>
+            <Menu target={`actions_${locality.id}`} align='right'>
               <MenuItem>Edit Position</MenuItem>
               <MenuItem>Remove</MenuItem>
             </Menu>
