@@ -12,6 +12,7 @@
     "max-len": 0,
     "jsx-quotes": [2, "prefer-single"],
     "generator-star-spacing": 0,
+    "global-require": 0,
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "import/no-dynamic-require": 0,
     "class-methods-use-this": 0,

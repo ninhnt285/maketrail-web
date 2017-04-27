@@ -5,11 +5,12 @@ import Locality from '../Locality';
 
 class TripLocality extends Component {
   static propTypes = {
-    tripLocality: PropTypes.object.isRequired
+    tripLocality: PropTypes.object.isRequired,
+    index: PropTypes.number.isRequired
   };
 
   render() {
-    return (<Locality locality={this.props.tripLocality.originLocality} />);
+    return (<Locality locality={this.props.tripLocality.originLocality} index={this.props.index} />);
   }
 }
 

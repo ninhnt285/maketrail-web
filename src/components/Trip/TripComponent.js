@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Tabs, Tab } from 'react-mdl';
+import { Tabs, Tab, Grid, Cell } from 'react-mdl';
 import LocalityFinder from '../Locality/Finder';
 import styles from './Trip.scss';
 import coverPhoto from '../../assets/trip-cover/cover1.jpg';
@@ -42,11 +42,13 @@ export default class TripComponent extends React.Component {
       content = (
         <div>
           <LocalityFinder onAddLocality={this.onAddLocality} />
-          <div className={styles.localities}>
-            {localities.map(({ node }) => (
-              <TripLocality key={node.id} tripLocality={node} />
+          <Grid className={styles.localities}>
+            {localities.map(({ node }, index) => (
+              <Cell key={node.id} col={6} tablet={8} phone={4}>
+                <TripLocality tripLocality={node} index={index} />
+              </Cell>
             ))}
-          </div>
+          </Grid>
         </div>
       );
     }

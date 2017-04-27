@@ -22,14 +22,79 @@
   padding: 0 10px;
   margin-left: 150px;
 
-  p, h3 {
-    margin: 0px;
+  h3.title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
     line-height: 1.5;
   }
 
-  h3 {
+  p.description {
+    margin: 0px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .detailRow {
+    margin-bottom: 10px;
+
+    h4 {
+      margin: 0 10px 0 0;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.5;
+    }
+  }
+}
+
+.todoList {
+  margin-top: 10px;
+  position: relative;
+
+  button {
+    background-color: transparent;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    border: none;
+    color: rgb(0,188,212);
+    cursor: pointer;
+    padding: 0;
+    font-size: 14px;
+
+    &:hover {
+      color: rgb(0, 150, 200);
+    }
+  }
+
+  h4 {
+    margin: 0;
     font-size: 16px;
     font-weight: bold;
+    line-height: 1.5;
+  }
+
+  .todoItem {
+    padding: 10px 0;
+    border-bottom: 1px solid #efefef;
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0px;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+      border-radius: 15px;
+      display: inline-block;
+    }
+
+    span {
+      padding-left: 10px;
+    }
   }
 }
 
