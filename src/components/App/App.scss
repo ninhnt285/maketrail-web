@@ -2,16 +2,12 @@
 @import '../variables.scss';
 
 :global {
-  .ReactModal__Overlay {
-    z-index: 1001;
-  }
-
-  *:not(html) {
-    -webkit-transform: translate3d(0, 0, 0);
-  }
-
   input.mdl-textfield__input {
     border-radius: 0px;
+  }
+
+  .ReactModal__Overlay--after-open {
+    z-index: 100;
   }
 }
 

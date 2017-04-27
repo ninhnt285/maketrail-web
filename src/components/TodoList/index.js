@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
 import { IconButton } from 'react-mdl';
+import Modal from 'react-modal';
 import styles from './TodoList.scss';
 
 export default class TodoList extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showModal: false
+    };
+
+    this.onOpenManager = this.onOpenManager.bind(this);
+    this.onCloseManager = this.onCloseManager.bind(this);
+  }
+
+  onOpenManager() {
+    this.setState({ showModal: true });
+  }
+
+  onCloseManager() {
+    this.setState({ showModal: false });
+  }
+
   render() {
     const todoItems = [
       {
@@ -25,7 +45,16 @@ export default class TodoList extends Component {
     return (
       <div className={styles.todoList}>
         <h4>Check-in Places</h4>
-        <button className={styles.manageButton}>Manage</button>
+        <button onClick={this.onOpenManager} className={styles.manageButton}>Manage</button>
+        <Modal
+          isOpen={this.state.showModal}
+          onRequestClose={this.onCloseManager}
+          shouldCloseOnOverlayClick={true}
+          contentLabel='Manage Places'
+        >
+          <h1>AAAA</h1>
+        </Modal>
+
         {todoItems.map(node =>
           <div key={node.id} className={styles.todoItem}>
             <img src={node.imageUrl} alt={node.name} />
