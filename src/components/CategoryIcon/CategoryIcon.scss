@@ -16,4 +16,12 @@
     width: 100%;
     height: 100%;
   }
+
+  :global(.mdl-tooltip) {
+    top: 30px !important;
+    left: 0px !important;
+    margin-left: -28px !important;
+    box-sizing: border-box;
+    width: 80px !important;
+  }
 }
