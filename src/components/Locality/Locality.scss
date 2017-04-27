@@ -11,6 +11,13 @@
   border-bottom: 1px solid #d0d1d5;
   padding-bottom: 12px;
   min-height: 150px;
+  position: relative;
+}
+
+.actions {
+  position: absolute;
+  right: 0px;
+  top: 0px;
 }
 
 .previewPhoto {
@@ -53,7 +60,7 @@
   margin-top: 10px;
   position: relative;
 
-  button {
+  .manageButton {
     background-color: transparent;
     position: absolute;
     right: 0px;

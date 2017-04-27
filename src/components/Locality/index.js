@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 import Rating from 'react-rating';
+import { IconButton, Menu, MenuItem } from 'react-mdl';
 import styles from './Locality.scss';
 import CategoryIcon from '../CategoryIcon';
 
@@ -57,6 +58,13 @@ class Locality extends Component {
     return (
       <div className={styles.root}>
         <div className={styles.header}>
+          <div className={styles.actions}>
+            <IconButton name='keyboard_arrow_down' id={`actions_${locality.id}`} />
+            <Menu target={`actions_${locality.id}`} align='right' ripple>
+              <MenuItem>Edit Position</MenuItem>
+              <MenuItem>Remove</MenuItem>
+            </Menu>
+          </div>
           <img
             className={styles.previewPhoto}
             src={`${locality.previewPhotoUrl.replace('%s', '_150_square')}`}
@@ -88,7 +96,7 @@ class Locality extends Component {
         <div className={styles.content}>
           <div className={styles.todoList}>
             <h4>Check-in Places</h4>
-            <button>Add More</button>
+            <button className={styles.manageButton}>Manage</button>
             {todoItems.map(node =>
               <div key={node.id} className={styles.todoItem}>
                 <img src={node.imageUrl} alt={node.name} />
@@ -97,6 +105,7 @@ class Locality extends Component {
             )}
             <div className={styles.recommend}>
               <span className={styles.title}>Recommend:</span>
+              <IconButton name='loop' />
               <span className={styles.recommendItem}>
                 <img src='https://upload.wikimedia.org/wikipedia/en/a/a5/Liberty-statue-from-below_cropped.jpg' alt='Statue of Liberty' />
                 <span>Statue of Liberty</span>
