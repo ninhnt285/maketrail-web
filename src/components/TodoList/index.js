@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { IconButton } from 'react-mdl';
 import Modal from '../Modal';
 import VenuesManager from '../VenuesManager';
 import styles from './TodoList.scss';
@@ -78,8 +77,19 @@ export default class TodoList extends Component {
             <img src='https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTEDaZXYITG8ieFAPJ4YSUKCA4vK--tq6MNj5VD9zB4k1v_Iu7EypvKaYM89sDmWeppNao' alt='Central Park Zoo' />
             <span>Central Park Zoo</span>
           </span>
+        </div>
 
-          <IconButton name='loop' />
+        <div style={{ marginTop: '10px' }}>
+          Do not know where to go? <button
+            style={{
+              border: 'none',
+              backgroundColor: 'transparent',
+              color: 'blue',
+              fontSize: '14px',
+              padding: '0',
+              cursor: 'pointer'
+            }}
+          >Clone</button> an itinerary from others
         </div>
       </div>
     );
