@@ -13,7 +13,8 @@ import Modal from '../Modal';
 class Locality extends Component {
   static propTypes = {
     locality: PropTypes.object.isRequired,
-    index: PropTypes.number.isRequired
+    index: PropTypes.number.isRequired,
+    tripLocalityId: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -81,8 +82,8 @@ class Locality extends Component {
           </div>
           <div className={styles.detail}>
             <div className={styles.actions}>
-              <IconButton name='keyboard_arrow_down' id={`actions_${locality.id}`} />
-              <Menu target={`actions_${locality.id}`} align='right'>
+              <IconButton name='keyboard_arrow_down' id={`actions_${this.props.tripLocalityId}`} />
+              <Menu target={`actions_${this.props.tripLocalityId}`} align='right'>
                 <MenuItem onClick={this.onOpenModal.bind(this, 'showCalendar')}>Change Date</MenuItem>
                 <MenuItem>Edit Position</MenuItem>
                 <MenuItem>Remove</MenuItem>
