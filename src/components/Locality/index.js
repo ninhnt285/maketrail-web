@@ -6,12 +6,34 @@ import { IconButton, Menu, MenuItem } from 'react-mdl';
 import styles from './Locality.scss';
 import CategoryIcon from '../CategoryIcon';
 import TodoList from '../TodoList';
+import WeatherCalendar from '../Weather/Calendar';
+import WeatherIcon from '../Weather/Icon';
+import Modal from '../Modal';
 
 class Locality extends Component {
   static propTypes = {
     locality: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showCalendar: false
+    };
+
+    this.onOpenModal = this.onOpenModal.bind(this);
+    this.onCloseModal = this.onCloseModal.bind(this);
+  }
+
+  onOpenModal(modalId) {
+    this.setState({ [modalId]: true });
+  }
+
+  onCloseModal(modalId) {
+    this.setState({ [modalId]: false });
+  }
 
   render() {
     const { locality } = this.props;
@@ -40,20 +62,33 @@ class Locality extends Component {
 
     return (
       <div className={styles.root}>
+        <Modal
+          showModal={this.state.showCalendar}
+          onCloseModal={this.onCloseModal.bind(this, 'showCalendar')}
+          title='Change Date'
+        >
+          <WeatherCalendar onCloseModal={this.onCloseModal.bind(this, 'showCalendar')} />
+        </Modal>
+
         <div className={styles.header}>
-          <div className={styles.actions}>
-            <IconButton name='keyboard_arrow_down' id={`actions_${locality.id}`} />
-            <Menu target={`actions_${locality.id}`} align='right'>
-              <MenuItem>Edit Position</MenuItem>
-              <MenuItem>Remove</MenuItem>
-            </Menu>
+          <div className={styles.previewPhoto}>
+            <img
+              src={`${locality.previewPhotoUrl.replace('%s', '_150_square')}`}
+              alt={locality.name}
+            />
+
+            <span className={styles.date}>May<br />26</span>
           </div>
-          <img
-            className={styles.previewPhoto}
-            src={`${locality.previewPhotoUrl.replace('%s', '_150_square')}`}
-            alt={locality.name}
-          />
           <div className={styles.detail}>
+            <div className={styles.actions}>
+              <IconButton name='keyboard_arrow_down' id={`actions_${locality.id}`} />
+              <Menu target={`actions_${locality.id}`} align='right'>
+                <MenuItem onClick={this.onOpenModal.bind(this, 'showCalendar')}>Change Date</MenuItem>
+                <MenuItem>Edit Position</MenuItem>
+                <MenuItem>Remove</MenuItem>
+              </Menu>
+            </div>
+
             <h3 className={styles.title}>#{this.props.index + 1} {locality.name}</h3>
             <p className={styles.description}>{locality.description}</p>
             <div className={`${styles.detailRow} ${styles.rating}`}>
@@ -73,6 +108,10 @@ class Locality extends Component {
               {categories.map(node =>
                 <CategoryIcon key={node.id} category={node} selected />
               )}
+            </div>
+            <div className={`${styles.detailRow} ${styles.weather}`}>
+              <h4>Weather:</h4>
+              <WeatherIcon id='sunny' className={styles.weatherIcon} />
             </div>
           </div>
         </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { IconButton } from 'react-mdl';
-import Modal from 'react-modal';
+import Modal from '../Modal';
 import VenuesManager from '../VenuesManager';
 import styles from './TodoList.scss';
 
@@ -48,20 +48,9 @@ export default class TodoList extends Component {
         <h4>Check-in Places</h4>
         <button onClick={this.onOpenManager} className={styles.manageButton}>Manage</button>
         <Modal
-          isOpen={this.state.showModal}
-          onRequestClose={this.onCloseManager}
-          shouldCloseOnOverlayClick={true}
-          contentLabel='Manage Places'
-          className='venuesManagerModal'
-          style={{
-            overlay: { backgroundColor: 'rgba(0, 0, 0, 0.75)' },
-            content: {
-              backgroundColor: '#e9ebee',
-              width: '600px',
-              maxWidth: 'calc(100% - 60px)',
-              margin: '80px auto 0'
-            }
-          }}
+          showModal={this.state.showModal}
+          onCloseModal={this.onCloseManager}
+          title='Manage Places'
         >
           <VenuesManager tripLocalityId='AAA' />
         </Modal>

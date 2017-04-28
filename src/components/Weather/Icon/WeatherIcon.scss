@@ -1,0 +1,44 @@
+.weatherIcon {
+  background-image: url('../../../assets/weather_icons2.png');
+  width: 30px;
+  height: 30px;
+  background-position-x: -215px;
+  background-position-y: 0px;
+  display: inline-block;
+  position: relative;
+}
+
+.sunny {
+  background-position-x: -215px;
+  background-position-y: 0px;
+}
+
+.rainy {
+  background-position-x: -173px;
+  background-position-y: 0px;
+}
+
+.snowy {
+  background-position-x: -6px;
+  background-position-y: -140px;
+}
+
+.cloudy {
+  background-position-x: -48px;
+  background-position-y: 30px;
+}
+
+.thunderstorm {
+  background-position-x: -7px;
+  background-position-y: -113px;
+}
+
+.shower {
+  background-position-x: -173px;
+  background-position-y: -58px;
+}
+
+.windy {
+  background-position-x: -48px;
+  background-position-y: -170px;
+}

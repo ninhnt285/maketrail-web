@@ -24,17 +24,14 @@ export default class VenuesManager extends Component {
 
     return (
       <div className={styles.venuesManager}>
-        <h1 className={styles.title}>Places Manager</h1>
-        <div className={styles.content}>
-          <VenueFinder />
+        <VenueFinder />
 
-          {todoItems.map(node =>
-            <div key={node.id} className={styles.todoItem}>
-              <img src={node.imageUrl} alt={node.name} />
-              <span>{node.name}</span>
-            </div>
-          )}
-        </div>
+        {todoItems.map(node =>
+          <div key={node.id} className={styles.todoItem}>
+            <img src={node.imageUrl} alt={node.name} />
+            <span>{node.name}</span>
+          </div>
+        )}
       </div>
     );
   }
