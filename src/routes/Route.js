@@ -1,12 +1,12 @@
 import React from 'react';
 import { IndexRoute, Route, Redirect } from 'react-router';
 
-import ViewerQuery from './ViewerQuery';
-import AppContainer from '../components/App/AppContainer';
-import HomeContainer from '../components/Home/HomeContainer';
-import LoginComponent from '../components/Login/LoginComponent';
-import RegisterComponent from '../components/Register/RegisterComponent';
-import TripContainer from '../components/Trip/TripContainer';
+import ViewerQuery from 'routes/ViewerQuery';
+import AppContainer from 'views/App/AppContainer';
+import HomeContainer from 'views/Home/HomeContainer';
+import LoginComponent from 'views/Login/LoginComponent';
+import RegisterComponent from 'views/Register/RegisterComponent';
+import TripContainer from 'views/Trip/TripContainer';
 
 export default (
   <Route path='/' component={AppContainer} queries={ViewerQuery}>

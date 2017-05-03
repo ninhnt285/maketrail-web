@@ -1,0 +1,81 @@
+@import 'src/variables.scss';
+
+.root {
+  background-color: #00AFF0;
+  z-index: 1;
+  min-height: 40px;
+  padding: 4px 30px;
+  height: 40px !important;
+  position: relative;
+  .logo {
+    font-size: 0px;
+    background: url('assets/logo.png') center no-repeat;
+    background-size: cover;
+    width: 200px;
+    height: 40px;
+    text-indent: -900px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .link {
+    display: inline-block;
+    float: right;
+    vertical-align: top;
+    a {
+      color: #fff;
+      line-height: 40px;
+      padding: 0px 20px;
+    }
+    .name {
+      display: inline-block;
+      vertical-align: top;
+      height: 36px;
+      min-width: 36px;
+      font-size: 18px;
+      padding: 0px;
+      margin: 2px 0px;
+      background-color: transparent;
+      .shortName {
+        border-radius: 4px 0px 0px 4px;
+        background-color: $white;
+        line-height: 36px;
+        color: $black;
+        text-transform: uppercase;
+        font-weight: bold;
+        width: 36px;
+        display: inline-block;
+        vertical-align: top;
+        text-align: center;
+      }
+      .fullname {
+        border-radius: 0px 4px 4px 0px;
+        line-height: 36px;
+        text-align: center;
+        background-color: $blue;
+        color: $white;
+        min-width: 80px;
+        text-transform: capitalize;
+        display: inline-block;
+        vertical-align: top;
+        padding: 0px 10px;
+      }
+      @media screen and (max-width: 768px) {
+        .shortName {
+          border-radius: 4px;
+        }
+        .fullname {
+          display: none;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .root {
+    padding: 4px 15px;
+    .logo {
+      background: url('assets/logo_symbol.png') center no-repeat;
+      width: 40px;
+    }
+  }
+}

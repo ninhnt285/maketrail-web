@@ -6,6 +6,9 @@
     "node": true
   },
   "rules": {
+    "import/no-extraneous-dependencies": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
     "no-unused-vars": 1,
     "no-underscore-dangle": 0,
     "comma-dangle": 0,

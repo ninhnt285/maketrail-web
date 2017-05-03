@@ -19,6 +19,10 @@ const htmlTemplate = new HtmlWebpackPlugin({
 });
 const favIcon = new FaviconsWebpackPlugin('./src/assets/favicon.png');
 
+function rootAlias(d) {
+  return path.resolve(__dirname, 'src', d);
+}
+
 if (process.env.NODE_ENV === 'production') {
   appEntry = [path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
@@ -60,75 +64,79 @@ module.exports = {
     app: appEntry,
     vendor: ['react', 'react-dom', 'react-mdl', 'react-relay', 'react-router', 'react-router-relay']
   },
+
   output: {
     path: path.join(__dirname, 'build'),
     publicPath: '/',
     filename: '[name].js'
   },
-  devtool,
-  module: {
-    rules: [{
-      enforce: "pre",
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: "eslint-loader"
-    },
-    {
-      test: /\.jsx?$/,
-      use: 'babel-loader',
-      exclude: /node_modules/
-    }, {
-      test: /\.css$/,
-      use: [
-        'style-loader',
-        'css-loader'
-      ],
-    }, {
-      test: /\.less$/,
-      use: [{
-          loader: "style-loader" // creates style nodes from JS strings
-      }, {
-          loader: "css-loader" // translates CSS into CommonJS
-      }, {
-          loader: "less-loader" // compiles Less to CSS
-      }]
-    }, {
-      test: /\.scss$/,
-      use: [
-        'style-loader',
-        {
-          loader: 'css-loader',
-          options: {
-            modules: true,
-            importLoaders: 1,
-            localIdentName: "[name]__[local]___[hash:base64:5]",
-          }
-        },
-        {
-          loader: 'postcss-loader',
-          options: {
-            //https://github.com/postcss/postcss-loader/issues/164
-            // use ident if passing a function
-            ident: 'postcss', plugins: () => [
-              require('precss'),
-              require('autoprefixer')
-            ]
-          }
 
-        }
-      ]
-    }, {
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
-      use: [
-        {
-          loader: 'url-loader',
-          options: {
-            limit: 1000,
-            name: "assets/[hash].[ext]"
+  devtool,
+
+  resolve: {
+    extensions: ['.js', '.scss', '*'],
+    modules: [path.resolve(__dirname, 'src'), 'node_modules']
+  },
+
+  module: {
+    rules: [
+      {
+        enforce: "pre",
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader"
+      },
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+        exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'resolve-url-loader'
+        ],
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+              importLoaders: 1,
+              localIdentName: "[name]__[local]___[hash:base64:5]",
+            }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss', plugins: () => [
+                require('precss'),
+                require('autoprefixer')
+              ]
+            }
+          },
+          'resolve-url-loader',
+          'sass-loader?sourceMap'
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 1000,
+              name: "assets/[hash].[ext]"
+            }
           }
-        }
-      ]
-    }]
+        ]
+      }
+    ]
   },
   plugins
 };

@@ -1,0 +1,106 @@
+.root {
+  
+}
+
+.header {
+  border-bottom: 1px solid #d0d1d5;
+  padding-bottom: 12px;
+  min-height: 150px;
+  position: relative;
+}
+
+.actions {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: 2;
+}
+
+.previewPhoto {
+  float: left;
+  height: 150px;
+  position: relative;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.detail {
+  padding: 0 10px;
+  margin-left: 150px;
+  position: relative;
+
+  h3.title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  p.description {
+    margin: 0px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .detailRow {
+    margin-bottom: 10px;
+
+    h4 {
+      margin: 0 10px 0 0;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.5;
+    }
+  }
+}
+
+.date {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-image: url('../../assets/calendar.png');
+  background-size: 100% 100%;
+  top: 10px;
+  left: 10px;
+  font-size: 12px;
+  line-height: 13px;
+  padding: 13px 0 0 0;
+  text-align: center;
+  font-weight: bold;
+  box-sizing: border-box;
+  color: #444;
+  box-shadow: 0 0 3px #666;
+}
+
+.weather {
+  margin-top: -10px;
+
+  .weatherIcon {
+    background-image: url('../../assets/weather_icons2.png');
+    width: 25px;
+    height: 25px;
+    background-position-x: -217px;
+    background-position-y: -2px;
+    display: inline-block;
+    position: relative;
+    top: 7px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .previewPhoto {
+    width: 100%;
+    height: auto;
+    float: none;
+  }
+
+  .detail {
+    margin-left: 0px;
+    padding: 10px 0 0 0;
+  }
+}
