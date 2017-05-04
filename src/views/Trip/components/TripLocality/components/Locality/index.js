@@ -5,9 +5,9 @@ import Rating from 'react-rating';
 import { IconButton, Menu, MenuItem } from 'react-mdl';
 
 import Modal from 'components/Modal';
-import WeatherCalendar from 'components/Weather/Calendar';
+import WeatherCalendar from 'components/WeatherCalendar';
 import CategoryIcon from 'components/CategoryIcon';
-import WeatherIcon from 'components/Weather/Icon';
+import WeatherIcon from 'components/WeatherIcon';
 
 import styles from './Locality.scss';
 
@@ -69,7 +69,11 @@ class Locality extends Component {
           onCloseModal={this.onCloseModal.bind(this, 'showCalendar')}
           title='Change Date'
         >
-          <WeatherCalendar onCloseModal={this.onCloseModal.bind(this, 'showCalendar')} />
+          <WeatherCalendar
+            tripLocalityId={this.props.tripLocalityId}
+            location={this.props.locality.location}
+            selectedDateUnix={1495774077}
+          />
         </Modal>
 
         <div className={styles.header}>

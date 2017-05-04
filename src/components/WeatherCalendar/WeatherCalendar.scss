@@ -1,0 +1,44 @@
+.root {
+  h2.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 30px 0 10px;
+    line-height: 1.5;
+  }
+
+  .weekRow {
+    width: 100%;
+  }
+
+  .weekEndDay {
+    color: #FF0000;
+  }
+
+  .selectedDate {
+    display: inline-block;
+    width: 100%;
+    height: 36px;
+    line-height: 36px;
+    background-color: #00A699;
+    color: #FFF;
+  }
+
+  .dayBox {
+    width: 12.5%;
+    border: 1px solid #EEE;
+    float: left;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .weatherDay {
+    background-color: #FFF;
+    height: 55px;
+  }
+}
+
+.root :global {
+  .DayPicker {
+    margin: 0 auto;
+  }
+}
