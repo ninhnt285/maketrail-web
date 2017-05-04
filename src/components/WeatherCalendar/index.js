@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { DayPicker } from 'react-dates';
-
-import WeatherIcon from 'components/WeatherIcon';
 import 'react-dates/lib/css/_datepicker.css';
 
+import WeatherColumn from './components/WeatherColumn';
 import styles from './WeatherCalendar.scss';
 
 export default class WeatherCalendar extends Component {
@@ -28,55 +27,42 @@ export default class WeatherCalendar extends Component {
 
   onDateChange(date) {
     this.setState({ selectedDate: date });
-    console.log(this.props.location.lat, this.props.location.lng);
+    this.submitArrivalTime(date.unix());
+  }
+
+  getWeekTimeArr(selectedDate) {
+    const date = selectedDate.clone();
+    return [
+      date.subtract(1, 'days').unix(),
+      date.add(1, 'days').unix(),
+      date.add(1, 'days').unix(),
+      date.add(1, 'days').unix(),
+      date.add(1, 'days').unix(),
+      date.add(1, 'days').unix(),
+      date.add(1, 'days').unix()
+    ];
+  }
+
+  submitArrivalTime(unixTime) {
+    // console.log(this.props.tripLocalityId);
+    return unixTime;
   }
 
   renderDay(day) {
     if (day.format('YYYY MM DD') === this.state.selectedDate.format('YYYY MM DD')) {
-      return (
-        <span className={styles.selectedDate}>
-          {day.format('D')}
-        </span>
-      );
+      return (<span className={styles.selectedDate}>{day.format('D')}</span>);
     }
 
     if (['0', '6'].indexOf(day.format('d').toString()) !== -1) {
-      return (
-        <span className={styles.weekEndDay}>
-          {day.format('D')}
-        </span>
-      );
+      return (<span className={styles.weekEndDay}>{day.format('D')}</span>);
     }
+
     return day.format('D');
   }
 
   render() {
-    const years = [
-      {
-        year: 2017,
-        days: [
-          { name: 21, weather: 'rainy' },
-          { name: 22, weather: 'sunny' },
-          { name: 23, weather: 'snowy' },
-          { name: 24, weather: 'cloudy' },
-          { name: 25, weather: 'thunderstorm' },
-          { name: 26, weather: 'shower' },
-          { name: 27, weather: 'windy' },
-        ]
-      },
-      {
-        year: 2016,
-        days: [
-          { name: 18, weather: 'rainy' },
-          { name: 19, weather: 'sunny' },
-          { name: 20, weather: 'snowy' },
-          { name: 21, weather: 'cloudy' },
-          { name: 22, weather: 'thunderstorm' },
-          { name: 23, weather: 'shower' },
-          { name: 24, weather: 'windy' },
-        ]
-      }
-    ];
+    const weekTime = this.getWeekTimeArr(this.state.selectedDate);
+    const year = this.state.selectedDate.format('YYYY');
 
     return (
       <div className={styles.root}>
@@ -90,20 +76,30 @@ export default class WeatherCalendar extends Component {
 
         <h2 className={styles.title}>Historical weather</h2>
 
-        {years.map(yearData =>
-          <div key={yearData.year} className={styles.weekRow}>
+        <div className={styles.historicalWeather}>
+          <div className={styles.weekColumn}>
             <div style={{ paddingTop: '20px' }} className={`${styles.dayBox} ${styles.weatherDay}`}>
-              {yearData.year}
+              {year}
             </div>
-
-            {yearData.days.map(node =>
-              <div key={node.name} className={`${styles.dayBox} ${styles.weatherDay}`} style={{ backgroundColor: node.color }}>
-                {node.name}<br />
-                <WeatherIcon id={node.weather} />
-              </div>
-            )}
+            <div style={{ paddingTop: '20px' }} className={`${styles.dayBox} ${styles.weatherDay}`}>
+              {year - 1}
+            </div>
+            <div style={{ paddingTop: '20px' }} className={`${styles.dayBox} ${styles.weatherDay}`}>
+              {year - 2}
+            </div>
+            <div style={{ paddingTop: '20px' }} className={`${styles.dayBox} ${styles.weatherDay}`}>
+              {year - 3}
+            </div>
           </div>
-        )}
+
+          {weekTime.map(time =>
+            <WeatherColumn
+              key={time}
+              location={this.props.location}
+              time={time}
+            />
+          )}
+        </div>
       </div>
     );
   }

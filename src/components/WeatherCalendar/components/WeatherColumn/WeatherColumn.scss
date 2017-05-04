@@ -1,0 +1,16 @@
+.root {
+  width: 12.5%;
+  float: left;
+
+  .dayBox {
+    width: 100%;
+    border: 1px solid #EEE;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .weatherDay {
+    background-color: #FFF;
+    height: 55px;
+  }
+}

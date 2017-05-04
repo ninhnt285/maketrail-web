@@ -6,8 +6,13 @@
     line-height: 1.5;
   }
 
-  .weekRow {
+  .historicalWeather {
     width: 100%;
+  }
+
+  .weekColumn {
+    width: 12.5%;
+    float: left;
   }
 
   .weekEndDay {
@@ -24,7 +29,7 @@
   }
 
   .dayBox {
-    width: 12.5%;
+    width: 100%;
     border: 1px solid #EEE;
     float: left;
     text-align: center;

@@ -1,11 +1,16 @@
 .weatherIcon {
-  background-image: url('../../../assets/weather_icons2.png');
+  background-image: url('assets/weather_icons2.png');
   width: 30px;
   height: 30px;
-  background-position-x: -215px;
-  background-position-y: 0px;
+  background-position-x: -90px;
+  background-position-y: -30px;
   display: inline-block;
   position: relative;
+}
+
+.clear-day {
+  background-position-x: -5px;
+  background-position-y: -28px;
 }
 
 .sunny {
@@ -13,7 +18,7 @@
   background-position-y: 0px;
 }
 
-.rainy {
+.rain {
   background-position-x: -173px;
   background-position-y: 0px;
 }
@@ -25,7 +30,17 @@
 
 .cloudy {
   background-position-x: -48px;
-  background-position-y: 30px;
+  background-position-y: -30px;
+}
+
+.partly-cloudy-day {
+  background-position-x: -90px;
+  background-position-y: -30px;
+}
+
+.partly-cloudy-night {
+  background-position-x: -131px;
+  background-position-y: -140px;
 }
 
 .thunderstorm {
