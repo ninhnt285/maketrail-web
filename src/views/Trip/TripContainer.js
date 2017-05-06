@@ -1,6 +1,8 @@
 import Relay from 'react-relay';
-import TripLocality from './components/TripLocality';
+
 import Trip from './TripComponent';
+import TripLocality from './components/TripLocality';
+import Member from './components/MemberManager/components/Member';
 
 export default Relay.createContainer(Trip, {
   initialVariables: {
@@ -13,6 +15,14 @@ export default Relay.createContainer(Trip, {
         Trip(id: $tripId) {
           id
           name
+          members(first: 10) {
+            edges {
+              node {
+                id
+                ${Member.getFragment('user')}
+              }
+            }
+          }
           localities(first: 10) {
             edges {
               node {

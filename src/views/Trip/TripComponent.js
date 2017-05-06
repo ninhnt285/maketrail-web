@@ -8,6 +8,7 @@ import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutat
 import coverPhoto from 'assets/trip-cover/cover1.jpg';
 
 import TripLocality from './components/TripLocality';
+import MemberManager from './components/MemberManager';
 import styles from './Trip.scss';
 
 export default class TripComponent extends React.Component {
@@ -40,19 +41,31 @@ export default class TripComponent extends React.Component {
     const localities = this.props.viewer.Trip.localities.edges;
 
     let content = null;
-    if (this.state.activeTab === 1) {
-      content = (
-        <div>
-          <LocalityFinder onAddLocality={this.onAddLocality} />
-          <Grid className={styles.localities}>
-            {localities.map(({ node }, index) => (
-              <Cell key={node.id} col={6} tablet={8} phone={4}>
-                <TripLocality tripLocality={node} index={index} />
-              </Cell>
-            ))}
-          </Grid>
-        </div>
-      );
+    switch (this.state.activeTab) {
+      case 1:
+        content = (
+          <div>
+            <LocalityFinder onAddLocality={this.onAddLocality} />
+            <Grid className={styles.localities}>
+              {localities.map(({ node }, index) => (
+                <Cell key={node.id} col={6} tablet={8} phone={4}>
+                  <TripLocality tripLocality={node} index={index} />
+                </Cell>
+              ))}
+            </Grid>
+          </div>
+        );
+        break;
+      case 2:
+        content = (
+          <MemberManager
+            tripId={this.props.viewer.Trip.id}
+            members={this.props.viewer.Trip.members}
+          />
+        );
+        break;
+      default:
+        content = null;
     }
 
     return (
