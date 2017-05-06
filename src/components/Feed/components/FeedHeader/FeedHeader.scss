@@ -1,0 +1,26 @@
+.root {
+  display: block;
+  min-height: 40px;
+  margin-bottom: 8px;
+
+  .userImage {
+    float: left;
+    display: block;
+  }
+
+  .detail {
+    margin-left: 40px;
+    padding: 0 10px;
+  }
+
+  .userLink {
+    font-weight: bold;
+    font-size: 14px;
+    color: #365899;
+  }
+
+  .dateTime {
+    color: #90949c;
+    font-size: 12px;
+  }
+}

@@ -7,12 +7,17 @@ import styles from './UserImage.scss';
 
 export default class UserImage extends Component {
   static propTypes = {
-    user: PropTypes.object.isRequired
+    user: PropTypes.object.isRequired,
+    size: PropTypes.number
+  };
+
+  static defaultProps = {
+    size: 50
   };
 
   render() {
     const { user } = this.props;
-    const className = extendClassName(this.props, styles.root);
+    const className = extendClassName(this.props, `${styles.root} ${styles[`size${this.props.size}`]}`);
 
     let userImage = null;
     if (user.profilePicUrl) {

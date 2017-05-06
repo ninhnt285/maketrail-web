@@ -7,6 +7,7 @@ import LocalityFinder from 'components/LocalityFinder';
 import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutation';
 import coverPhoto from 'assets/trip-cover/cover1.jpg';
 
+import Timeline from './components/Timeline';
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
 import styles from './Trip.scss';
@@ -20,7 +21,7 @@ export default class TripComponent extends React.Component {
     super(props);
 
     this.state = {
-      activeTab: 1
+      activeTab: 0
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
@@ -42,6 +43,11 @@ export default class TripComponent extends React.Component {
 
     let content = null;
     switch (this.state.activeTab) {
+      case 0:
+        content = (
+          <Timeline />
+        );
+        break;
       case 1:
         content = (
           <div>
