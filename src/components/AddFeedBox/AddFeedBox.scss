@@ -1,0 +1,37 @@
+.root {
+  padding: 12px;
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  background-color: #FFFFFF;
+
+  .uploadArea {
+    width: auto !important;
+    height: auto !important;
+    display: inline-block !important;
+    border: none !important;
+    margin-right: 10px;
+  }
+
+  .previewWrapper {
+    margin-bottom: 5px;
+    width: 100%;
+    overflow-x: auto;
+    padding: 5px;
+    /* height: 100px; */
+
+    img {
+      width: 80px;
+      height: 80px;
+      margin: 0 8px 8px 0;
+      box-shadow: 0 0 5px #666;
+    }
+  }
+}
+
+.root :global {
+  .mdl-button {
+    color: #FFF;
+  }
+}

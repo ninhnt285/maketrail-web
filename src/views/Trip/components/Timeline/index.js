@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Feed from 'components/Feed';
+import AddFeedBox from 'components/AddFeedBox';
 
 import styles from './Timeline.scss';
 
@@ -37,6 +38,7 @@ export default class Timeline extends Component {
 
     return (
       <div className={styles.root}>
+        <AddFeedBox />
         {feeds.map(feed =>
           <Feed
             key={feed.id}
