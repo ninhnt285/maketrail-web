@@ -7,6 +7,7 @@ import HomeContainer from 'views/Home/HomeContainer';
 import LoginComponent from 'views/Login/LoginComponent';
 import RegisterComponent from 'views/Register/RegisterComponent';
 import TripContainer from 'views/Trip/TripContainer';
+import ProfileContainer from 'views/Profile/ProfileContainer';
 
 export default (
   <Route path='/' component={AppContainer} queries={ViewerQuery}>
@@ -14,6 +15,7 @@ export default (
     <Route path='/login' component={LoginComponent} />
     <Route path='/register' component={RegisterComponent} />
     <Route path='/trip/:tripId' component={TripContainer} queries={ViewerQuery} />
+    <Route path='/profile/:userId' component={ProfileContainer} queries={ViewerQuery} />
     <Redirect from='*' to='/' />
   </Route>
 );
