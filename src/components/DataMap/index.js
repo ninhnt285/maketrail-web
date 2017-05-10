@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Datamaps from 'Datamaps';
+import Datamaps from 'datamaps';
 
 const MAP_CLEARING_PROPS = [
   'height', 'scope', 'setProjection', 'width'
