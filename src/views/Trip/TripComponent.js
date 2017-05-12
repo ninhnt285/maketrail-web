@@ -45,7 +45,9 @@ export default class TripComponent extends React.Component {
     switch (this.state.activeTab) {
       case 0:
         content = (
-          <Timeline />
+          <Timeline
+            objectId={this.props.viewer.Trip.id}
+          />
         );
         break;
       case 1:

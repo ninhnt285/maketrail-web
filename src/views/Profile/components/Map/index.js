@@ -13,6 +13,12 @@ export default class Map extends Component {
         MYS: { fillKey: 'traveledTo' }
       }
     };
+
+    this.onAreaClick = this.onAreaClick.bind(this);
+  }
+
+  onAreaClick(geography) {
+    return geography;
   }
 
   render() {
@@ -25,6 +31,7 @@ export default class Map extends Component {
         }}
         projection='mercator'
         responsive
+        onAreaClick={this.onAreaClick}
       />
     );
   }

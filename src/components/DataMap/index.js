@@ -66,17 +66,26 @@ export default class Datamap extends Component {
     const {
       data,
       updateChoroplethOptions,
+      onAreaClick,
       ...props
     } = this.props;
 
     let map = this.map;
+    let mapObject = {
+      ...props,
+      data,
+      element: this.refs.container
+    };
+
+    if (onAreaClick) {
+      mapObject['done'] = (datamap) => {
+        datamap.svg.selectAll('.datamaps-subunit')
+        .on('click', onAreaClick);
+      }
+    }
 
     if (!map) {
-      map = this.map = new Datamaps({
-        ...props,
-        data,
-        element: this.refs.container
-      });
+      map = this.map = new Datamaps(mapObject);
     } else {
       map.updateChoropleth(data, updateChoroplethOptions);
     }
