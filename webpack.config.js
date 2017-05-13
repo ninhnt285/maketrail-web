@@ -24,7 +24,7 @@ function rootAlias(d) {
 }
 
 if (process.env.NODE_ENV === 'production') {
-  appEntry = [path.join(__dirname, 'src/index.js')];
+  appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
   plugins = [
     new webpack.optimize.OccurrenceOrderPlugin(),
@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'production') {
     favIcon
   ];
 } else {
-  appEntry = [path.join(__dirname, 'src/index.js')];
+  appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
   plugins = [
     new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js'}),
