@@ -45,7 +45,7 @@ export default Relay.createContainer(Timeline, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        allFeeds(first: 100, parentId: $parentId) {
+        allFeeds(first: 100, objectId: $parentId) {
           edges {
             node {
               id
