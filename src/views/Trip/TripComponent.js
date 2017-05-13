@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab, Grid, Cell } from 'react-mdl';
 
 import LocalityFinder from 'components/LocalityFinder';
+import Timeline from 'components/Timeline';
 import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutation';
 import coverPhoto from 'assets/trip-cover/cover1.jpg';
 
-import Timeline from './components/Timeline';
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
 import styles from './Trip.scss';
@@ -46,7 +46,7 @@ export default class TripComponent extends React.Component {
       case 0:
         content = (
           <Timeline
-            objectId={this.props.viewer.Trip.id}
+            parentId={this.props.viewer.Trip.id}
           />
         );
         break;

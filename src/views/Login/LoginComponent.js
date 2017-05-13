@@ -2,8 +2,11 @@
 import React from 'react';
 import Relay from 'react-relay';
 import { Grid, Cell, Textfield, Button } from 'react-mdl';
+
 import Page from 'components/Page/PageComponent';
 import LoginMutation from 'mutations/Login/LoginMutation';
+
+import styles from './Login.scss';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -14,6 +17,11 @@ export default class Login extends React.Component {
       password: '',
       serverErrors: []
     };
+
+    this.onSubmit = this.onSubmit.bind(this);
+    this.sendLoginMutation = this.sendLoginMutation.bind(this);
+    this.onFacebookLogin = this.onFacebookLogin.bind(this);
+    this.handleTextfieldChange = this.handleTextfieldChange.bind(this);
   }
 
   onSubmit = (event) => {
@@ -31,10 +39,40 @@ export default class Login extends React.Component {
       return false;
     }
 
-    const loginMutation = new LoginMutation({
+    return this.sendLoginMutation({
       usernameOrEmail,
       password
     });
+  }
+
+  onFacebookLogin = () => {
+    window.FB.getLoginStatus((response) => {
+      if (response.authResponse) {
+        this.sendLoginMutation({
+          provider: 'facebook',
+          socialToken: response.authResponse.accessToken
+        });
+      } else {
+        window.FB.login((loginResponse) => {
+          if (loginResponse.authResponse) {
+            this.sendLoginMutation({
+              provider: 'facebook',
+              socialToken: response.authResponse.accessToken
+            });
+          } else {
+            this.setState({
+              serverErrors: [
+                'Something went wrong! Please try again!'
+              ]
+            });
+          }
+        }, { scope: 'public_profile, email, user_friends' });
+      }
+    });
+  }
+
+  sendLoginMutation(data) {
+    const loginMutation = new LoginMutation(data);
 
     Relay.Store.commitUpdate(
       loginMutation,
@@ -71,8 +109,6 @@ export default class Login extends React.Component {
         }
       }
     );
-
-    return true;
   }
 
   handleTextfieldChange = (event) => {
@@ -85,7 +121,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <Page heading='Login'>
-        <div style={{ width: '70%', margin: 'auto' }}>
+        <div className={styles.root}>
           <Grid>
             <form style={{ margin: 'auto' }} onSubmit={this.onSubmit}>
               <span style={{ color: 'red' }}>{this.state.serverErrors[0]}</span>
@@ -98,6 +134,11 @@ export default class Login extends React.Component {
               <Cell col={12} style={{ textAlign: 'right' }}>
                 <Button primary>Login</Button>
               </Cell>
+
+              <p className={styles.separator}>Or login with</p>
+              <Button style={{ color: 'white' }} colored raised ripple onClick={this.onFacebookLogin}>
+                Facebook
+              </Button>
             </form>
           </Grid>
         </div>

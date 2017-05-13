@@ -11,7 +11,7 @@ import styles from './AddFeedBox.scss';
 
 export default class AddFeedBox extends Component {
   static propTypes = {
-    objectId: PropTypes.string.isRequired
+    parentId: PropTypes.string.isRequired
   };
 
   constructor(props) {
@@ -65,7 +65,7 @@ export default class AddFeedBox extends Component {
     });
 
     const addFeedMutation = new AddFeedMutation({
-      objectId: this.props.objectId,
+      parentId: this.props.parentId,
       text: this.state.text,
       attachmentIds
     });

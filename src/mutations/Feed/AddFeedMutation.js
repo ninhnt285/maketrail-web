@@ -7,7 +7,7 @@ class AddFeedMutation extends Relay.Mutation {
 
   getVariables() {
     return {
-      objectId: this.props.objectId,
+      objectId: this.props.parentId,
       text: this.props.text,
       attachmentIds: this.props.attachmentIds
     };
@@ -25,17 +25,22 @@ class AddFeedMutation extends Relay.Mutation {
   }
 
   getConfigs() {
+    const rangeBehaviors = ({ parentId }) => {
+      if (parentId === this.props.parentId) {
+        return 'prepend';
+      }
+
+      return 'ignore';
+    };
+
     return [
       {
         type: 'RANGE_ADD',
         parentName: null,
-        parentID: this.props.objectId,
-        connectionName: 'feeds',
+        parentID: 'viewer-fixed',
+        connectionName: 'allFeeds',
         edgeName: 'edge',
-        rangeBehaviors: {
-          '': 'append',
-          'orderby(newest)': 'prepend'
-        }
+        rangeBehaviors
       }
     ];
   }

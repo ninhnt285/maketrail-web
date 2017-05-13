@@ -1,9 +1,13 @@
+/* eslint-disable */
 import React from 'react';
 import 'normalize.css/normalize.css';
 import 'react-mdl/extra/css/material.cyan-red.min.css';
 import { Link } from 'react-router';
 import { Layout, Content, Menu, MenuItem } from 'react-mdl';
 import PropTypes from 'prop-types';
+
+import { FB_APP_ID } from 'config';
+
 import Header from './components/Navbar/Header/HeaderComponent';
 import Footer from './components/Footer/FooterComponent';
 import styles from './App.scss';
@@ -13,6 +17,25 @@ export default class App extends React.Component {
     children: PropTypes.object.isRequired,
     viewer: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
+  }
+
+  loadFbSdk() {
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : FB_APP_ID,
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v2.9'
+      });
+    };
+
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   }
 
   onSignout = (event) => {
@@ -25,6 +48,11 @@ export default class App extends React.Component {
   onClickUserMenu = () => {
     this.userMenu.click();
   }
+
+  componentDidMount() {
+    this.loadFbSdk();
+  }
+
   render() {
     const user = this.props.viewer.user;
 

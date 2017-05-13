@@ -6,10 +6,7 @@ class LoginMutation extends Relay.Mutation {
   }
 
   getVariables() {
-    return {
-      usernameOrEmail: this.props.usernameOrEmail,
-      password: this.props.password
-    };
+    return this.props;
   }
 
   getFatQuery() {

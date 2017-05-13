@@ -20,7 +20,19 @@ class AddAttachmentMutation extends Relay.Mutation {
       fragment on AddAttachmentPayload {
         success
         errors
-        attachment
+        attachment {
+          __typename
+          ... on Photo {
+            id
+            name
+            previewUrl
+          }
+          ... on Video {
+            id
+            name
+            previewUrl
+          }
+        }
       }
     `;
   }
@@ -34,9 +46,17 @@ class AddAttachmentMutation extends Relay.Mutation {
             success
             errors
             attachment {
-              id
-              name
-              previewUrl
+              __typename
+              ... on Photo {
+                id
+                name
+                previewUrl
+              }
+              ... on Video {
+                id
+                name
+                previewUrl
+              }
             }
           }
         `]
