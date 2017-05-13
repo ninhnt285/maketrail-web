@@ -31,8 +31,7 @@ class AddTripLocalityMutation extends Relay.Mutation {
         connectionName: 'localities',
         edgeName: 'edge',
         rangeBehaviors: {
-          '': 'append',
-          'orderby(newest)': 'prepend'
+          '': 'append'
         }
       }
     ];

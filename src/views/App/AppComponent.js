@@ -25,7 +25,8 @@ export default class App extends React.Component {
         appId      : FB_APP_ID,
         cookie     : true,
         xfbml      : true,
-        version    : 'v2.9'
+        version    : 'v2.9',
+        status     : true
       });
     };
 

@@ -31,8 +31,7 @@ class AddLocalityVenueMutation extends Relay.Mutation {
         connectionName: 'localityVenues',
         edgeName: 'edge',
         rangeBehaviors: {
-          '': 'append',
-          'orderby(newest)': 'prepend'
+          '': 'append'
         }
       }
     ];
