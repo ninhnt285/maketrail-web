@@ -45,7 +45,9 @@ export default class Login extends React.Component {
     });
   }
 
-  onFacebookLogin = () => {
+  onFacebookLogin = (event) => {
+    event.preventDefault();
+
     window.FB.getLoginStatus((response) => {
       if (response.authResponse) {
         this.sendLoginMutation({
@@ -57,7 +59,7 @@ export default class Login extends React.Component {
           if (loginResponse.authResponse) {
             this.sendLoginMutation({
               provider: 'facebook',
-              socialToken: response.authResponse.accessToken
+              socialToken: loginResponse.authResponse.accessToken
             });
           } else {
             this.setState({
