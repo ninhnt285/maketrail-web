@@ -6,7 +6,7 @@ import ViewerQuery from 'routes/ViewerQuery';
 
 import Timeline from './Timeline';
 
-export default class LocalityFinderRoot extends Component {
+export default class TimelineRoot extends Component {
   static propTypes = {
     parentId: PropTypes.string
   };
