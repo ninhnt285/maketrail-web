@@ -1,6 +1,5 @@
 'use strict';
 
-require("babel-polyfill");
 const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
@@ -62,9 +61,8 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   entry: {
-    babelPolyfill: ['babel-polyfill'],
     app: appEntry,
-    vendor: ['react', 'react-dom', 'react-mdl', 'react-relay', 'react-router', 'react-router-relay']
+    vendor: ['babel-polyfill', 'react', 'react-dom', 'react-mdl', 'react-relay', 'react-router', 'react-router-relay']
   },
 
   output: {
