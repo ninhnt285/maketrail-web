@@ -23,7 +23,7 @@ function rootAlias(d) {
   return path.resolve(__dirname, 'src', d);
 }
 
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production1') {
   appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
   plugins = [
@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'production') {
   plugins = [
     new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js'}),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.DefinePlugin({
       __DEV__: true
