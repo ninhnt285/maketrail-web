@@ -1,0 +1,19 @@
+.recommendItem {
+  background-color: #DDD;
+  border-radius: 10px;
+  height: 20px;
+  display: inline-block;
+  margin: 5px 5px 0;
+  padding: 0 2px;
+  cursor: pointer;
+
+  img {
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
+  }
+
+  span {
+    padding: 0 5px;
+  }
+}

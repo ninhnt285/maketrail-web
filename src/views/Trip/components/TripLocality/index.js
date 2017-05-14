@@ -8,7 +8,7 @@ import LocalityVenueManagerResult from 'components/VenuesManager/components/Loca
 
 import Locality from './components/Locality';
 import LocalityVenue from './components/LocalityVenue';
-import VenueRecommend from './components/VenueRecommend';
+import RecommendVenue from './components/RecommendVenue';
 import CloneNote from './components/CloneNote';
 
 import styles from './TripLocality.scss';
@@ -40,6 +40,7 @@ class TripLocality extends Component {
 
   render() {
     const localityVenues = this.props.tripLocality.localityVenues.edges;
+    const recommendVenues = this.props.tripLocality.recommendVenues.edges;
 
     return (
       <div className={styles.root}>
@@ -75,7 +76,17 @@ class TripLocality extends Component {
             <CloneNote />
           }
 
-          <VenueRecommend />
+          {recommendVenues.length > 0 &&
+            <div className={styles.recommend}>
+              <span className={styles.title}>Recommend:</span>
+              {recommendVenues.map(({ node: venue }) =>
+                <RecommendVenue
+                  key={venue.id}
+                  venue={venue}
+                />
+              )}
+            </div>
+          }
         </div>
       </div>
     );
@@ -97,6 +108,14 @@ export default Relay.createContainer(TripLocality, {
               id
               ${LocalityVenue.getFragment('localityVenue')}
               ${LocalityVenueManagerResult.getFragment('localityVenue')}
+            }
+          }
+        }
+        recommendVenues(first: 5) {
+          edges {
+            node {
+              id
+              ${RecommendVenue.getFragment('venue')}
             }
           }
         }
