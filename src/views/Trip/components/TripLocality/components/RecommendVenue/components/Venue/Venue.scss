@@ -1,0 +1,71 @@
+.root {
+  background-color: #FFF;
+  padding: 8px;
+  margin: -10px;
+  min-height: 150px;
+
+  .previewPhoto {
+    float: left;
+    height: 150px;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .detail {
+    padding: 0 10px;
+    margin-left: 150px;
+    position: relative;
+
+    h3.title {
+      margin: 0;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    p.description {
+      margin: 0px;
+      line-height: 1.5;
+      margin-bottom: 5px;
+    }
+
+    .detailRow {
+      margin-bottom: 2px;
+
+      h4 {
+        margin: 0 10px 0 0;
+        font-size: 14px;
+        font-weight: bold;
+        display: inline-block;
+        line-height: 1.5;
+      }
+    }
+
+    .addButton {
+      color: #FFF;
+      float: right;
+    }
+
+    .clear {
+      clear: both;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .previewPhoto {
+    width: 100%;
+    height: auto;
+    float: none;
+  }
+
+  .detail {
+    margin-left: 0px;
+    padding: 10px 0 0 0;
+  }
+}

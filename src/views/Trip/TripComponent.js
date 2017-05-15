@@ -21,7 +21,7 @@ export default class TripComponent extends React.Component {
     super(props);
 
     this.state = {
-      activeTab: 0
+      activeTab: 1
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
@@ -56,7 +56,7 @@ export default class TripComponent extends React.Component {
             <LocalityFinder onAddLocality={this.onAddLocality} />
             <Grid className={styles.localities}>
               {localities.map(({ node }, index) => (
-                <Cell key={node.id} col={6} tablet={8} phone={4}>
+                <Cell key={node.id} col={12} tablet={8} phone={4}>
                   <TripLocality tripLocality={node} index={index} />
                 </Cell>
               ))}

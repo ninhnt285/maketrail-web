@@ -83,6 +83,7 @@ class TripLocality extends Component {
                 <RecommendVenue
                   key={venue.id}
                   venue={venue}
+                  tripLocalityId={this.props.tripLocality.id}
                 />
               )}
             </div>
