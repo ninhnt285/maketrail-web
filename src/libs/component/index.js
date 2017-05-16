@@ -5,9 +5,12 @@ export function extendClassName(props, customClassName) {
   return `${props.className} ${customClassName}`;
 }
 
-export function extendStyle(props, customStyle) {
+export function extendStyle(props, customStyle = {}) {
   if (!props.style) {
     return customStyle;
   }
-  return props.style;
+  return {
+    ...props.style,
+    ...customStyle
+  };
 }

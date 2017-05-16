@@ -21,7 +21,7 @@ export default class TripComponent extends React.Component {
     super(props);
 
     this.state = {
-      activeTab: 1
+      activeTab: 0
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
