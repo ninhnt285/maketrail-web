@@ -14,8 +14,7 @@
     "url": "ssh://hienlt@maketrail.com/home/hienlt/var/www/maketrail-web"
   },
   "dependencies": {
-    "d3": "^4.8.0",
-    "datamaps": "^0.5.8",
+    "ammap3": "amcharts/ammap3",
     "material-components-web": "^0.9.1",
     "moment": "<2.18.0",
     "normalize.css": "^6.0.0",
