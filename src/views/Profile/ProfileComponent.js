@@ -62,6 +62,7 @@ export default class ProfileComponent extends Component {
     return (
       <div className={styles.root}>
         <AmMap
+          style={{ height: '300px' }}
           dataProvider={dataProvider}
           onChangeMap={this.onChangeMap}
           mapLevel={this.state.mapLevel}
