@@ -79,13 +79,25 @@ export default class AmMap extends Component {
           autoZoom: true,
           selectedColor: '#CC0000'
         },
-        dataProvider
+        dataProvider,
+        zoomDuration: 0.2
+      });
+      map.changeCountryCompleted = false;
+
+      map.addListener('zoomCompleted', function(event) {
+        if (map.changeCountryCompleted) {
+          map.changeCountryCompleted = false;
+          if (mapLevel === 0) {
+            setTimeout(function() {
+              onChangeMap(map.selectedObject.title);
+            }, 300);
+
+          }
+        }
       });
 
-      map.addListener("clickMapObject", function(event) {
-        if (mapLevel === 0) {
-          onChangeMap(event.mapObject.title);
-        }
+      map.addListener('selectedObjectChanged', function(event) {
+        map.changeCountryCompleted = true;
       });
 
       map.addListener('homeButtonClicked', function(event) {

@@ -38,7 +38,7 @@ export default class ProfileComponent extends Component {
       if (mapName === 'unitedStates') {
         mapName = 'usa';
       }
-      mapURL = `${SERVER_RESOURCE_URL}/maps/svg/${mapName}Low.svg`;
+      mapURL = `${SERVER_RESOURCE_URL}/maps/svg/${mapName}High.svg`;
       mapLevel = 1;
       areas = [];
     }
