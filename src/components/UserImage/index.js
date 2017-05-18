@@ -21,7 +21,7 @@ export default class UserImage extends Component {
 
     let userImage = null;
     if (user.profilePicUrl) {
-      userImage = (<img src={`${user.profilePicUrl}`} alt={user.username} />);
+      userImage = (<img src={`${user.profilePicUrl.replace('%s', '_50_square')}`} alt={user.username} />);
     } else {
       const sortName = this.props.user.fullName.match(/\b\w/g).join('').substring(0, 2);
       userImage = (<span>{sortName}</span>);

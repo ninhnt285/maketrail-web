@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
-import AmMap from 'components/AmMap';
+import PropTypes from 'prop-types';
 
 import { SERVER_RESOURCE_URL } from 'config';
+import AmMap from 'components/AmMap';
+import Timeline from 'components/Timeline';
 
 import styles from './Profile.scss';
 
 export default class ProfileComponent extends Component {
+  static propTypes = {
+    viewer: PropTypes.object.isRequired
+  };
+
   constructor(props) {
     super(props);
 
@@ -59,6 +65,8 @@ export default class ProfileComponent extends Component {
       getAreasFromMap: true
     };
 
+    const { User: user } = this.props.viewer;
+
     return (
       <div className={styles.root}>
         <AmMap
@@ -67,6 +75,8 @@ export default class ProfileComponent extends Component {
           onChangeMap={this.onChangeMap}
           mapLevel={this.state.mapLevel}
         />
+
+        <Timeline parentId={user.id} />
       </div>
     );
   }

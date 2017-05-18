@@ -1,8 +1,8 @@
 import Relay from 'react-relay';
 
-import Profile from './ProfileComponent';
+import PhotosComponent from './PhotosComponent';
 
-export default Relay.createContainer(Profile, {
+export default Relay.createContainer(PhotosComponent, {
   initialVariables: {
     userId: null
   },
@@ -10,7 +10,7 @@ export default Relay.createContainer(Profile, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        id,
+        id
         User(id: $userId) {
           id
           fullName
