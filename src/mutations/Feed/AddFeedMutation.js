@@ -7,7 +7,7 @@ class AddFeedMutation extends Relay.Mutation {
 
   getVariables() {
     return {
-      objectId: this.props.parentId,
+      toId: this.props.parentId,
       text: this.props.text,
       attachmentIds: this.props.attachmentIds
     };

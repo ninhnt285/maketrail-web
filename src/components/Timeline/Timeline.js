@@ -11,7 +11,11 @@ class Timeline extends Component {
   static propTypes = {
     relay: PropTypes.object.isRequired,
     viewer: PropTypes.object.isRequired,
-    parentId: PropTypes.string.isRequired
+    parentId: PropTypes.string
+  };
+
+  static defaultProps = {
+    parentId: null
   };
 
   componentDidMount() {
@@ -45,7 +49,7 @@ export default Relay.createContainer(Timeline, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        allFeeds(first: 100, objectId: $parentId) {
+        allFeeds(first: 100, toId: $parentId) {
           edges {
             node {
               id

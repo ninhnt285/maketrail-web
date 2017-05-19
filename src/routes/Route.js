@@ -6,6 +6,7 @@ import AppContainer from 'views/App/AppContainer';
 import HomeContainer from 'views/Home/HomeContainer';
 import LoginComponent from 'views/Login/LoginComponent';
 import RegisterComponent from 'views/Register/RegisterComponent';
+import TripsContainer from 'views/Trips/TripsContainer';
 import TripContainer from 'views/Trip/TripContainer';
 import ProfileContainer from 'views/Profile/ProfileContainer';
 import PhotosContainer from 'views/Photos/PhotosContainer';
@@ -15,6 +16,7 @@ export default (
     <IndexRoute component={HomeContainer} queries={ViewerQuery} />
     <Route path='/login' component={LoginComponent} />
     <Route path='/register' component={RegisterComponent} />
+    <Route path='/trips' component={TripsContainer} queries={ViewerQuery} />
     <Route path='/trip/:tripId' component={TripContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId' component={ProfileContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId/photos' components={PhotosContainer} queries={ViewerQuery} />

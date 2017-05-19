@@ -11,7 +11,11 @@ import styles from './AddFeedBox.scss';
 
 export default class AddFeedBox extends Component {
   static propTypes = {
-    parentId: PropTypes.string.isRequired
+    parentId: PropTypes.string
+  };
+
+  static defaultProps = {
+    parentId: null
   };
 
   constructor(props) {

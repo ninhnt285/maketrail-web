@@ -18,8 +18,8 @@ class Feed extends Component {
     return (
       <div className={styles.root}>
         <FeedHeader
-          user={feed.user}
-          timestamp={0}
+          user={feed.from}
+          timestamp={feed.createdAt}
           privacy={feed.privacy}
         />
         <p className={styles.status}>{feed.text}</p>
@@ -54,13 +54,17 @@ export default Relay.createContainer(Feed, {
     feed: () => Relay.QL`
       fragment on Feed {
         id
-        user {
-          id
-          username
-          fullName
-          profilePicUrl
-        }
         text
+        privacy
+        createdAt
+        from {
+          ... on User {
+            id
+            username
+            fullName
+            profilePicUrl
+          }
+        }
         attachments(first: 100) {
           edges {
             cursor

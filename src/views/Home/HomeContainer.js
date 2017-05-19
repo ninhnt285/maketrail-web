@@ -9,14 +9,6 @@ export default Relay.createContainer(Home, {
         user {
           id
         }
-        allTrips (first: 100) {
-          edges {
-            node {
-              id
-              name
-            }
-          }
-        }
       }`
   }
 });
