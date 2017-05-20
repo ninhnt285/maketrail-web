@@ -74,13 +74,18 @@ export default class AddFeedForm extends Component {
       attachmentIds
     });
 
-    Relay.Store.commitUpdate(addFeedMutation);
+    Relay.Store.commitUpdate(addFeedMutation, {
+      onSuccess: () => {
+        this.setState({ text: '' });
+      }
+    });
   }
 
   render() {
     return (
       <div className={styles.root}>
         <Textfield
+          value={this.state.text}
           onChange={this.onTextChange}
           label="What's on your mind?"
           rows={2}

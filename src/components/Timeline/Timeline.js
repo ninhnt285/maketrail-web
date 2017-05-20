@@ -26,6 +26,7 @@ class Timeline extends Component {
 
   render() {
     const feeds = this.props.viewer.allFeeds.edges;
+    feeds.sort((a, b) => (a.node.createdAt < b.node.createdAt ? 1 : -1));
 
     return (
       <div className={styles.root}>
@@ -53,6 +54,7 @@ export default Relay.createContainer(Timeline, {
           edges {
             node {
               id
+              createdAt
               ${Feed.getFragment('feed')}
             }
           }

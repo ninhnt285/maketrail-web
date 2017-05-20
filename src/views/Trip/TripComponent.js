@@ -79,7 +79,14 @@ export default class TripComponent extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.tripCover}>
-          <img src={coverPhoto} alt='Trip Cover' />
+          {localities.length > 0 &&
+            <div className={styles.videoContainer}>
+              <iframe width='1280' height='720' src='https://www.youtube-nocookie.com/embed/3lx9n19PfE0?rel=0&amp;showinfo=0' frameBorder='0' />
+            </div>
+          }
+          {localities.length === 0 &&
+            <img src={coverPhoto} alt={this.props.viewer.Trip.name} />
+          }
           <h1>{this.props.viewer.Trip.name}</h1>
         </div>
 
