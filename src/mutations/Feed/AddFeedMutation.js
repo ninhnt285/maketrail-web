@@ -25,8 +25,8 @@ class AddFeedMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    const rangeBehaviors = ({ objectId }) => {
-      if (objectId === this.props.parentId) {
+    const rangeBehaviors = ({ toId }) => {
+      if (toId === this.props.parentId) {
         return 'prepend';
       }
 
