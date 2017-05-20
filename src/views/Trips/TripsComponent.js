@@ -1,12 +1,14 @@
 import React from 'react';
-import { Grid, Cell, Button } from 'react-mdl';
-import { Link } from 'react-router';
-import PropTypes from 'prop-types';
 import Relay from 'react-relay';
-import coverPhoto from 'assets/trip-cover/cover2.jpg';
-import styles from './Trips.scss';
+import PropTypes from 'prop-types';
+import { Button } from 'react-mdl';
+import { Link } from 'react-router';
 
-import AddTripMutation from '../../mutations/Trip/AddTripMutation';
+import AddTripMutation from 'mutations/Trip/AddTripMutation';
+import coverPhoto from 'assets/trip-cover/cover2.jpg';
+
+import Greeting from 'views/Home/Greeting/GreetingComponent';
+import styles from './Trips.scss';
 
 export default class Trips extends React.Component {
   static propTypes = {
@@ -44,23 +46,26 @@ export default class Trips extends React.Component {
   }
 
   render() {
+    if (!this.props.viewer.user) {
+      return (<Greeting />);
+    }
+
     const trips = this.props.viewer.allTrips.edges;
 
     return (
       <div className={styles.root}>
-        <Button onClick={this.onAddTrip} raised colored ripple style={{ color: '#EEE', margin: '0 0 15px' }}>New Trip</Button>
-        <Grid className={styles.trips}>
+        <Button onClick={this.onAddTrip} raised colored ripple style={{ color: '#EEE', margin: '0 0 15px', float: 'right' }}>New Trip</Button>
+        <div style={{ clear: 'both' }} />
+        <div className={styles.trips}>
           {trips.map(edge =>
-            <Cell key={edge.node.id} col={6} tablet={4} phone={4}>
-              <Link className={styles.trip} to={`/trip/${edge.node.id}`}>
-                <img src={coverPhoto} alt='Trip Cover' />
-                <div className={styles.tripDetail}>
-                  <p>{edge.node.name}</p>
-                </div>
-              </Link>
-            </Cell>
+            <Link key={edge.node.id} className={styles.trip} to={`/trip/${edge.node.id}`}>
+              <img src={coverPhoto} alt='Trip Cover' />
+              <div className={styles.tripDetail}>
+                <p>{edge.node.name}</p>
+              </div>
+            </Link>
           )}
-        </Grid>
+        </div>
       </div>
     );
   }

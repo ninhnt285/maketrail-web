@@ -13,14 +13,13 @@
 
 .trips {
   position: relative;
-  margin: 0 -8px;
-  padding: 0;
 }
 
 .trip {
   position: relative;
   display: block;
   min-height: 110px;
+  margin-bottom: 10px;
 
   img {
     width: 100%;

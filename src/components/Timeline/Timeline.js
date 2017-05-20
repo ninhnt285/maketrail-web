@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 
-import AddFeedBox from './components/AddFeedBox';
+import AddFeedForm from './components/AddFeedForm';
 import Feed from './components/Feed';
 
 import styles from './Timeline.scss';
@@ -29,7 +29,7 @@ class Timeline extends Component {
 
     return (
       <div className={styles.root}>
-        <AddFeedBox parentId={this.props.parentId} />
+        <AddFeedForm parentId={this.props.parentId} />
         {feeds.map(({ node: feed }) =>
           <Feed
             key={feed.id}

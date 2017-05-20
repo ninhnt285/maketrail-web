@@ -1,0 +1,38 @@
+.root {
+  background-color: #F6F7F9;
+  border-top: 1px solid #e1e2e3;
+  padding-top: 8px;
+
+  .commentWrapper {
+    padding: 4px 12px;
+    display: block;
+    width: 100%;
+
+    .commentUserImage {
+      border: 1px solid #BBB;
+      width: 32px;
+      height: 32px;
+      background-color: #EEE;
+      float: left;
+      box-sizing: border-box;
+    }
+
+    .commentContent {
+      min-height: 32px;
+      width: calc(100% - 40px);
+      margin-left: 40px;
+
+      .userLink a {
+        color: #365899;
+        font-weight: bold;
+        font-size: 12px;
+        cursor: pointer;
+      }
+
+      .commentText {
+        color: #1d2129;
+        font-size: 12px;
+      }
+    }
+  }
+}

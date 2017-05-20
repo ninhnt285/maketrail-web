@@ -7,9 +7,9 @@ import Dropzone from 'react-dropzone';
 import AddAttachmentMutation from 'mutations/Attachment/AddAttachmentMutation';
 import AddFeedMutation from 'mutations/Feed/AddFeedMutation';
 
-import styles from './AddFeedBox.scss';
+import styles from './AddFeedForm.scss';
 
-export default class AddFeedBox extends Component {
+export default class AddFeedForm extends Component {
   static propTypes = {
     parentId: PropTypes.string
   };

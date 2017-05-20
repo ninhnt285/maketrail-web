@@ -1,0 +1,23 @@
+.root {
+  margin: 0 12px;
+  padding: 2px 0 8px;
+
+  .userAvatar {
+    display: block;
+    float: left;
+    height: 32px;
+    width: 32px;
+  }
+
+  .commentInput {
+    min-height: 32px;
+    background-color: #fff;
+    border: 1px solid #dddfe2;
+    display: block;
+    width: calc(100% - 40px);
+    margin-left: 40px;
+    box-sizing: border-box;
+    padding: 0 8px;
+    font-size: 12px;
+  }
+}

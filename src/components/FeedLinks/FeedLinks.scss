@@ -1,0 +1,18 @@
+.root {
+  background-color: #FFF;
+  padding: 0px 12px;
+
+  .content {
+    color: #4b4f56;
+    border-top: 1px solid #e5e5e5;
+    padding: 6px 0;
+  }
+
+  .link {
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 20px;
+    padding: 4px 4px 4px 0;
+    cursor: pointer;
+  }
+}

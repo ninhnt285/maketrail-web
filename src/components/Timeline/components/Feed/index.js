@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 
+import FeedLinks from 'components/FeedLinks';
+import CommentBox from 'components/CommentBox';
+
 import FeedHeader from './components/FeedHeader';
 import Attachment from './components/Attachment';
 import styles from './Feed.scss';
@@ -17,33 +20,37 @@ class Feed extends Component {
 
     return (
       <div className={styles.root}>
-        <FeedHeader
-          user={feed.from}
-          timestamp={feed.createdAt}
-          privacy={feed.privacy}
-        />
-        <p className={styles.status}>{feed.text}</p>
-        {attachments.length > 0 &&
-          <div className={styles.attachmentWrapper}>
-            {attachments.length === 1 &&
-              <Attachment
-                className={styles.attachment}
-                attachment={attachments[0].node}
-                singlePhoto
-              />
-            }
-
-            {attachments.length > 1 &&
-              attachments.map(edge =>
+        <div className={styles.content}>
+          <FeedHeader
+            user={feed.from}
+            timestamp={feed.createdAt}
+            privacy={feed.privacy}
+          />
+          <p className={styles.status}>{feed.text}</p>
+          {attachments.length > 0 &&
+            <div className={styles.attachmentWrapper}>
+              {attachments.length === 1 &&
                 <Attachment
-                  key={edge.cursor}
                   className={styles.attachment}
-                  attachment={edge.node}
+                  attachment={attachments[0].node}
+                  singlePhoto
                 />
-              )
-            }
-          </div>
-        }
+              }
+
+              {attachments.length > 1 &&
+                attachments.map(edge =>
+                  <Attachment
+                    key={edge.cursor}
+                    className={styles.attachment}
+                    attachment={edge.node}
+                  />
+                )
+              }
+            </div>
+          }
+        </div>
+        <FeedLinks />
+        <CommentBox parentId={feed.id} />
       </div>
     );
   }
