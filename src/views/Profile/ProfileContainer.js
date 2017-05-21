@@ -4,7 +4,8 @@ import Profile from './ProfileComponent';
 
 export default Relay.createContainer(Profile, {
   initialVariables: {
-    userId: null
+    userId: null,
+    mapId: null
   },
 
   fragments: {
@@ -14,6 +15,11 @@ export default Relay.createContainer(Profile, {
         User(id: $userId) {
           id
           fullName
+        }
+        mapAreas(id: $mapId, userId: $userId) {
+          code
+          name
+          status
         }
       }
     `

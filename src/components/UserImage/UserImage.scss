@@ -35,3 +35,18 @@
     line-height: 40px;
   }
 }
+
+.root.size32 {
+  width: 32px;
+  height: 32px;
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+
+  span {
+    font-size: 15px;
+    line-height: 32px;
+  }
+}

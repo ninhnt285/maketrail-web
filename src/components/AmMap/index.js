@@ -89,7 +89,7 @@ export default class AmMap extends Component {
           map.changeCountryCompleted = false;
           if (mapLevel === 0) {
             setTimeout(function() {
-              onChangeMap(map.selectedObject.title);
+              onChangeMap(map.selectedObject);
             }, 300);
 
           }

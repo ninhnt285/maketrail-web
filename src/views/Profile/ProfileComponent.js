@@ -9,7 +9,8 @@ import styles from './Profile.scss';
 
 export default class ProfileComponent extends Component {
   static propTypes = {
-    viewer: PropTypes.object.isRequired
+    viewer: PropTypes.object.isRequired,
+    relay: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -17,39 +18,39 @@ export default class ProfileComponent extends Component {
 
     this.state = {
       mapURL: `${SERVER_RESOURCE_URL}/maps/svg/worldHigh.svg`,
-      mapLevel: 0,
-      areas: [
-        { id: 'US', color: '#67b7dc' },
-        { id: 'VN', color: '#67b7dc' },
-        { id: 'MY', color: '#67b7dc' },
-        { id: 'SG', color: '#67b7dc' }
-      ]
+      mapLevel: 0
     };
 
     this.onChangeMap = this.onChangeMap.bind(this);
   }
 
-  onChangeMap(mapId) {
+  onChangeMap(map) {
     let mapURL = `${SERVER_RESOURCE_URL}/maps/svg/worldHigh.svg`;
     let mapLevel = 0;
-    let areas = [
-      { id: 'US', color: '#67b7dc' },
-      { id: 'VN', color: '#67b7dc' },
-      { id: 'MY', color: '#67b7dc' },
-      { id: 'SG', color: '#67b7dc' }
-    ];
 
-    if (mapId) {
-      let mapName = this.camelize(mapId);
+    if (map) {
+      let mapName = this.camelize(map.title);
       if (mapName === 'unitedStates') {
         mapName = 'usa';
       }
       mapURL = `${SERVER_RESOURCE_URL}/maps/svg/${mapName}High.svg`;
       mapLevel = 1;
-      areas = [];
     }
 
-    this.setState({ mapURL, mapLevel, areas });
+    this.props.relay.setVariables(
+      { mapId: map.id },
+      () => {
+        this.setState({ mapURL, mapLevel });
+      }
+    );
+  }
+
+  getAreaData() {
+    const areaColors = ['#999999', '#0000FF', '#67b7dc'];
+    return this.props.viewer.mapAreas.map(area => ({
+      id: area.code,
+      color: areaColors[area.status]
+    }));
   }
 
   camelize(str) {
@@ -61,7 +62,7 @@ export default class ProfileComponent extends Component {
   render() {
     const dataProvider = {
       mapURL: this.state.mapURL,
-      areas: this.state.areas,
+      areas: this.getAreaData(),
       getAreasFromMap: true
     };
 
