@@ -7,7 +7,6 @@ import { Link } from 'react-router';
 import AddTripMutation from 'mutations/Trip/AddTripMutation';
 import coverPhoto from 'assets/trip-cover/cover2.jpg';
 
-import Greeting from 'views/Home/Greeting/GreetingComponent';
 import styles from './Trips.scss';
 
 export default class Trips extends React.Component {
@@ -46,10 +45,6 @@ export default class Trips extends React.Component {
   }
 
   render() {
-    if (!this.props.viewer.user) {
-      return (<Greeting />);
-    }
-
     const trips = this.props.viewer.allTrips.edges;
 
     return (

@@ -9,44 +9,28 @@
   a {
     text-decoration: none;
   }
-}
 
-.trips {
-  position: relative;
-  margin: 0 -8px;
-  padding: 0;
-}
-
-.trip {
-  position: relative;
-  display: block;
-  min-height: 110px;
-
-  img {
-    width: 100%;
-    height: auto;
+  .leftColumn {
+    width: 300px;
+    float: left;
   }
 
-  p {
-    color: #FFF;
-    font-weight: bold;
-    align-items: flex-start;
-    text-transform: uppercase;
-    margin: 0px;
-    line-height: 1.5;
+  .content {
+    margin-left: 10px;
+    width: calc(100% - 310px);
+    float: left;
   }
-}
-
-.tripDetail {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.75);
-  width: 100%;
-  bottom: 0;
-  left: 0;
-  padding: 10px;
-  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 480px) {
+  .root {
+    .leftColumn {
+      display: none;
+    }
 
+    .content {
+      width: 100%;
+      margin-left: 0;
+    }
+  }
 }

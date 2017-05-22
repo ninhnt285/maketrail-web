@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-mdl';
+import { Badge, Button, Icon } from 'react-mdl';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import styles from './Header.scss';
@@ -25,6 +25,12 @@ export default class HeaderComponent extends React.Component {
         <div className={styles.root}>
           <Link to='/' className={styles.logo} />
           <div className={styles.link}>
+            <Badge text='2'>
+              <Icon className={styles.notificationBtn} name='person' />
+            </Badge>
+            <Badge text='4'>
+              <Icon className={styles.notificationBtn} name='public' />
+            </Badge>
             <Button className={styles.name} id='name_menu' onClick={this.props.onClickUser}>
               <div className={styles.shortName}>{sortName}</div>
               <div className={styles.fullname}>{fullName}</div>
