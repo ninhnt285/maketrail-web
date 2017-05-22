@@ -60,6 +60,7 @@ export default class AddCommentForm extends Component {
           placeholder='Write a comment...'
           onKeyDown={this.onSubmitComment}
           onChange={this.onChangeText}
+          autoFocus={true}
         />
       </div>
     );

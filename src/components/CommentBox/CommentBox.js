@@ -12,17 +12,27 @@ class CommentBox extends Component {
   static propTypes = {
     relay: PropTypes.object.isRequired,
     viewer: PropTypes.object.isRequired,
-    parentId: PropTypes.string.isRequired
+    parentId: PropTypes.string.isRequired,
+    showComment: PropTypes.bool.isRequired
   };
 
   componentDidMount() {
     const { relay, parentId } = this.props;
-
-    relay.setVariables({ parentId });
+    relay.setVariables({
+      parentId,
+      showComment: this.props.showComment
+    });
   }
 
   render() {
-    const comments = this.props.viewer.allComments.edges;
+    if (!this.props.showComment) {
+      return null;
+    }
+
+    let comments = [];
+    if (this.props.viewer.allComments) {
+      comments = this.props.viewer.allComments.edges;
+    }
 
     return (
       <div className={styles.root}>
@@ -47,7 +57,8 @@ class CommentBox extends Component {
 
 export default Relay.createContainer(CommentBox, {
   initialVariables: {
-    parentId: null
+    parentId: null,
+    showComment: false
   },
 
   fragments: {
@@ -58,7 +69,7 @@ export default Relay.createContainer(CommentBox, {
           fullName
           profilePicUrl
         }
-        allComments(first: 100, parentId: $parentId) {
+        allComments(first: 100, parentId: $parentId) @include(if: $showComment) {
           edges {
             node {
               id

@@ -2,11 +2,15 @@
 
 .root {
   background-color: #00AFF0;
+  box-sizing: border-box;
+  height: 50px !important;
+  min-height: 50px;
+  padding: 5px 30px;
+  position: fixed;
+  top: 0px;
+  width: 100%;
   z-index: 1;
-  min-height: 40px;
-  padding: 4px 30px;
-  height: 40px !important;
-  position: relative;
+
 
   .logo {
     font-size: 0px;
@@ -24,7 +28,7 @@
     float: right;
     vertical-align: top;
     a {
-      color: #fff;
+      color: #222;
       line-height: 40px;
       padding: 0px 20px;
     }
@@ -73,6 +77,7 @@
   }
 
   .notificationBtn {
+    overflow: visible;
     width: 36px;
     height: 36px;
     display: inline-block;

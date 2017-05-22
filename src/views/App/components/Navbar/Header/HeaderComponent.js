@@ -1,40 +1,66 @@
 import React from 'react';
-import { Badge, Button, Icon } from 'react-mdl';
+import { Badge, Button, IconButton, Menu, MenuItem } from 'react-mdl';
 import { Link } from 'react-router';
 import PropTypes from 'prop-types';
 import styles from './Header.scss';
 
 export default class HeaderComponent extends React.Component {
   static propTypes = {
-    user: PropTypes.object,
-    onClickUser: PropTypes.func.isRequired
+    user: PropTypes.object
   }
 
   static defaultProps = {
     user: null
   }
+
+  constructor(props) {
+    super(props);
+
+    this.onSignout = this.onSignout.bind(this);
+  }
+
+  onSignout = (event) => {
+    event.preventDefault();
+
+    localStorage.removeItem('accessToken');
+    location.href = '/';
+  }
+
   render() {
-    if (this.props.user) {
-      let sortName = this.props.user.username.substring(0, 2);
-      let fullName = this.props.user.username;
+    const { user } = this.props;
+
+    if (user) {
+      let sortName = user.username.substring(0, 2);
+      let fullName = user.username;
       if (this.props.user.fullName) {
-        sortName = this.props.user.fullName.match(/\b\w/g).join('').substring(0, 2);
-        fullName = this.props.user.fullName;
+        sortName = user.fullName.match(/\b\w/g).join('').substring(0, 2);
+        fullName = user.fullName;
       }
       return (
         <div className={styles.root}>
           <Link to='/' className={styles.logo} />
           <div className={styles.link}>
             <Badge text='2'>
-              <Icon className={styles.notificationBtn} name='person' />
+              <IconButton className={styles.notificationBtn} name='person' id='global_friend_request' />
             </Badge>
+            <Menu target='global_friend_request'>
+              <MenuItem><Link to='trips'>All Trips</Link></MenuItem>
+              <MenuItem><Link to='/profile'>Profile</Link></MenuItem>
+            </Menu>
+
             <Badge text='4'>
-              <Icon className={styles.notificationBtn} name='public' />
+              <IconButton className={styles.notificationBtn} name='public' />
             </Badge>
-            <Button className={styles.name} id='name_menu' onClick={this.props.onClickUser}>
+
+            <Button className={styles.name} id='user_menu'>
               <div className={styles.shortName}>{sortName}</div>
               <div className={styles.fullname}>{fullName}</div>
             </Button>
+            <Menu target='user_menu'>
+              <MenuItem><Link to='trips'>All Trips</Link></MenuItem>
+              <MenuItem><Link to={`/profile/${user.id}`}>Profile</Link></MenuItem>
+              <MenuItem><Link onClick={this.onSignout}>Logout</Link></MenuItem>
+            </Menu>
           </div>
         </div>
       );

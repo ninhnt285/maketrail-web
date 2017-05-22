@@ -39,17 +39,6 @@ export default class App extends React.Component {
     }(document, 'script', 'facebook-jssdk'));
   }
 
-  onSignout = (event) => {
-    event.preventDefault();
-
-    localStorage.removeItem('accessToken');
-    location.href = '/';
-  }
-
-  onClickUserMenu = () => {
-    this.userMenu.click();
-  }
-
   componentDidMount() {
     this.loadFbSdk();
   }
@@ -66,23 +55,13 @@ export default class App extends React.Component {
     }
 
     return (
-      <Layout className={styles.root}>
+      <div className={styles.root}>
         <Header user={user} onClickUser={this.onClickUserMenu} />
-        <Content className={styles.content}>
+        <div className={styles.content}>
           {this.props.children}
-        </Content>
-        { user &&
-          <div>
-            <button className={styles.menu} id='user_menu' ref={(input) => { this.userMenu = input; }} />
-            <Menu target='user_menu' align='right'>
-              <MenuItem><Link to='trips'>All Trips</Link></MenuItem>
-              <MenuItem><Link to={`/profile/${user.id}`}>Profile</Link></MenuItem>
-              <MenuItem onClick={this.onSignout}>Logout</MenuItem>
-            </Menu>
-          </div>
-        }
+        </div>
         <Footer />
-      </Layout>
+      </div>
     );
   }
 }

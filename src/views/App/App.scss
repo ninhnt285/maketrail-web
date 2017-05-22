@@ -12,51 +12,21 @@
 }
 
 .root :global {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   background-color: #e9ebee;
+  min-height: 100vh;
+  position: relative;
 
   a {
     text-decoration: none;
     color: $blue;
   }
-
-  .mdl-layout__header {
-    background-color: #00AFF0;
-    z-index: 0;
-    min-height: 48px;
-  }
-
-  .mdl-layout__header-row {
-    padding: 0px 30px;
-    height: 48px !important;
-  }
 }
+
 .root {
-  .menu {
-    z-index: 0;
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    a {
-      color: $white;
-    }
+  .content {
+    padding-top: 50px;
+    min-height: calc(100vh - 130px);
   }
-}
-.content {
-  flex: 1;
-}
-
-:global(#logo) {
-  font-size: 0px;
-  background: url('../../assets/logo.png') center no-repeat;
-  background-size: cover;
-  width: 200px;
-  position: relative;
-  display: block;
-  height: 40px;
-  text-indent: -900px;
 }
 
 /**

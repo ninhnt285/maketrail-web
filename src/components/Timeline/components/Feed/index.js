@@ -14,6 +14,18 @@ class Feed extends Component {
     feed: PropTypes.object.isRequired
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = { showComment: false };
+
+    this.onShowComment = this.onShowComment.bind(this);
+  }
+
+  onShowComment() {
+    this.setState({ showComment: true });
+  }
+
   render() {
     const { feed } = this.props;
     const attachments = feed.attachments.edges;
@@ -49,8 +61,8 @@ class Feed extends Component {
             </div>
           }
         </div>
-        <FeedLinks />
-        <CommentBox parentId={feed.id} />
+        <FeedLinks onShowComment={this.onShowComment} />
+        <CommentBox showComment={this.state.showComment} parentId={feed.id} />
       </div>
     );
   }
@@ -72,7 +84,7 @@ export default Relay.createContainer(Feed, {
             profilePicUrl
           }
         }
-        attachments(first: 100) {
+        attachments(first: 5) {
           edges {
             cursor
             node {
