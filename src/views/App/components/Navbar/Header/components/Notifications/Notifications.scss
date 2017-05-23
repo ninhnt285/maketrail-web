@@ -1,0 +1,61 @@
+@import 'src/variables.scss';
+
+.root {
+  display: inline-block;
+  position: relative;
+
+  .notificationBtn {
+    overflow: visible;
+    width: 36px;
+    height: 36px;
+    display: inline-block;
+    position: relative;
+    color: #FFF;
+    line-height: 36px;
+    text-align: center;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    &:hover {
+      background-color: rgba(256, 256, 256, 0.2);
+    }
+  }
+
+  .notificationBtn[data-badge]::after {
+    top: -2px;
+    right: -2px;
+    font-size: 10px;
+    width: 18px;
+    height: 18px;
+  }
+
+  .notificationContent {
+    padding-left: 8px;
+    display: inline-block;
+  }
+
+  .viewMore {
+    height: auto;
+    line-height: 16px;
+
+    a {
+      line-height: 16px !important;
+      color: $blue !important;
+    }
+  }
+}
+
+.root :global {
+  .mdl-menu {
+    padding: 0px;
+  }
+
+  .mdl-menu__item {
+    padding: 8px;
+    border-bottom: 1px solid #dddfe2;
+
+    a {
+      padding: 0 !important;
+    }
+  }
+}

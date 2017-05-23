@@ -39,7 +39,7 @@
       min-width: 36px;
       font-size: 18px;
       padding: 0px;
-      margin: 2px 0px;
+      margin: 2px 0px 2px 10px;
       background-color: transparent;
       .shortName {
         border-radius: 4px 0px 0px 4px;
@@ -74,32 +74,6 @@
         }
       }
     }
-  }
-
-  .notificationBtn {
-    overflow: visible;
-    width: 36px;
-    height: 36px;
-    display: inline-block;
-    position: relative;
-    color: #FFF;
-    line-height: 36px;
-    margin: 2px 0;
-    text-align: center;
-    margin-right: 22px;
-    cursor: pointer;
-    border-radius: 3px;
-    &:hover {
-      background-color: rgba(256, 256, 256, 0.2);
-    }
-  }
-
-  .notificationBtn[data-badge]::after {
-    top: -2px;
-    right: -2px;
-    font-size: 10px;
-    width: 18px;
-    height: 18px;
   }
 }
 @media screen and (max-width: 768px) {

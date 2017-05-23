@@ -1,7 +1,10 @@
 import React from 'react';
-import { Badge, Button, IconButton, Menu, MenuItem } from 'react-mdl';
-import { Link } from 'react-router';
 import PropTypes from 'prop-types';
+import { Button, Menu, MenuItem } from 'react-mdl';
+import { Link } from 'react-router';
+
+import Notifications from './components/Notifications';
+import FriendRequests from './components/FriendRequests';
 import styles from './Header.scss';
 
 export default class HeaderComponent extends React.Component {
@@ -40,18 +43,8 @@ export default class HeaderComponent extends React.Component {
         <div className={styles.root}>
           <Link to='/' className={styles.logo} />
           <div className={styles.link}>
-            <Badge text='2'>
-              <IconButton className={styles.notificationBtn} name='person' id='global_friend_request' />
-            </Badge>
-            <Menu target='global_friend_request'>
-              <MenuItem><Link to='trips'>All Trips</Link></MenuItem>
-              <MenuItem><Link to='/profile'>Profile</Link></MenuItem>
-            </Menu>
-
-            <Badge text='4'>
-              <IconButton className={styles.notificationBtn} name='public' />
-            </Badge>
-
+            <Notifications />
+            <FriendRequests />
             <Button className={styles.name} id='user_menu'>
               <div className={styles.shortName}>{sortName}</div>
               <div className={styles.fullname}>{fullName}</div>
