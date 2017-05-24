@@ -2,4 +2,61 @@
   max-width: 1000px;
   width: 100%;
   margin: 0 auto;
+
+  .timeline {
+    margin-top: 12px;
+  }
+
+  .profileCover {
+    position: relative;
+    border: 1px solid #d3d6db;
+    border-radius: 0 0 3px 3px;
+    background-color: #FFF;
+  }
+
+  .timelineHeadline {
+    position: relative;
+    width: 100%;
+    z-index: 4;
+    min-height: 41px;
+  }
+
+  .userAvatar {
+    position: absolute;
+    left: 15px;
+    margin-top: 0;
+    top: -143px;
+    background: rgba(0, 0, 0, .3);
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .07);
+    display: block;
+    padding: 1px;
+
+    img {
+      width: 160px;
+      height: 160px;
+      background-color: #fff;
+      border: 4px solid #fff;
+      border-radius: 2px;
+      display: block;
+    }
+  }
+
+  .actions {
+    bottom: 60px;
+    padding: 0;
+    position: absolute;
+    right: 15px;
+    width: 120px;
+  }
+
+  .addFriend {
+    color: #FFF;
+  }
+
+  .profileTabs {
+    background-color: rgb(255, 255, 255);
+    padding-left: 200px;
+    width: calc(100% - 200px);
+  }
 }

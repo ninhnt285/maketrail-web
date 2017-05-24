@@ -36,6 +36,9 @@ export default class FriendRequests extends Component {
         </Badge>
         {requests.length > 0 &&
           <Menu target='global_friend_requests' align='right'>
+            <MenuItem className={styles.title}>
+              Friend Requests
+            </MenuItem>
             {requests.map(request =>
               <MenuItem key={request.id}>
                 <UserImage user={request.user} />

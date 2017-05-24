@@ -38,10 +38,13 @@ export default class Notifications extends Component {
         </Badge>
         {notifications.length > 0 &&
           <Menu target='global_notifications' align='right'>
+            <MenuItem className={styles.title}>
+              Notifications
+            </MenuItem>
             {notifications.map(notification =>
               <MenuItem key={notification.id}>
                 <Link to='/'>
-                  <UserImage user={notification.user} />
+                  <UserImage user={notification.user} wrappLink={false} />
                   <div className={styles.notificationContent}>
                     <b>{notification.user.fullName}</b> <span>{notification.text}</span>
                   </div>

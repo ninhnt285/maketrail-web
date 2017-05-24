@@ -1,83 +1,77 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import { Button, Tabs, Tab } from 'react-mdl';
 
-import { SERVER_RESOURCE_URL } from 'config';
-import AmMap from 'components/AmMap';
+import Map from 'components/Map';
 import Timeline from 'components/Timeline';
+import AddFriendMutation from 'mutations/Friend/AddFriendMutation';
 
 import styles from './Profile.scss';
 
 export default class ProfileComponent extends Component {
   static propTypes = {
-    viewer: PropTypes.object.isRequired,
-    relay: PropTypes.object.isRequired
+    viewer: PropTypes.object.isRequired
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      mapURL: `${SERVER_RESOURCE_URL}/maps/svg/worldHigh.svg`,
-      mapLevel: 0
+      activeTab: 0
     };
 
-    this.onChangeMap = this.onChangeMap.bind(this);
+    this.onAddFriend = this.onAddFriend.bind(this);
   }
 
-  onChangeMap(map) {
-    let mapURL = `${SERVER_RESOURCE_URL}/maps/svg/worldHigh.svg`;
-    let mapLevel = 0;
+  onAddFriend() {
+    const addFriendMutation = new AddFriendMutation({
+      userId: this.props.viewer.User.id
+    });
 
-    if (map) {
-      let mapName = this.camelize(map.title);
-      if (mapName === 'unitedStates') {
-        mapName = 'usa';
-      }
-      mapURL = `${SERVER_RESOURCE_URL}/maps/svg/${mapName}High.svg`;
-      mapLevel = 1;
-    }
-
-    this.props.relay.setVariables(
-      { mapId: map.id },
-      () => {
-        this.setState({ mapURL, mapLevel });
-      }
-    );
-  }
-
-  getAreaData() {
-    const areaColors = ['#999999', '#0000FF', '#67b7dc'];
-    return this.props.viewer.mapAreas.map(area => ({
-      id: area.code,
-      color: areaColors[area.status]
-    }));
-  }
-
-  camelize(str) {
-    return str.replace(/(?:^\w|[A-Z]|\b\w)/g, (letter, index) =>
-      (index === 0 ? letter.toLowerCase() : letter.toUpperCase())
-    ).replace(/\s+/g, '');
+    Relay.Store.commitUpdate(addFriendMutation);
   }
 
   render() {
-    const dataProvider = {
-      mapURL: this.state.mapURL,
-      areas: this.getAreaData(),
-      getAreasFromMap: true
-    };
+    const { user: me, User: user } = this.props.viewer;
 
-    const { User: user } = this.props.viewer;
+    let content = null;
+    switch (this.state.activeTab) {
+      case 0:
+        content = (<Timeline
+          className={styles.timeline}
+          parentId={user.id}
+        />);
+        break;
+      default:
+        content = null;
+    }
 
     return (
       <div className={styles.root}>
-        <AmMap
-          style={{ height: '300px' }}
-          dataProvider={dataProvider}
-          onChangeMap={this.onChangeMap}
-          mapLevel={this.state.mapLevel}
-        />
+        <div className={styles.profileCover}>
+          <Map style={{ height: '300px' }} userId={user.id} />
+          <div className={styles.timelineHeadline}>
+            <div className={styles.userAvatar}>
+              <img src={user.profilePicUrl.replace('%s', '_500_square')} alt={user.fullName} />
+            </div>
 
-        <Timeline parentId={user.id} />
+            <div className={styles.actions}>
+              {!user.isFriend && (user.id !== me.id) &&
+                <Button onClick={this.onAddFriend} colored raised ripple className={styles.addFriend}>Add Friend</Button>
+              }
+            </div>
+
+            <Tabs className={styles.profileTabs} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
+              <Tab>Timeline</Tab>
+              <Tab>Friends</Tab>
+              <Tab>Trips</Tab>
+              <Tab>Photos</Tab>
+            </Tabs>
+          </div>
+        </div>
+
+        {content}
       </div>
     );
   }

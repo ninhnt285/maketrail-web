@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 import { extendClassName } from 'libs/component';
 
@@ -8,11 +9,13 @@ import styles from './UserImage.scss';
 export default class UserImage extends Component {
   static propTypes = {
     user: PropTypes.object.isRequired,
-    size: PropTypes.number
+    size: PropTypes.number,
+    wrappLink: PropTypes.bool
   };
 
   static defaultProps = {
-    size: 50
+    size: 50,
+    wrappLink: true
   };
 
   render() {
@@ -25,6 +28,14 @@ export default class UserImage extends Component {
     } else {
       const sortName = this.props.user.fullName.match(/\b\w/g).join('').substring(0, 2);
       userImage = (<span>{sortName}</span>);
+    }
+
+    if (this.props.wrappLink) {
+      userImage = (
+        <Link to={`/profile/${user.id}`}>
+          {userImage}
+        </Link>
+      );
     }
 
     return (

@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 
+import { extendClassName } from 'libs/component';
+
 import AddFeedForm from './components/AddFeedForm';
 import Feed from './components/Feed';
-
 import styles from './Timeline.scss';
 
 class Timeline extends Component {
@@ -29,7 +30,7 @@ class Timeline extends Component {
     feeds.sort((a, b) => (a.node.createdAt < b.node.createdAt ? 1 : -1));
 
     return (
-      <div className={styles.root}>
+      <div className={extendClassName(this.props, styles.root)}>
         <AddFeedForm parentId={this.props.parentId} />
         {feeds.map(({ node: feed }) =>
           <Feed

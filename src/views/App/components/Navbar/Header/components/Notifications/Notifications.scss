@@ -34,6 +34,15 @@
     display: inline-block;
   }
 
+  .title {
+    font-weight: bold;
+    height: auto;
+    line-height: 16px;
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
   .viewMore {
     height: auto;
     line-height: 16px;

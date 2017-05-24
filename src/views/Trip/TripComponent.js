@@ -46,6 +46,7 @@ export default class TripComponent extends React.Component {
       case 0:
         content = (
           <Timeline
+            className={styles.timeline}
             parentId={this.props.viewer.Trip.id}
           />
         );

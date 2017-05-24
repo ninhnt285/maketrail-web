@@ -4,22 +4,20 @@ import Profile from './ProfileComponent';
 
 export default Relay.createContainer(Profile, {
   initialVariables: {
-    userId: null,
-    mapId: null
+    userId: null
   },
 
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        id,
+        user {
+          id
+        }
+
         User(id: $userId) {
           id
           fullName
-        }
-        mapAreas(id: $mapId, userId: $userId) {
-          code
-          name
-          status
+          profilePicUrl
         }
       }
     `
