@@ -5,7 +5,7 @@ import { Button, Tabs, Tab } from 'react-mdl';
 
 import Map from 'components/Map';
 import Timeline from 'components/Timeline';
-import AddFriendMutation from 'mutations/Friend/AddFriendMutation';
+import FollowMutation from 'mutations/Follow/FollowMutation';
 
 import styles from './Profile.scss';
 
@@ -21,15 +21,15 @@ export default class ProfileComponent extends Component {
       activeTab: 0
     };
 
-    this.onAddFriend = this.onAddFriend.bind(this);
+    this.onFollow = this.onFollow.bind(this);
   }
 
-  onAddFriend() {
-    const addFriendMutation = new AddFriendMutation({
+  onFollow() {
+    const followMutation = new FollowMutation({
       userId: this.props.viewer.User.id
     });
 
-    Relay.Store.commitUpdate(addFriendMutation);
+    Relay.Store.commitUpdate(followMutation);
   }
 
   render() {
@@ -57,8 +57,8 @@ export default class ProfileComponent extends Component {
             </div>
 
             <div className={styles.actions}>
-              {!user.isFriend && (user.id !== me.id) &&
-                <Button onClick={this.onAddFriend} colored raised ripple className={styles.addFriend}>Add Friend</Button>
+              {!user.isFollowed && (user.id !== me.id) &&
+                <Button onClick={this.onFollow} colored raised ripple className={styles.addFriend}>Follow</Button>
               }
             </div>
 

@@ -16,7 +16,9 @@ export default Relay.createContainer(Profile, {
 
         User(id: $userId) {
           id
+          username
           fullName
+          isFollowed
           profilePicUrl
         }
       }

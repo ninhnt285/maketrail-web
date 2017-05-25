@@ -19,10 +19,6 @@ const htmlTemplate = new HtmlWebpackPlugin({
 });
 const favIcon = new FaviconsWebpackPlugin('./src/assets/favicon.png');
 
-function rootAlias(d) {
-  return path.resolve(__dirname, 'src', d);
-}
-
 if (process.env.NODE_ENV === 'production') {
   appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
