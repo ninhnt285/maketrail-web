@@ -61,27 +61,6 @@
   }
 }
 
-:global(.red) {
-    background-color: $team-red;
-}
-:global(.green) {
-  background-color: $team-green;
-}
-:global(.blue) {
-  background-color: $team-blue;
-}
-:global(.blue-dark) {
-  background-color: $team-blue-dard;
-}
-:global(.brown) {
-  background-color: $team-brown;
-}
-:global(.brown-dark) {
-  background-color: $team-brown-dark;
-}
-:global(.team-disable) {
-  background-color: #BBB;
-}
 :global(.skylight-dialog) {
   :global(.skylight-close-button) {
     color: $white;

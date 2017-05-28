@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 
 import Timeline from 'components/Timeline';
 
+// import MyTrips from './components/MyTrips';
 import Greeting from './components/Greeting';
-import MyTrips from './components/MyTrips';
+import Suggestion from './components/Suggestion';
 import styles from './Home.scss';
 
 export default class Home extends React.Component {
@@ -21,12 +22,17 @@ export default class Home extends React.Component {
       return (<Greeting />);
     }
 
+    let suggestUsers = [];
+    if (this.props.viewer.suggestFollows) {
+      suggestUsers = this.props.viewer.suggestFollows.edges;
+    }
+
     return (
       <div className={`${styles.root} clearfix`}>
-        <div className={styles.leftColumn}>
-          <MyTrips trips={this.props.viewer.allTrips.edges} />
-        </div>
         <div className={styles.content}>
+          {suggestUsers.length > 0 &&
+            <Suggestion users={suggestUsers} />
+          }
           <Timeline />
         </div>
       </div>

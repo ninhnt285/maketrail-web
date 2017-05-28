@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import { extendClassName } from 'libs/component';
+import { extendClassName, extendStyle } from 'libs/component';
 
 import styles from './UserImage.scss';
 
@@ -20,7 +20,6 @@ export default class UserImage extends Component {
 
   render() {
     const { user } = this.props;
-    const className = extendClassName(this.props, `${styles.root} ${styles[`size${this.props.size}`]}`);
 
     let userImage = null;
     if (user.profilePicUrl) {
@@ -39,7 +38,10 @@ export default class UserImage extends Component {
     }
 
     return (
-      <div className={className}>
+      <div
+        className={extendClassName(this.props, `${styles.root} ${styles[`size${this.props.size}`]}`)}
+        style={extendStyle(this.props, {})}
+      >
         {userImage}
       </div>
     );

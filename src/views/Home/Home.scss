@@ -2,7 +2,7 @@
 
 .root {
   width: 100%;
-  max-width: 1250px;
+  max-width: 600px;
   margin: 0 auto;
   padding: 10px 0;
 
@@ -10,27 +10,32 @@
     text-decoration: none;
   }
 
-  .leftColumn {
-    width: 300px;
-    float: left;
-  }
+  // .leftColumn {
+  //   width: 300px;
+  //   float: left;
+  // }
+  //
+  // .content {
+  //   margin-left: 10px;
+  //   width: calc(100% - 310px);
+  //   float: left;
+  // }
 
   .content {
-    margin-left: 10px;
-    width: calc(100% - 310px);
-    float: left;
+    width: 100%;
+    margin: 0 auto;
   }
 }
 
 @media only screen and (max-width: 800px) {
   .root {
-    .leftColumn {
-      display: none;
-    }
-
-    .content {
-      width: 100%;
-      margin-left: 0;
-    }
+    // .leftColumn {
+    //   display: none;
+    // }
+    //
+    // .content {
+    //   width: 100%;
+    //   margin-left: 0;
+    // }
   }
 }

@@ -9,14 +9,19 @@ export default Relay.createContainer(Home, {
         user {
           id
         }
-        allTrips(first:1) {
+
+        suggestFollows(first: 5) {
           edges {
             node {
               id
-              name
+              username
+              fullName
+              profilePicUrl
+              isFollowed
             }
           }
         }
-      }`
+      }
+    `
   }
 });

@@ -1,0 +1,66 @@
+@import 'src/variables.scss';
+
+.root {
+  @extend .borderBox;
+  margin-bottom: 10px;
+
+  .header {
+    padding: 16px 12px 8px;
+    border-bottom: solid 1px #efefef;
+  }
+
+  .title {
+    display: inline-block;
+    color: #999;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin: 0px;
+    line-height: 18px;
+    padding: 0px;
+  }
+
+  .viewMore {
+    float: right;
+  }
+
+  .suggesstionRow {
+    padding: 8px 16px;
+    border-bottom: solid 1px #efefef;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  .userImage {
+    float: left;
+    line-height: 36px;
+    margin-right: 10px;
+    background-color: transparent;
+  }
+
+  .userInfo {
+    display: inline-block;
+
+    a, p {
+      line-height: 18px;
+      margin: 0px;
+    }
+
+    p {
+      color: #999;
+      font-size: 13px;
+    }
+  }
+
+  .followBtn {
+    color: #FFF;
+    float: right;
+    height: 24px;
+    line-height: 26px;
+    font-size: 11px;
+    display: inline-block;
+    margin-top: 6px;
+  }
+}

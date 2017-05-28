@@ -40,7 +40,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    this.loadFbSdk();
+    // this.loadFbSdk();
   }
 
   render() {
