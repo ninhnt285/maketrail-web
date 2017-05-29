@@ -11,6 +11,7 @@ export default Relay.createContainer(Trips, {
             node {
               id
               name
+              previewPhotoUrl
             }
           }
         }

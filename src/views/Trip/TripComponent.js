@@ -6,7 +6,6 @@ import { Tabs, Tab, Grid, Cell } from 'react-mdl';
 import LocalityFinder from 'components/LocalityFinder';
 import Timeline from 'components/Timeline';
 import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutation';
-import coverPhoto from 'assets/trip-cover/cover1.jpg';
 
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
@@ -39,7 +38,8 @@ export default class TripComponent extends React.Component {
   }
 
   render() {
-    const localities = this.props.viewer.Trip.localities.edges;
+    const { Trip } = this.props.viewer;
+    const localities = Trip.localities.edges;
 
     let content = null;
     switch (this.state.activeTab) {
@@ -47,7 +47,7 @@ export default class TripComponent extends React.Component {
         content = (
           <Timeline
             className={styles.timeline}
-            parentId={this.props.viewer.Trip.id}
+            parentId={Trip.id}
           />
         );
         break;
@@ -68,8 +68,8 @@ export default class TripComponent extends React.Component {
       case 2:
         content = (
           <MemberManager
-            tripId={this.props.viewer.Trip.id}
-            members={this.props.viewer.Trip.members}
+            tripId={Trip.id}
+            members={Trip.members}
           />
         );
         break;
@@ -86,9 +86,9 @@ export default class TripComponent extends React.Component {
             </div>
           }
           {localities.length === 0 &&
-            <img src={coverPhoto} alt={this.props.viewer.Trip.name} />
+            <img src={Trip.previewPhotoUrl.replace('%s', '')} alt={Trip.name} />
           }
-          <h1>{this.props.viewer.Trip.name}</h1>
+          <h1>{Trip.name}</h1>
         </div>
 
         <Tabs style={{ backgroundColor: '#FFF' }} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>

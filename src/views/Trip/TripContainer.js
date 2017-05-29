@@ -15,6 +15,7 @@ export default Relay.createContainer(Trip, {
         Trip(id: $tripId) {
           id
           name
+          previewPhotoUrl
           members(first: 10) {
             edges {
               node {

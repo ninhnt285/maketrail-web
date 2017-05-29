@@ -5,7 +5,6 @@ import { Button } from 'react-mdl';
 import { Link } from 'react-router';
 
 import AddTripMutation from 'mutations/Trip/AddTripMutation';
-import coverPhoto from 'assets/trip-cover/cover2.jpg';
 
 import styles from './Trips.scss';
 
@@ -54,7 +53,7 @@ export default class Trips extends React.Component {
         <div className={styles.trips}>
           {trips.map(edge =>
             <Link key={edge.node.id} className={styles.trip} to={`/trip/${edge.node.id}`}>
-              <img src={coverPhoto} alt='Trip Cover' />
+              <img src={edge.node.previewPhotoUrl.replace('%s', '')} alt='Trip Cover' />
               <div className={styles.tripDetail}>
                 <p>{edge.node.name}</p>
               </div>

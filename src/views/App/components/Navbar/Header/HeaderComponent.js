@@ -52,7 +52,7 @@ export default class HeaderComponent extends React.Component {
               <div className={styles.fullname}>{fullName}</div>
             </Button>
             <Menu target='user_menu'>
-              <MenuItem><Link to='trips'>All Trips</Link></MenuItem>
+              <MenuItem><Link to='/trips'>All Trips</Link></MenuItem>
               <MenuItem><Link to={`/profile/${user.id}`}>Profile</Link></MenuItem>
               <MenuItem><Link onClick={this.onSignout}>Logout</Link></MenuItem>
             </Menu>
