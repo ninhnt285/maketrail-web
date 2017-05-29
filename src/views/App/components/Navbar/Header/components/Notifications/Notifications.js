@@ -14,7 +14,7 @@ class Notifications extends Component {
   };
 
   render() {
-    const notifications = this.props.viewer.allNotifications.edges;
+    const notifications = this.props.viewer.allNotifications.data.edges;
 
     return (
       <div className={styles.root}>
@@ -60,20 +60,23 @@ export default Relay.createContainer(Notifications, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        allNotifications(first: 10) {
-          edges {
-            node {
-              id
-              from {
-                __typename
-                ... on User {
-                  id
-                  username
-                  fullName
-                  profilePicUrl
+        allNotifications {
+          unread
+          data(first: 10) {
+            edges {
+              node {
+                id
+                from {
+                  __typename
+                  ... on User {
+                    id
+                    username
+                    fullName
+                    profilePicUrl
+                  }
                 }
+                type
               }
-              type
             }
           }
         }
