@@ -7,7 +7,8 @@
     "lint": "eslint --ignore-path .gitignore src",
     "start": "webpack-dev-server --inline --history-api-fallback --port 4000",
     "build": "npm run clean && NODE_ENV=production webpack --config webpack.config.js",
-    "clean": "rm -rf build && mkdir build"
+    "clean": "rm -rf build && mkdir build",
+    "build-dev": "npm run clean && NODE_ENV=localhost webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",

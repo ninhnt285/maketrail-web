@@ -24,9 +24,7 @@ class Notifications extends Component {
           </Badge>
         }
         {notifications.length === 0 &&
-          <Badge text='2' overlap>
-            <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
-          </Badge>
+          <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
         }
         <Menu target='global_notifications' align='right'>
           <MenuItem className={styles.title}>

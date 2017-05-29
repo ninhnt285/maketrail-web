@@ -10,6 +10,7 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 let appEntry;
 let devtool;
 let plugins;
+let publicPath;
 
 const htmlTemplate = new HtmlWebpackPlugin({
   title: 'Maketrail.com',
@@ -17,9 +18,34 @@ const htmlTemplate = new HtmlWebpackPlugin({
   mobile: true,
   inject: false
 });
-const favIcon = new FaviconsWebpackPlugin('./src/assets/favicon.png');
+const favIcon = new FaviconsWebpackPlugin({
+  logo: './src/assets/favicon.png',
+  prefix: 'icons/'
+});
 
 if (process.env.NODE_ENV === 'production') {
+  publicPath = '//cdn.maketrail.com/';
+  appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
+  devtool = 'source-map';
+  plugins = [
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendor', filename: 'vendor.js'}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+        screw_ie8: true
+      }
+    }),
+    htmlTemplate,
+    favIcon
+  ];
+} else if (process.env.NODE_ENV === 'localhost') {
+  publicPath = '//localhost:4000/';
   appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
   plugins = [
@@ -40,6 +66,7 @@ if (process.env.NODE_ENV === 'production') {
     favIcon
   ];
 } else {
+  publicPath = '//localhost:4000/';
   appEntry = ['babel-polyfill', path.join(__dirname, 'src/index.js')];
   devtool = 'source-map';
   plugins = [
@@ -63,7 +90,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, 'build'),
-    publicPath: '/',
+    publicPath,
     filename: '[name].js'
   },
 
