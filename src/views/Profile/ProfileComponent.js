@@ -64,9 +64,7 @@ export default class ProfileComponent extends Component {
 
             <Tabs className={styles.profileTabs} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
               <Tab>Timeline</Tab>
-              <Tab>Friends</Tab>
               <Tab>Trips</Tab>
-              <Tab>Photos</Tab>
             </Tabs>
           </div>
         </div>

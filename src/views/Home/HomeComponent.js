@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Timeline from 'components/Timeline';
 
-// import MyTrips from './components/MyTrips';
 import Greeting from './components/Greeting';
+import UserInfo from './components/UserInfo';
 import Suggestion from './components/Suggestion';
 import styles from './Home.scss';
 
@@ -18,6 +18,8 @@ export default class Home extends React.Component {
   };
 
   render() {
+    const { user } = this.props.viewer;
+
     if (!this.props.viewer.user) {
       return (<Greeting />);
     }
@@ -29,6 +31,9 @@ export default class Home extends React.Component {
 
     return (
       <div className={`${styles.root} clearfix`}>
+        <div className={styles.leftColumn}>
+          <UserInfo user={user} />
+        </div>
         <div className={styles.content}>
           {suggestUsers.length > 0 &&
             <Suggestion users={suggestUsers} />

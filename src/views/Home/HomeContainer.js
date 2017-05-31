@@ -1,13 +1,15 @@
 import Relay from 'react-relay';
+
 import Home from './HomeComponent';
+import UserInfo from './components/UserInfo';
 
 export default Relay.createContainer(Home, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        id
         user {
           id
+          ${UserInfo.getFragment('user')}
         }
 
         suggestFollows(first: 5) {
