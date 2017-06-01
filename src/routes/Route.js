@@ -10,12 +10,14 @@ import TripsContainer from 'views/Trips/TripsContainer';
 import TripContainer from 'views/Trip/TripContainer';
 import ProfileContainer from 'views/Profile/ProfileContainer';
 import PhotosContainer from 'views/Photos/PhotosContainer';
+import ExploreContainer from 'views/Explore/ExploreContainer';
 
 export default (
   <Route path='/' component={AppContainer} queries={ViewerQuery}>
     <IndexRoute component={HomeContainer} queries={ViewerQuery} />
     <Route path='/login' component={LoginComponent} />
     <Route path='/register' component={RegisterComponent} />
+    <Route path='/explore' component={ExploreContainer} queries={ViewerQuery} />
     <Route path='/trips' component={TripsContainer} queries={ViewerQuery} />
     <Route path='/trip/:tripId' component={TripContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId' component={ProfileContainer} queries={ViewerQuery} />

@@ -1,0 +1,50 @@
+@import 'src/variables.scss';
+
+.root {
+  margin: 12px auto 0;
+  width: 100%;
+  max-width: 900px;
+
+  .leftColumn {
+    width: 300px;
+    float: left;
+  }
+
+  .content {
+    margin-left: 10px;
+    width: calc(100% - 310px);
+    float: left;
+  }
+
+  .trip {
+    @extend .borderBox;
+    margin-bottom: 12px;
+    width: 100%;
+    box-sizing: border-box;
+
+    .previewImg {
+      width: 100%;
+      height: auto;
+    }
+
+    .tripContent {
+      padding: 12px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    h3.tripTitle {
+      font-weight: bold;
+      font-size: 16px;
+      margin: 0;
+      line-height: 20px;
+    }
+
+    p.tripDetailRow {
+      margin: 6px 0 0;
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+}
