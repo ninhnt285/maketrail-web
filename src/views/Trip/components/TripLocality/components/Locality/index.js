@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 import Rating from 'react-rating';
+import moment from 'moment';
 import { IconButton, Menu, MenuItem } from 'react-mdl';
 
 import Modal from 'components/Modal';
@@ -15,6 +16,7 @@ class Locality extends Component {
   static propTypes = {
     locality: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
+    arrivalTime: PropTypes.number.isRequired,
     tripLocalityId: PropTypes.string.isRequired
   };
 
@@ -62,6 +64,8 @@ class Locality extends Component {
       }
     ];
 
+    const arrivalTime = moment.unix(this.props.arrivalTime);
+
     return (
       <div className={styles.root}>
         <Modal
@@ -72,7 +76,7 @@ class Locality extends Component {
           <WeatherCalendar
             tripLocalityId={this.props.tripLocalityId}
             location={this.props.locality.location}
-            selectedDateUnix={1495774077}
+            selectedDateUnix={this.props.arrivalTime}
           />
         </Modal>
 
@@ -83,7 +87,7 @@ class Locality extends Component {
               alt={locality.name}
             />
 
-            <span className={styles.date}>May<br />26</span>
+            <span className={styles.date}>{arrivalTime.format('MMM')}<br />{arrivalTime.format('DD')}</span>
           </div>
           <div className={styles.detail}>
             <div className={styles.actions}>
