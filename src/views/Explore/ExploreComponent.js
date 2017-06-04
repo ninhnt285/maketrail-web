@@ -10,8 +10,8 @@ export default class Explore extends Component {
   };
 
   render() {
-    const { allTrips } = this.props.viewer;
-
+    const { searchTrip } = this.props.viewer;
+    console.log(searchTrip);
     const trips = [
       {
         id: '1',

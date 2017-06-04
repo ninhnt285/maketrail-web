@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Menu, MenuItem, IconButton } from 'react-mdl';
+import { Button, Menu, MenuItem } from 'react-mdl';
 import { Link } from 'react-router';
 
 import Notifications from './components/Notifications';
 import styles from './Header.scss';
-import notificationStyles from './components/Notifications/Notifications.scss';
+// import notificationStyles from './components/Notifications/Notifications.scss';
 
 export default class HeaderComponent extends React.Component {
   static propTypes = {
@@ -43,9 +43,9 @@ export default class HeaderComponent extends React.Component {
         <div className={styles.root}>
           <Link to='/' className={styles.logo} />
           <div className={styles.link}>
-            <Link className={notificationStyles.notificationBtn} to='/explore'>
+            {/* <Link className={notificationStyles.notificationBtn} to='/explore'>
               <IconButton style={{ color: '#FFF' }} name='map' />
-            </Link>
+            </Link> */}
             <Notifications />
             <Button className={styles.name} id='user_menu'>
               <div className={styles.shortName}>{sortName}</div>

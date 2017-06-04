@@ -12,6 +12,7 @@ export default class NotificationsRoot extends Component {
         renderFetched={data =>
           <Notifications {...data} {...this.props} />
         }
+        renderLoading={() => (<span />)}
       />
     );
   }

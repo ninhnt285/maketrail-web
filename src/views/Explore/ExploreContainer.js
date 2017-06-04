@@ -6,7 +6,7 @@ export default Relay.createContainer(Explore, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        allTrips(first: 4) {
+        searchTrip(first: 10) {
           edges {
             node {
               id

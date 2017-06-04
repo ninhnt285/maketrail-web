@@ -1,7 +1,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Tabs, Tab, Grid, Cell } from 'react-mdl';
+import { Tabs, Tab, Grid, Cell, IconButton, Menu, MenuItem } from 'react-mdl';
 
 import LocalityFinder from 'components/LocalityFinder';
 import Timeline from 'components/Timeline';
@@ -88,10 +88,18 @@ export default class TripComponent extends React.Component {
           {localities.length === 0 &&
             <img src={Trip.previewPhotoUrl.replace('%s', '')} alt={Trip.name} />
           }
-          <h1>{Trip.name}</h1>
         </div>
 
-        <Tabs style={{ backgroundColor: '#FFF' }} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
+        <div className={styles.tripDetail}>
+          <h1>{Trip.name}</h1>
+          <IconButton className={styles.settingBtn} name='settings' id='tripSettings' />
+          <Menu target='tripSettings' align='right'>
+            <MenuItem>Edit Name</MenuItem>
+            <MenuItem>Export video</MenuItem>
+          </Menu>
+        </div>
+
+        <Tabs className={styles.headerTab} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
           <Tab>Timeline</Tab>
           <Tab>Plan</Tab>
           <Tab>Members</Tab>
