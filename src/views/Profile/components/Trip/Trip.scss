@@ -1,0 +1,24 @@
+@import 'src/variables.scss';
+
+.root {
+  margin: 0 auto 12px;
+  width: 100%;
+  max-width: 500px;
+  @extend .borderBox;
+
+  .previewPhoto {
+    width: 100%;
+    height: auto;
+  }
+
+  .content {
+    padding: 8px;
+  }
+
+  h3.title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 20px;
+  }
+}

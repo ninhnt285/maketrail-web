@@ -17,7 +17,7 @@
   .timelineHeadline {
     position: relative;
     width: 100%;
-    z-index: 4;
+    z-index: 0;
     min-height: 41px;
   }
 
@@ -58,5 +58,10 @@
     background-color: rgb(255, 255, 255);
     padding-left: 200px;
     width: calc(100% - 200px);
+  }
+
+  .tripsBlock {
+    width: 100%;
+    margin: 12px auto;
   }
 }

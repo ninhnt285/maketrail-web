@@ -1,11 +1,12 @@
 import React from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Tabs, Tab, Grid, Cell, IconButton, Menu, MenuItem } from 'react-mdl';
+import { Tabs, Tab, Grid, Cell, IconButton, Button, Menu, MenuItem } from 'react-mdl';
 
 import LocalityFinder from 'components/LocalityFinder';
 import Timeline from 'components/Timeline';
 import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutation';
+import UpdateTripMutation from 'mutations/Trip/UpdateTripMutation';
 
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
@@ -24,6 +25,7 @@ export default class TripComponent extends React.Component {
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
+    this.onPublishTrip = this.onPublishTrip.bind(this);
   }
 
   onAddLocality(localityId) {
@@ -34,6 +36,17 @@ export default class TripComponent extends React.Component {
 
     Relay.Store.commitUpdate(
       addTripLocalityMutation
+    );
+  }
+
+  onPublishTrip() {
+    const updateTripMutation = new UpdateTripMutation({
+      id: this.props.viewer.Trip.id,
+      isPublished: true
+    });
+
+    Relay.Store.commitUpdate(
+      updateTripMutation
     );
   }
 
@@ -97,13 +110,21 @@ export default class TripComponent extends React.Component {
             <MenuItem>Edit Name</MenuItem>
             <MenuItem>Export video</MenuItem>
           </Menu>
+          {!Trip.isPublished &&
+            <Button
+              onClick={this.onPublishTrip}
+              style={{ color: 'white', marginTop: '12px' }}
+              raised colored ripple
+            >
+              Publish
+            </Button>
+          }
         </div>
 
         <Tabs className={styles.headerTab} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
           <Tab>Timeline</Tab>
           <Tab>Plan</Tab>
           <Tab>Members</Tab>
-          <Tab>Discuss</Tab>
         </Tabs>
 
         {content}

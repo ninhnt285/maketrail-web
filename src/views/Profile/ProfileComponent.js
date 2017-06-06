@@ -7,6 +7,7 @@ import Map from 'components/Map';
 import Timeline from 'components/Timeline';
 import FollowMutation from 'mutations/Follow/FollowMutation';
 
+import Trip from './components/Trip';
 import styles from './Profile.scss';
 
 export default class ProfileComponent extends Component {
@@ -43,6 +44,19 @@ export default class ProfileComponent extends Component {
           parentId={user.id}
         />);
         break;
+      case 1: {
+        const { edges: trips } = user.trips;
+        content = (
+          <div className={styles.tripsBlock}>
+            {trips.length > 0 &&
+              trips.map(({ node: trip }) =>
+                <Trip key={trip.id} trip={trip} />
+              )
+            }
+          </div>
+        );
+        break;
+      }
       default:
         content = null;
     }
