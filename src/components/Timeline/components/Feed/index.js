@@ -61,7 +61,12 @@ class Feed extends Component {
             </div>
           }
         </div>
-        <FeedLinks onShowComment={this.onShowComment} />
+        <FeedLinks
+          onShowComment={this.onShowComment}
+          parentId={feed.id}
+          isLiked={feed.isLiked}
+          statistics={feed.statistics}
+        />
         <CommentBox showComment={this.state.showComment} parentId={feed.id} />
       </div>
     );
@@ -76,6 +81,7 @@ export default Relay.createContainer(Feed, {
         text
         privacy
         createdAt
+        isLiked
         from {
           ... on User {
             id
@@ -83,6 +89,11 @@ export default Relay.createContainer(Feed, {
             fullName
             profilePicUrl
           }
+        }
+        statistics {
+          likeCount
+          shareCount
+          commentCount
         }
         attachments(first: 5) {
           edges {

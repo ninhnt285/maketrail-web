@@ -6,6 +6,7 @@ import { Button, Tabs, Tab } from 'react-mdl';
 import Map from 'components/Map';
 import Timeline from 'components/Timeline';
 import FollowMutation from 'mutations/Follow/FollowMutation';
+import UnfollowMutation from 'mutations/Follow/UnfollowMutation';
 
 import Trip from './components/Trip';
 import styles from './Profile.scss';
@@ -31,6 +32,13 @@ export default class ProfileComponent extends Component {
     });
 
     Relay.Store.commitUpdate(followMutation);
+  }
+  onUnfollow() {
+    const unfollowMutation = new UnfollowMutation({
+      userId: this.props.viewer.User.id
+    });
+
+    Relay.Store.commitUpdate(unfollowMutation);
   }
 
   render() {
@@ -73,6 +81,9 @@ export default class ProfileComponent extends Component {
             <div className={styles.actions}>
               {!user.isFollowed && (user.id !== me.id) &&
                 <Button onClick={this.onFollow} colored raised ripple className={styles.addFriend}>Follow</Button>
+              }
+              {user.isFollowed && (user.id !== me.id) &&
+                <Button onClick={() => this.onUnfollow()} colored raised ripple className={styles.addFriend}>Unfollow</Button>
               }
             </div>
 

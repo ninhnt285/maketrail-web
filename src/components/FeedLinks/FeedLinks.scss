@@ -1,7 +1,14 @@
+@import 'src/variables.scss';
+
 .root {
   background-color: #FFF;
   padding: 0px 12px;
-
+  .statistics {
+    margin-bottom: 6px;
+    color: #4b4f56;
+    font-size: 12px;
+    font-weight: bold;
+  }
   .content {
     color: #4b4f56;
     border-top: 1px solid #e5e5e5;
@@ -9,6 +16,16 @@
   }
 
   .link {
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 20px;
+    padding: 4px 4px 4px 0;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+  }
+  .isLiked {
+    color: $blue;
     font-size: 12px;
     font-weight: bold;
     margin-right: 20px;

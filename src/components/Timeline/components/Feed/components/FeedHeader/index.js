@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import UserImage from 'components/UserImage';
+import UserFullName from 'components/UserFullName';
 
 import styles from './FeedHeader.scss';
 
@@ -23,9 +24,7 @@ export default class FeedHeader extends Component {
           size={40}
         />
         <div className={styles.detail}>
-          <span className={styles.userLink}>
-            {user.fullName}
-          </span>
+          <UserFullName user={user} />
           <div className={styles.dateTime}>
             <span>
               {moment.unix(this.props.timestamp).format('dddd, MMMM D YYYY [at] h:mm:ss a')}
