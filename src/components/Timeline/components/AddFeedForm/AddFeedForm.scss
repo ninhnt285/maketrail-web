@@ -27,10 +27,15 @@
       box-shadow: 0 0 5px #666;
     }
   }
-}
-
-.root :global {
-  .mdl-button {
-    color: #FFF;
+  .checkinAddressBox{
+    margin-bottom: 10px;
+    .checkinAddress {
+      color: #365899;
+    }
+  }
+  .func :global {
+    .mdl-button{
+      color: #FFF;
+    }
   }
 }

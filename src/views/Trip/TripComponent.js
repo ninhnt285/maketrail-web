@@ -28,7 +28,7 @@ export default class TripComponent extends React.Component {
     this.onPublishTrip = this.onPublishTrip.bind(this);
   }
 
-  onAddLocality(localityId) {
+  onAddLocality(localityId, name) {
     const addTripLocalityMutation = new AddTripLocalityMutation({
       tripId: this.props.viewer.Trip.id,
       localityId

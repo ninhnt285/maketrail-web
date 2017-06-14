@@ -11,9 +11,8 @@ class LocalityFinder extends Component {
   static propTypes = {
     viewer: PropTypes.object.isRequired,
     relay: PropTypes.object.isRequired,
-    onAddLocality: PropTypes.func.isRequired
+    onAddLocality: PropTypes.func.isRequired,
   };
-
   constructor(props) {
     super(props);
 
@@ -51,9 +50,9 @@ class LocalityFinder extends Component {
     }
   }
 
-  onAddLocality(localityId) {
+  onAddLocality(localityId, name) {
     this.localityInput.inputRef.value = '';
-    this.props.onAddLocality(localityId);
+    this.props.onAddLocality(localityId, name);
     this.query = '';
     this.forceUpdate();
   }
@@ -79,7 +78,7 @@ class LocalityFinder extends Component {
               <Button
                 key={edge.node.id}
                 className={styles.localityWrapper}
-                onClick={this.onAddLocality.bind(this, edge.node.id)}
+                onClick={this.onAddLocality.bind(this, edge.node.id, edge.node.name)}
               >
                 {edge.node.previewPhotoUrl &&
                   <img src={`${edge.node.previewPhotoUrl.replace('%s', '_150_square')}`} alt={edge.node.name} />

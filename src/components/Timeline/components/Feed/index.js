@@ -25,7 +25,6 @@ class Feed extends Component {
   onShowComment() {
     this.setState({ showComment: true });
   }
-
   render() {
     const { feed } = this.props;
     const attachments = feed.attachments.edges;

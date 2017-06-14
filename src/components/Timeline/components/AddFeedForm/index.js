@@ -7,6 +7,8 @@ import Dropzone from 'react-dropzone';
 import AddAttachmentMutation from 'mutations/Attachment/AddAttachmentMutation';
 import AddFeedMutation from 'mutations/Feed/AddFeedMutation';
 
+import LocalityFinder from 'components/LocalityFinder';
+
 import styles from './AddFeedForm.scss';
 
 export default class AddFeedForm extends Component {
@@ -23,7 +25,9 @@ export default class AddFeedForm extends Component {
 
     this.state = {
       text: '',
-      attachments: []
+      attachments: [],
+      checkin: '',
+      isShowCheckinBox: false,
     };
 
     this.onDrop = this.onDrop.bind(this);
@@ -60,7 +64,9 @@ export default class AddFeedForm extends Component {
   onTextChange(event) {
     this.setState({ text: event.target.value });
   }
-
+  onShowCheckinBox() {
+    this.setState({ isShowCheckinBox: true });
+  }
   onSubmit() {
     const attachmentIds = [];
     this.state.attachments.map((attachment) => {
@@ -80,7 +86,9 @@ export default class AddFeedForm extends Component {
       }
     });
   }
-
+  onAddLocality(localityId, name) {
+    this.setState({ checkin: name, isShowCheckinBox: false });
+  }
   render() {
     return (
       <div className={styles.root}>
@@ -91,6 +99,14 @@ export default class AddFeedForm extends Component {
           rows={2}
           style={{ width: '100%' }}
         />
+        {this.state.isShowCheckinBox &&
+          <div className={styles.checkinBox}>
+            <LocalityFinder onAddLocality={(id, name) => this.onAddLocality(id, name)} />
+          </div>
+        }
+        {this.state.checkin &&
+          <div className={styles.checkinAddressBox}> — at <span className={styles.checkinAddress}>{this.state.checkin}</span>.</div>
+        }
         {this.state.attachments.length > 0 &&
           <div className={styles.previewWrapper}>
             {this.state.attachments.map(attachment =>
@@ -102,12 +118,14 @@ export default class AddFeedForm extends Component {
             )}
           </div>
         }
-        <Dropzone className={styles.uploadArea} onDrop={this.onDrop}>
-          <Button colored raised ripple>Photo/Video</Button>
-        </Dropzone>
-        <Button colored raised ripple>Check in</Button>
-        <br />
-        <Button style={{ marginTop: '10px' }} colored raised ripple onClick={this.onSubmit}>Submit</Button>
+        <div className={styles.func}>
+          <Dropzone className={styles.uploadArea} onDrop={this.onDrop}>
+            <Button colored raised ripple>Photo/Video</Button>
+          </Dropzone>
+          <Button colored raised ripple onClick={() => this.onShowCheckinBox()}>Check in</Button>
+          <br />
+          <Button style={{ marginTop: '10px' }} colored raised ripple onClick={this.onSubmit}>Submit</Button>
+        </div>
       </div>
     );
   }
