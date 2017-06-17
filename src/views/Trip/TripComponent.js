@@ -49,7 +49,13 @@ export default class TripComponent extends React.Component {
       updateTripMutation
     );
   }
-
+  onInviteFriends() {
+    console.log('onInviteFriends');
+    window.FB.ui({
+      method: 'send',
+      link: 'https://google.com',
+    });
+  }
   render() {
     const { Trip } = this.props.viewer;
     const localities = Trip.localities.edges;
@@ -109,6 +115,7 @@ export default class TripComponent extends React.Component {
           <Menu target='tripSettings' align='right'>
             <MenuItem>Edit Name</MenuItem>
             <MenuItem>Export video</MenuItem>
+            <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>
           </Menu>
           {!Trip.isPublished &&
             <Button
