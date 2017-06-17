@@ -28,7 +28,7 @@ export default class TripComponent extends React.Component {
     this.onPublishTrip = this.onPublishTrip.bind(this);
   }
 
-  onAddLocality(localityId, name) {
+  onAddLocality(localityId) {
     const addTripLocalityMutation = new AddTripLocalityMutation({
       tripId: this.props.viewer.Trip.id,
       localityId
@@ -50,10 +50,9 @@ export default class TripComponent extends React.Component {
     );
   }
   onInviteFriends() {
-    console.log('onInviteFriends');
     window.FB.ui({
       method: 'send',
-      link: 'https://google.com',
+      link: window.location.href,
     });
   }
   render() {
