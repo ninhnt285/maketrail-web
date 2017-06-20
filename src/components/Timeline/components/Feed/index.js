@@ -45,6 +45,7 @@ class Feed extends Component {
                   className={styles.attachment}
                   attachment={attachments[0].node}
                   singlePhoto
+                  feed={feed}
                 />
               }
 
@@ -54,6 +55,7 @@ class Feed extends Component {
                     key={edge.cursor}
                     className={styles.attachment}
                     attachment={edge.node}
+                    feed={feed}
                   />
                 )
               }

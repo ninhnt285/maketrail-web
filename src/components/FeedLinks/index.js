@@ -20,7 +20,7 @@ export default class FeedLinks extends Component {
       isLiked: this.props.isLiked,
       likeCount: this.props.statistics.likeCount,
       commentCount: this.props.statistics.commentCount,
-      shareCount: this.props.statistics.shareCount,
+      shareCount: 0, //this.props.statistics.shareCount,
     };
   }
   onDeleteLike() {
@@ -50,8 +50,9 @@ export default class FeedLinks extends Component {
     let statistics = '';
 
     statistics = (likeCount > 0) ? `${statistics} ${likeCount} like${(likeCount > 1) ? 's' : ''}` : statistics;
-    statistics = (commentCount > 0) ? `${statistics} ${'\u22C5'} ${commentCount} comment${(commentCount > 1) ? 's' : ''}` : statistics;
-    statistics = (shareCount > 0) ? `${statistics} ${'\u22C5'} ${shareCount} share${(shareCount > 1) ? 's' : ''}` : statistics;
+    if ((statistics) && (commentCount > 0)) { statistics = `${statistics} ${'\u22C5'}`; }
+    statistics = (commentCount > 0) ? `${statistics} ${commentCount} comment${(commentCount > 1) ? 's' : ''}` : statistics;
+    statistics = (shareCount > 0) ? `${statistics} ${shareCount} share${(shareCount > 1) ? 's' : ''}` : statistics;
 
     return (
       <div className={styles.root}>

@@ -8,12 +8,14 @@ export default class Modal extends Component {
     showModal: PropTypes.bool,
     onCloseModal: PropTypes.func,
     children: PropTypes.object.isRequired,
-    title: PropTypes.string
+    title: PropTypes.string,
+    isShowAttachment: PropTypes.bool,
   };
 
   static defaultProps = {
     showModal: false,
-    title: 'Popup',
+    title: null,
+    isShowAttachment: false,
     onCloseModal: () => {}
   };
 
@@ -28,15 +30,17 @@ export default class Modal extends Component {
         style={{
           overlay: { backgroundColor: 'rgba(0, 0, 0, 0.75)' },
           content: {
-            backgroundColor: '#e9ebee',
-            width: '600px',
+            backgroundColor: this.props.isShowAttachment ? 'white' : '#e9ebee',
+            width: this.props.isShowAttachment ? '800px' : '600px',
             maxWidth: 'calc(100% - 60px)',
             margin: '80px auto 0'
           }
         }}
       >
-        <h1 className={styles.title}>{this.props.title}</h1>
-        <div className={styles.content}>
+        {this.props.title &&
+          <h1 className={styles.title}>{this.props.title}</h1>
+        }
+        <div className={styles.content} style={{ paddingTop: this.props.title ? '50px' : '10px' }}>
           {this.props.children}
         </div>
       </ReactModal>
