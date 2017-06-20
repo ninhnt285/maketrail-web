@@ -44,26 +44,46 @@ class Attachment extends Component {
       defaultStyle = { width: '100%', height: 'auto' };
       parentId = feed.id;
     }
+    let typeVideo = '';
+    if (attachment.__typename === 'Video') {
+      typeVideo = `video/${attachment.filePathUrl.substring(attachment.filePathUrl.length - 3, attachment.filePathUrl.length)}`;
+    }
     return (
       <button
         style={extendStyle(this.props, defaultStyle)}
         className={extendClassName(this.props, styles.root)}
         onClick={() => this.showModal()}
       >
-        <img
-          src={singlePhoto ? attachment.filePathUrl.replace('%s', '') : attachment.previewUrl.replace('%s', '_500_square')}
-          alt={attachment.name}
-        />
+        {(attachment.__typename === 'Photo') &&
+          <img
+            src={singlePhoto ? attachment.filePathUrl.replace('%s', '') : attachment.previewUrl.replace('%s', '_500_square')}
+            alt={attachment.name}
+          />
+        }
+        {(attachment.__typename === 'Video') &&
+          <video width='100%' controls>
+            <source src={attachment.filePathUrl} type={typeVideo} />
+            <div>Your browser does not support HTML5 video.</div>
+          </video>
+        }
         <Modal
           showModal={this.state.showModal}
           onCloseModal={() => this.hideModal()}
           isShowAttachment
         >
           <div>
-            <img
-              src={attachment.filePathUrl.replace('%s', '')} alt={attachment.name}
-              style={{ display: 'inline-block', maxWidth: 'calc(100% - 300px)' }}
-            />
+            {(attachment.__typename === 'Photo') &&
+              <img
+                src={attachment.filePathUrl.replace('%s', '')} alt={attachment.name}
+                style={{ display: 'inline-block', maxWidth: 'calc(100% - 300px)' }}
+              />
+            }
+            {(attachment.__typename === 'Video') &&
+              <video width='calc(100% - 300px)' controls>
+                <source src={attachment.filePathUrl} type={typeVideo} />
+                <div>Your browser does not support HTML5 video.</div>
+              </video>
+            }
             <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
               <FeedHeader
                 user={feed.from}

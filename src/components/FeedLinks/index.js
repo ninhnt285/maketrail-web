@@ -20,7 +20,7 @@ export default class FeedLinks extends Component {
       isLiked: this.props.isLiked,
       likeCount: this.props.statistics.likeCount,
       commentCount: this.props.statistics.commentCount,
-      shareCount: 0, //this.props.statistics.shareCount,
+      shareCount: this.props.statistics.shareCount,
     };
   }
   onDeleteLike() {
