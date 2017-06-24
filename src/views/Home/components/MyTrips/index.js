@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import { extendClassName } from 'libs/component';
+
+import AddTripMutation from 'mutations/Trip/AddTripMutation';
 
 import styles from './MyTrips.scss';
 
@@ -10,7 +13,38 @@ export default class MyTrips extends Component {
   static propTypes = {
     trips: PropTypes.array.isRequired
   };
+  static contextTypes = {
+    router: PropTypes.object
+  };
+  constructor(props) {
+    super(props);
+    this.onAddTrip = this.onAddTrip.bind(this);
+  }
+  onAddTrip = (event) => {
+    event.preventDefault();
 
+    const title = 'Our Trip 2017';
+
+    const addTripMutation = new AddTripMutation({
+      title
+    });
+    Relay.Store.commitUpdate(
+      addTripMutation,
+      {
+        onSuccess: (response) => {
+          if (response.addTrip) {
+            this.context.router.push('/trips');
+            // const addTripPayload = response.addTrip;
+            // if (addTripPayload.edge) {
+            //   console.log('router push', router);
+            //   router.push(`/trip/${addTripPayload.edge.node.id}`);
+            // }
+          }
+          return false;
+        }
+      }
+    );
+  }
   render() {
     const { trips } = this.props;
     const className = extendClassName(this.props, styles.root);
@@ -34,7 +68,7 @@ export default class MyTrips extends Component {
 
     return (
       <div className={`${className} clearfix`}>
-        <button className={styles.addBtn}>
+        <button className={styles.addBtn} onClick={this.onAddTrip}>
           <i className='material-icons'>add</i>
         </button>
         <h3 className={styles.title}>My Trips</h3>

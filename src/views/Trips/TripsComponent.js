@@ -45,7 +45,6 @@ export default class Trips extends React.Component {
 
   render() {
     const trips = this.props.viewer.allTrips.edges;
-
     return (
       <div className={styles.root}>
         <Button onClick={this.onAddTrip} raised colored ripple style={{ color: '#EEE', margin: '0 0 15px', float: 'right' }}>New Trip</Button>

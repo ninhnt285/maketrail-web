@@ -7,6 +7,7 @@ import LocalityFinder from 'components/LocalityFinder';
 import Timeline from 'components/Timeline';
 import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutation';
 import UpdateTripMutation from 'mutations/Trip/UpdateTripMutation';
+import DeleteTripMutation from 'mutations/Trip/DeleteTripMutation';
 
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
@@ -16,19 +17,22 @@ export default class TripComponent extends React.Component {
   static propTypes = {
     viewer: PropTypes.object.isRequired
   }
-
+  static contextTypes = {
+    router: PropTypes.object
+  };
   constructor(props) {
     super(props);
 
     this.state = {
       activeTab: 0,
       name: this.props.viewer.Trip.name,
-      isInEditName: false,
+      isInEditName: (this.props.viewer.Trip.name === 'Our Trip 2017'),
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
     this.onPublishTrip = this.onPublishTrip.bind(this);
     this.onEditTripSubmit = this.onEditTripSubmit.bind(this);
+    this.onDeleteTrip = this.onDeleteTrip.bind(this);
   }
 
   onAddLocality(localityId) {
@@ -83,6 +87,21 @@ export default class TripComponent extends React.Component {
   onEditTrip() {
     this.setState({ isInEditName: true });
     this.nameInput.focus();
+  }
+  onDeleteTrip() {
+    const deleteTripMutation = new DeleteTripMutation({
+      tripId: this.props.viewer.Trip.id,
+    });
+
+    Relay.Store.commitUpdate(
+      deleteTripMutation,
+      {
+        onSuccess: (response) => {
+          this.context.router.goBack();
+          return false;
+        }
+      }
+    );
   }
   handleTripNameChange = (event) => {
     this.setState({
@@ -159,6 +178,7 @@ export default class TripComponent extends React.Component {
             <MenuItem onClick={() => this.onEditTrip()}>Edit Name</MenuItem>
             <MenuItem>Export video</MenuItem>
             <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>
+            <MenuItem onClick={this.onDeleteTrip}>Delete</MenuItem>
           </Menu>
           {!Trip.isPublished &&
             <Button

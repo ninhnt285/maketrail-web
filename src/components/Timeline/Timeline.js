@@ -29,7 +29,6 @@ class Timeline extends Component {
 
   loadMore() {
     const count = this.props.relay.variables.count + 2;
-    console.log('loadmore', count);
     this.props.relay.setVariables({
       count,
     });
@@ -38,8 +37,7 @@ class Timeline extends Component {
     const feeds = this.props.viewer.allFeeds.edges;
     // feeds.sort((a, b) => (a.node.createdAt < b.node.createdAt ? 1 : -1));
 
-    const count = this.props.relay.variables.count;
-    console.log('count', count, 'feed length', feeds.length);
+    // const count = this.props.relay.variables.count;
     return (
       <div className={extendClassName(this.props, styles.root)}>
         <AddFeedForm parentId={this.props.parentId} />
