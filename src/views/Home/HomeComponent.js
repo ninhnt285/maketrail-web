@@ -5,6 +5,7 @@ import Timeline from 'components/Timeline';
 
 import Greeting from './components/Greeting';
 import UserInfo from './components/UserInfo';
+import MyTrips from './components/MyTrips';
 import Suggestion from './components/Suggestion';
 import styles from './Home.scss';
 
@@ -33,6 +34,7 @@ export default class Home extends React.Component {
       <div className={`${styles.root} clearfix`}>
         <div className={styles.leftColumn}>
           <UserInfo user={user} />
+          <MyTrips className={styles.leftBlock} trips={user.trips.edges} />
         </div>
         <div className={styles.content}>
           {suggestUsers.length > 0 &&

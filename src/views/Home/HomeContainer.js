@@ -10,6 +10,15 @@ export default Relay.createContainer(Home, {
         user {
           id
           ${UserInfo.getFragment('user')}
+          trips(first:10) {
+            edges {
+              node {
+                id
+                name
+                previewPhotoUrl
+              }
+            }
+          }
         }
 
         suggestFollows(first: 5) {

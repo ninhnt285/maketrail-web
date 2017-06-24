@@ -1,10 +1,22 @@
 .root {
+  position: relative;
   padding: 12px;
   border: 1px solid;
   border-color: #e5e6e9 #dfe0e4 #d0d1d5;
   border-radius: 3px;
   margin-bottom: 10px;
   background-color: #FFFFFF;
+
+  .addBtn {
+    background: transparent;
+    border: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+    color: #00BCD4;
+    font-weight: bold;
+  }
 
   .title {
     margin: 0;

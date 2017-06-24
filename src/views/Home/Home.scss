@@ -20,6 +20,10 @@
     width: calc(100% - 310px);
     float: left;
   }
+
+  .leftBlock {
+    margin-top: 12px;
+  }
 }
 
 @media only screen and (max-width: 800px) {
