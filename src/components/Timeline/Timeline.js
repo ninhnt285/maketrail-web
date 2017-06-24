@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-
 import { extendClassName } from 'libs/component';
 
 import AddFeedForm from './components/AddFeedForm';
@@ -18,17 +17,29 @@ class Timeline extends Component {
   static defaultProps = {
     parentId: null
   };
-
+  constructor(props) {
+    super(props);
+    this.loadMore = this.loadMore.bind(this);
+  }
   componentDidMount() {
     const { relay, parentId } = this.props;
 
     relay.setVariables({ parentId });
   }
 
+  loadMore() {
+    const count = this.props.relay.variables.count + 2;
+    console.log('loadmore', count);
+    this.props.relay.setVariables({
+      count,
+    });
+  }
   render() {
     const feeds = this.props.viewer.allFeeds.edges;
-    feeds.sort((a, b) => (a.node.createdAt < b.node.createdAt ? 1 : -1));
+    // feeds.sort((a, b) => (a.node.createdAt < b.node.createdAt ? 1 : -1));
 
+    const count = this.props.relay.variables.count;
+    console.log('count', count, 'feed length', feeds.length);
     return (
       <div className={extendClassName(this.props, styles.root)}>
         <AddFeedForm parentId={this.props.parentId} />
@@ -45,13 +56,14 @@ class Timeline extends Component {
 
 export default Relay.createContainer(Timeline, {
   initialVariables: {
-    parentId: null
+    parentId: null,
+    count: 100,
   },
 
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        allFeeds(first: 100, toId: $parentId) {
+        allFeeds(first: $count, toId: $parentId) {
           edges {
             node {
               id

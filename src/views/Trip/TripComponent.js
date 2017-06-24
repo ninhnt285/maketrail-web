@@ -21,11 +21,14 @@ export default class TripComponent extends React.Component {
     super(props);
 
     this.state = {
-      activeTab: 0
+      activeTab: 0,
+      name: this.props.viewer.Trip.name,
+      isInEditName: false,
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
     this.onPublishTrip = this.onPublishTrip.bind(this);
+    this.onEditTripSubmit = this.onEditTripSubmit.bind(this);
   }
 
   onAddLocality(localityId) {
@@ -49,10 +52,41 @@ export default class TripComponent extends React.Component {
       updateTripMutation
     );
   }
+
+  onEditTripSubmit(event) {
+    event.preventDefault();
+    if (this.state.name === this.props.viewer.Trip.name) {
+      return;
+    }
+    const updateTripMutation = new UpdateTripMutation({
+      id: this.props.viewer.Trip.id,
+      name: this.state.name,
+    });
+
+    Relay.Store.commitUpdate(
+      updateTripMutation,
+      {
+        onSuccess: () => {
+          this.setState({ isInEditName: false });
+          return false;
+        }
+      }
+    );
+  }
+
   onInviteFriends() {
     window.FB.ui({
       method: 'send',
       link: window.location.href,
+    });
+  }
+  onEditTrip() {
+    this.setState({ isInEditName: true });
+    this.nameInput.focus();
+  }
+  handleTripNameChange = (event) => {
+    this.setState({
+      name: event.target.value,
     });
   }
   render() {
@@ -109,10 +143,20 @@ export default class TripComponent extends React.Component {
         </div>
 
         <div className={styles.tripDetail}>
-          <h1>{Trip.name}</h1>
+          <form onSubmit={this.onEditTripSubmit}>
+            <input
+              onChange={this.handleTripNameChange}
+              onBlur={this.onEditTripSubmit}
+              label='Name'
+              className={styles.nameTrip}
+              value={this.state.name}
+              ref={(input) => { this.nameInput = input; }}
+              autoFocus={this.state.isInEditName}
+            />
+          </form>
           <IconButton className={styles.settingBtn} name='settings' id='tripSettings' />
           <Menu target='tripSettings' align='right'>
-            <MenuItem>Edit Name</MenuItem>
+            <MenuItem onClick={() => this.onEditTrip()}>Edit Name</MenuItem>
             <MenuItem>Export video</MenuItem>
             <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>
           </Menu>
