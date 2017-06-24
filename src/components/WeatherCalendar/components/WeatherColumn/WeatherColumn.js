@@ -9,12 +9,20 @@ import styles from './WeatherColumn.scss';
 
 class WeatherColumn extends Component {
   static propTypes = {
-    viewer: PropTypes.object.isRequired
+    viewer: PropTypes.object.isRequired,
+    onLoaded: PropTypes.func,
   };
-
+  static defaultProps = {
+    onLoaded: null
+  }
+  componentDidMount() {
+    if (typeof this.props.onLoaded === 'function') {
+      const results = this.props.viewer.Weather.data;
+      this.props.onLoaded(results[0].icon);
+    }
+  }
   render() {
     const results = this.props.viewer.Weather.data;
-
     return (
       <div className={styles.root}>
         {results.length > 0 &&

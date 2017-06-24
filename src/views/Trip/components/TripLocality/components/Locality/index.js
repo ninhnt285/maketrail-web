@@ -17,14 +17,15 @@ class Locality extends Component {
     locality: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
     arrivalTime: PropTypes.number.isRequired,
-    tripLocalityId: PropTypes.string.isRequired
+    tripLocalityId: PropTypes.string.isRequired,
   };
 
   constructor(props) {
     super(props);
 
     this.state = {
-      showCalendar: false
+      showCalendar: false,
+      weatherIcon: 'sunny',
     };
 
     this.onOpenModal = this.onOpenModal.bind(this);
@@ -38,7 +39,10 @@ class Locality extends Component {
   onCloseModal(modalId) {
     this.setState({ [modalId]: false });
   }
-
+  onChangedDate(weatherIcon) {
+    console.log('tripLocality', weatherIcon);
+    this.setState({ showCalendar: false, weatherIcon });
+  }
   render() {
     const { locality } = this.props;
     const categories = [
@@ -77,6 +81,7 @@ class Locality extends Component {
             tripLocalityId={this.props.tripLocalityId}
             location={this.props.locality.location}
             selectedDateUnix={this.props.arrivalTime}
+            onChangedDate={weatherIcon => this.onChangedDate(weatherIcon)}
           />
         </Modal>
 
@@ -121,7 +126,7 @@ class Locality extends Component {
             </div>
             <div className={`${styles.detailRow} ${styles.weather}`}>
               <h4>Weather:</h4>
-              <WeatherIcon id='sunny' className={styles.weatherIcon} />
+              <WeatherIcon id={this.state.weatherIcon} className={styles.weatherIcon} />
             </div>
           </div>
         </div>

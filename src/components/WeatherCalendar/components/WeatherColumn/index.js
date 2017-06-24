@@ -9,9 +9,8 @@ import WeatherColumn from './WeatherColumn';
 export default class WeatherColumnRoot extends Component {
   static propTypes = {
     location: PropTypes.object.isRequired,
-    time: PropTypes.number.isRequired
+    time: PropTypes.number.isRequired,
   };
-
   render() {
     return (
       <Relay.RootContainer

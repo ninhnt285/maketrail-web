@@ -72,6 +72,7 @@ export default class TripComponent extends React.Component {
       {
         onSuccess: () => {
           this.setState({ isInEditName: false });
+          // this.nameInput.blur();
           return false;
         }
       }
@@ -85,7 +86,7 @@ export default class TripComponent extends React.Component {
     });
   }
   onEditTrip() {
-    this.setState({ isInEditName: true });
+    // this.setState({ isInEditName: true });
     this.nameInput.focus();
   }
   onDeleteTrip() {

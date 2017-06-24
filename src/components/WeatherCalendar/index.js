@@ -15,14 +15,18 @@ export default class WeatherCalendar extends Component {
   static propTypes = {
     tripLocalityId: PropTypes.string.isRequired,
     location: PropTypes.object.isRequired,
-    selectedDateUnix: PropTypes.number.isRequired
+    selectedDateUnix: PropTypes.number.isRequired,
+    onChangedDate: PropTypes.func,
   };
-
+  static defaultProps = {
+    onChangedDate: null
+  };
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedDate: moment.unix(this.props.selectedDateUnix)
+      selectedDate: moment.unix(this.props.selectedDateUnix),
+      selectedDateWeather: null,
     };
 
     this.onDateChange = this.onDateChange.bind(this);
@@ -33,7 +37,9 @@ export default class WeatherCalendar extends Component {
   onDateChange(date) {
     this.setState({ selectedDate: date });
   }
-
+  onLoadedSelectedDate(weatherIcon) {
+    this.setState({ selectedDateWeather: weatherIcon });
+  }
   getWeekTimeArr(selectedDate) {
     const date = selectedDate.clone();
     return [
@@ -53,7 +59,17 @@ export default class WeatherCalendar extends Component {
       arrivalTime: this.state.selectedDate.unix()
     });
 
-    Relay.Store.commitUpdate(updateTripLocalityMutation);
+    Relay.Store.commitUpdate(
+      updateTripLocalityMutation,
+      {
+        onSuccess: () => {
+          if (typeof this.props.onChangedDate === 'function') {
+            this.props.onChangedDate(this.state.selectedDateWeather);
+          }
+          return false;
+        }
+      }
+    );
   }
 
   renderDay(day) {
@@ -71,10 +87,9 @@ export default class WeatherCalendar extends Component {
   render() {
     const weekTime = this.getWeekTimeArr(this.state.selectedDate);
     const year = this.state.selectedDate.format('YYYY');
-
     return (
       <div className={styles.root}>
-        <Button onClick={this.submitArrivalTime} raised colored style={{ color: '#FFF', float: 'right' }}>Save</Button>
+        <Button onClick={() => this.submitArrivalTime()} raised colored style={{ color: '#FFF', float: 'right' }}>Save</Button>
         <div className='clearfix' />
         <DayPicker
           daySize={38}
@@ -103,11 +118,21 @@ export default class WeatherCalendar extends Component {
           </div>
 
           {weekTime.map(time =>
-            <WeatherColumn
-              key={time}
-              location={this.props.location}
-              time={time}
-            />
+            <div key={time}>
+              {(time === this.state.selectedDate.unix()) &&
+                <WeatherColumn
+                  location={this.props.location}
+                  time={time}
+                  onLoaded={weatherIcon => this.onLoadedSelectedDate(weatherIcon)}
+                />
+              }
+              {(time !== this.state.selectedDate.unix()) &&
+                <WeatherColumn
+                  location={this.props.location}
+                  time={time}
+                />
+              }
+            </div>
           )}
         </div>
       </div>

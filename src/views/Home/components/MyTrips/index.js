@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 
 import { extendClassName } from 'libs/component';
 
-import AddTripMutation from 'mutations/Trip/AddTripMutation';
+import AddTripMutationInUser from 'mutations/Trip/AddTripMutationInUser';
 
 import styles from './MyTrips.scss';
 
@@ -25,7 +25,7 @@ export default class MyTrips extends Component {
 
     const title = 'Our Trip 2017';
 
-    const addTripMutation = new AddTripMutation({
+    const addTripMutation = new AddTripMutationInUser({
       title
     });
     Relay.Store.commitUpdate(
