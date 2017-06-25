@@ -11,6 +11,7 @@ import DeleteTripMutation from 'mutations/Trip/DeleteTripMutation';
 
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
+import MediaManager from './components/MediaManager';
 import styles from './Trip.scss';
 
 export default class TripComponent extends React.Component {
@@ -145,6 +146,11 @@ export default class TripComponent extends React.Component {
           />
         );
         break;
+      case 3:
+        content = (
+          <MediaManager />
+        );
+        break;
       default:
         content = null;
     }
@@ -196,6 +202,7 @@ export default class TripComponent extends React.Component {
           <Tab>Timeline</Tab>
           <Tab>Plan</Tab>
           <Tab>Members</Tab>
+          <Tab>Photos/Videos</Tab>
         </Tabs>
 
         {content}
