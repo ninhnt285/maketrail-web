@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import uploadIcon from 'assets/upload-icon.png';
 import styles from './Venue.scss';
 
 export default class Venue extends Component {
@@ -22,6 +23,9 @@ export default class Venue extends Component {
             />
           </div>
         )}
+        <div className={`${styles.attachmentBox} ${styles.addBtn}`}>
+          <img className={styles.previewImg} src={uploadIcon} alt='Upload' />
+        </div>
       </div>
     );
   }

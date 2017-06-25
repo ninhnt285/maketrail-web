@@ -20,9 +20,18 @@
     padding: 1px;
   }
 
+  .addBtn {
+    background-color: #EEE;
+
+    .previewImg {
+      padding: 30%;
+    }
+  }
+
   .previewImg {
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
   }
 }
 
