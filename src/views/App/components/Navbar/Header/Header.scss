@@ -14,9 +14,9 @@
 
   .logo {
     font-size: 0px;
-    background: url('assets/logo.png') center no-repeat;
+    background: url('assets/logo.png') center center no-repeat;
     background-size: cover;
-    width: 200px;
+    width: 145px;
     height: 40px;
     text-indent: -900px;
     display: inline-block;
@@ -80,7 +80,8 @@
   .root {
     padding: 4px 15px;
     .logo {
-      background: url('assets/logo_symbol.png') center no-repeat;
+      background: url('assets/logo_symbol.png') center center no-repeat;
+      background-size: cover;
       width: 40px;
     }
   }
