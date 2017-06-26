@@ -113,7 +113,6 @@ export default class TripComponent extends React.Component {
   render() {
     const { Trip } = this.props.viewer;
     const localities = Trip.localities.edges;
-
     let content = null;
     switch (this.state.activeTab) {
       case 0:
@@ -121,6 +120,7 @@ export default class TripComponent extends React.Component {
           <Timeline
             className={styles.timeline}
             parentId={Trip.id}
+            places={Trip.allPlaces}
           />
         );
         break;
@@ -148,7 +148,7 @@ export default class TripComponent extends React.Component {
         break;
       case 3:
         content = (
-          <MediaManager />
+          <MediaManager attachments={Trip.allAttachments} localities={Trip.localities.edges} />
         );
         break;
       default:

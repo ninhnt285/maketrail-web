@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 import FeedLinks from 'components/FeedLinks';
 import CommentBox from 'components/CommentBox';
+import FeedHeader from 'components/FeedHeader';
+import Attachment from 'components/Attachment';
 
-import FeedHeader from './components/FeedHeader';
-import Attachment from './components/Attachment';
 import styles from './Feed.scss';
 
 class Feed extends Component {
@@ -36,6 +36,8 @@ class Feed extends Component {
             user={feed.from}
             timestamp={feed.createdAt}
             privacy={feed.privacy}
+            placeName={feed.placeName}
+            placeId={feed.placeId}
           />
           <p className={styles.status}>{feed.text}</p>
           {attachments.length > 0 &&
@@ -83,6 +85,8 @@ export default Relay.createContainer(Feed, {
         privacy
         createdAt
         isLiked
+        placeId
+        placeName
         from {
           ... on User {
             id

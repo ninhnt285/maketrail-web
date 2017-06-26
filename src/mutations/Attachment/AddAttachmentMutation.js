@@ -10,6 +10,13 @@ class AddAttachmentMutation extends Relay.Mutation {
   }
 
   getFiles() {
+    if (this.props.placeId) {
+      return {
+        file: this.props.file,
+        placeId: this.props.placeId,
+        placeName: this.props.placeName,
+      };
+    }
     return {
       file: this.props.file
     };

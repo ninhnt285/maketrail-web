@@ -8,16 +8,19 @@ import AddAttachmentMutation from 'mutations/Attachment/AddAttachmentMutation';
 import AddFeedMutation from 'mutations/Feed/AddFeedMutation';
 
 import LocalityFinder from 'components/LocalityFinder';
+import PlaceFinder from 'components/PlaceFinder';
 
 import styles from './AddFeedForm.scss';
 
 export default class AddFeedForm extends Component {
   static propTypes = {
-    parentId: PropTypes.string
+    parentId: PropTypes.string,
+    places: PropTypes.array,
   };
 
   static defaultProps = {
-    parentId: null
+    parentId: null,
+    places: [],
   };
 
   constructor(props) {
@@ -26,7 +29,8 @@ export default class AddFeedForm extends Component {
     this.state = {
       text: '',
       attachments: [],
-      checkin: '',
+      placeId: '',
+      placeName: '',
       isShowCheckinBox: false,
     };
 
@@ -77,17 +81,19 @@ export default class AddFeedForm extends Component {
     const addFeedMutation = new AddFeedMutation({
       parentId: this.props.parentId,
       text: this.state.text,
+      placeId: this.state.placeId,
+      placeName: this.state.placeName,
       attachmentIds
     });
 
     Relay.Store.commitUpdate(addFeedMutation, {
       onSuccess: () => {
-        this.setState({ text: '' });
+        this.setState({ text: '', attachments: [], placeId: '', placeName: '' });
       }
     });
   }
   onAddLocality(localityId, name) {
-    this.setState({ checkin: name, isShowCheckinBox: false });
+    this.setState({ placeId: localityId, placeName: name, isShowCheckinBox: false });
   }
   render() {
     return (
@@ -99,13 +105,18 @@ export default class AddFeedForm extends Component {
           rows={2}
           style={{ width: '100%' }}
         />
-        {this.state.isShowCheckinBox &&
+        {this.state.isShowCheckinBox && (this.props.places.length === 0) &&
           <div className={styles.checkinBox}>
             <LocalityFinder onAddLocality={(id, name) => this.onAddLocality(id, name)} />
           </div>
         }
-        {this.state.checkin &&
-          <div className={styles.checkinAddressBox}> — at <span className={styles.checkinAddress}>{this.state.checkin}</span>.</div>
+        {this.state.isShowCheckinBox && (this.props.places.length !== 0) &&
+          <div className={styles.checkinBox}>
+            <PlaceFinder onAddPlace={(id, name) => this.onAddLocality(id, name)} places={this.props.places} />
+          </div>
+        }
+        {this.state.placeId &&
+          <div className={styles.checkinAddressBox}> — at <span className={styles.checkinAddress}>{this.state.placeName}</span>.</div>
         }
         {this.state.attachments.length > 0 &&
           <div className={styles.previewWrapper}>

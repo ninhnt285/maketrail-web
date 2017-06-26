@@ -9,7 +9,9 @@ class AddFeedMutation extends Relay.Mutation {
     return {
       toId: this.props.parentId,
       text: this.props.text,
-      attachmentIds: this.props.attachmentIds
+      attachmentIds: this.props.attachmentIds,
+      placeId: this.props.placeId,
+      placeName: this.props.placeName,
     };
   }
 

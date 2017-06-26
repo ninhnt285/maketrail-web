@@ -84,30 +84,36 @@ class Attachment extends Component {
                 <div>Your browser does not support HTML5 video.</div>
               </video>
             }
-            <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
-              <FeedHeader
-                user={feed.from}
-                timestamp={feed.createdAt}
-                privacy={feed.privacy}
-              />
-              {singlePhoto &&
-                <FeedLinks
-                  onShowComment={this.onShowComment}
-                  parentId={feed.id}
-                  isLiked={feed.isLiked}
-                  statistics={feed.statistics}
-                />
-              }
-              {!singlePhoto &&
-                <FeedLinks
-                  onShowComment={this.onShowComment}
-                  parentId={parentId}
-                  isLiked={attachment.isLiked}
-                  statistics={attachment.statistics}
-                />
-              }
-              <CommentBox showComment={this.state.showComment} parentId={parentId} />
-            </div>
+            {this.props.feed &&
+              <div>
+                <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
+                  <FeedHeader
+                    user={feed.from}
+                    timestamp={feed.createdAt}
+                    privacy={feed.privacy}
+                    placeName={attachment.placeName}
+                    placeId={attachment.placeId}
+                  />
+                  {singlePhoto &&
+                    <FeedLinks
+                      onShowComment={this.onShowComment}
+                      parentId={feed.id}
+                      isLiked={feed.isLiked}
+                      statistics={feed.statistics}
+                    />
+                  }
+                  {!singlePhoto &&
+                    <FeedLinks
+                      onShowComment={this.onShowComment}
+                      parentId={parentId}
+                      isLiked={attachment.isLiked}
+                      statistics={attachment.statistics}
+                    />
+                  }
+                  <CommentBox showComment={this.state.showComment} parentId={parentId} />
+                </div>
+              </div>
+            }
           </div>
         </Modal>
       </button>
@@ -123,6 +129,8 @@ export default Relay.createContainer(Attachment, {
         ... on Photo {
           id
           name
+          placeId
+          placeName
           caption
           previewUrl
           filePathUrl
@@ -136,6 +144,8 @@ export default Relay.createContainer(Attachment, {
         ... on Video {
           id
           name
+          placeId
+          placeName
           caption
           previewUrl
           filePathUrl

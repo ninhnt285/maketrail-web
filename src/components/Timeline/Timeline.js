@@ -11,11 +11,13 @@ class Timeline extends Component {
   static propTypes = {
     relay: PropTypes.object.isRequired,
     viewer: PropTypes.object.isRequired,
-    parentId: PropTypes.string
+    parentId: PropTypes.string,
+    places: PropTypes.array,
   };
 
   static defaultProps = {
-    parentId: null
+    parentId: null,
+    places: [],
   };
   constructor(props) {
     super(props);
@@ -40,7 +42,7 @@ class Timeline extends Component {
     // const count = this.props.relay.variables.count;
     return (
       <div className={extendClassName(this.props, styles.root)}>
-        <AddFeedForm parentId={this.props.parentId} />
+        <AddFeedForm parentId={this.props.parentId} places={this.props.places} />
         {feeds.map(({ node: feed }) =>
           <Feed
             key={feed.id}
