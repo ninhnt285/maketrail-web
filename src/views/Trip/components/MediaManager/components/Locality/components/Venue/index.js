@@ -16,7 +16,6 @@ export default class Venue extends Component {
 
   onDrop(acceptedFiles) {
     const { venue } = this.props;
-    console.log(venue);
     acceptedFiles.map((file) => {
       const addAttachmentMutation = new AddAttachmentMutation({
         file,
