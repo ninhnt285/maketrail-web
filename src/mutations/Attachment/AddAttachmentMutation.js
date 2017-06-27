@@ -11,6 +11,7 @@ class AddAttachmentMutation extends Relay.Mutation {
 
   getFiles() {
     if (this.props.placeId) {
+      console.log(this.props);
       return {
         file: this.props.file,
         placeId: this.props.placeId,
@@ -32,10 +33,14 @@ class AddAttachmentMutation extends Relay.Mutation {
           ... on Photo {
             id
             name
+            placeId
+            placeName
             previewUrl
           }
           ... on Video {
             id
+            placeId
+            placeName
             name
             previewUrl
           }
@@ -57,11 +62,15 @@ class AddAttachmentMutation extends Relay.Mutation {
               ... on Photo {
                 id
                 name
+                placeId
+                placeName
                 previewUrl
               }
               ... on Video {
                 id
                 name
+                placeId
+                placeName
                 previewUrl
               }
             }

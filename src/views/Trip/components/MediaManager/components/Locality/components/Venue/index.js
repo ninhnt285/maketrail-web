@@ -16,6 +16,7 @@ export default class Venue extends Component {
 
   onDrop(acceptedFiles) {
     const { venue } = this.props;
+    console.log(venue);
     acceptedFiles.map((file) => {
       const addAttachmentMutation = new AddAttachmentMutation({
         file,
@@ -54,7 +55,7 @@ export default class Venue extends Component {
             attachment={node}
           />
         )}
-        <div style={{ display: 'none' }} className={`${styles.attachmentBox} ${styles.addBtn}`}>
+        <div className={`${styles.attachmentBox} ${styles.addBtn}`}>
           <Dropzone className={styles.uploadArea} onDrop={acceptedFiles => this.onDrop(acceptedFiles)}>
             <button>
               <img className={styles.previewImg} src={uploadIcon} alt='Upload' />
