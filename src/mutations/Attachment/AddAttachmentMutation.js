@@ -1,16 +1,18 @@
 import Relay from 'react-relay';
 
+import Attachment from 'components/Attachment';
+
 class AddAttachmentMutation extends Relay.Mutation {
   getMutation() {
     return Relay.QL`mutation {addAttachment}`;
   }
 
   getVariables() {
-    console.log(this.props);
     if (this.props.placeId) {
       return {
         placeId: this.props.placeId,
         placeName: this.props.placeName,
+        parentId: this.props.parentId
       };
     }
     return {};
@@ -28,21 +30,7 @@ class AddAttachmentMutation extends Relay.Mutation {
         success
         errors
         attachment {
-          __typename
-          ... on Photo {
-            id
-            name
-            placeId
-            placeName
-            previewUrl
-          }
-          ... on Video {
-            id
-            placeId
-            placeName
-            name
-            previewUrl
-          }
+          ${Attachment.getFragment('attachment')}
         }
       }
     `;
@@ -57,21 +45,7 @@ class AddAttachmentMutation extends Relay.Mutation {
             success
             errors
             attachment {
-              __typename
-              ... on Photo {
-                id
-                name
-                placeId
-                placeName
-                previewUrl
-              }
-              ... on Video {
-                id
-                name
-                placeId
-                placeName
-                previewUrl
-              }
+              ${Attachment.getFragment('attachment')}
             }
           }
         `]

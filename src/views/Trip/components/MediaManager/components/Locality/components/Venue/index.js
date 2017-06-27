@@ -12,38 +12,47 @@ export default class Venue extends Component {
   static propTypes = {
     venue: PropTypes.object.isRequired,
     attachments: PropTypes.array.isRequired,
+    tripId: PropTypes.string.isRequired,
   };
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      attachments: this.props.attachments,
+    };
+  }
   onDrop(acceptedFiles) {
-    const { venue } = this.props;
+    const { venue, tripId } = this.props;
+    const _that = this;
     acceptedFiles.map((file) => {
       const addAttachmentMutation = new AddAttachmentMutation({
         file,
         placeId: venue.originVenue.id,
         placeName: venue.originVenue.name,
+        parentId: tripId,
       });
       Relay.Store.commitUpdate(
         addAttachmentMutation,
-        // {
-        //   onSuccess: (response) => {
-        //     if (response.addAttachment) {
-        //       const addAttachmentPayload = response.addAttachment;
-        //       if (addAttachmentPayload.attachment) {
-        //         const attachments = this.state.attachments.slice();
-        //         attachments.push(addAttachmentPayload.attachment);
-        //         _that.setState({ attachments });
-        //       }
-        //     }
-        //   }
-        // }
+        {
+          onSuccess: (response) => {
+            if (response.addAttachment) {
+              const addAttachmentPayload = response.addAttachment;
+              if (addAttachmentPayload.attachment) {
+                console.log(addAttachmentPayload.attachment);
+                const attachments = this.state.attachments;
+                attachments.push(addAttachmentPayload.attachment);
+                _that.setState({ attachments });
+              }
+            }
+          }
+        }
       );
 
       return true;
     });
   }
   render() {
-    const { venue, attachments } = this.props;
-    const attachmentsOfVenue = attachments.filter(obj => obj.placeId === venue.originVenue.id);
+    const { venue } = this.props;
+    const attachmentsOfVenue = this.state.attachments.filter(obj => obj.placeId === venue.originVenue.id);
     return (
       <div className={styles.root}>
         <h3 className={styles.title}>{venue.originVenue.name}</h3>

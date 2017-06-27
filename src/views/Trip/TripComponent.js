@@ -148,7 +148,11 @@ export default class TripComponent extends React.Component {
         break;
       case 3:
         content = (
-          <MediaManager attachments={Trip.allAttachments} localities={Trip.localities.edges} />
+          <MediaManager
+            attachments={Trip.allAttachments}
+            localities={Trip.localities.edges}
+            tripId={Trip.id}
+          />
         );
         break;
       default:

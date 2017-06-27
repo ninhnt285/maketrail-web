@@ -9,10 +9,11 @@ export default class Locality extends Component {
   static propTypes = {
     locality: PropTypes.object.isRequired,
     attachments: PropTypes.array.isRequired,
+    tripId: PropTypes.string.isRequired,
   };
 
   render() {
-    const { locality, attachments } = this.props;
+    const { locality, attachments, tripId } = this.props;
     const venues = locality.localityVenues.edges;
     const attachmentsOfLocality = attachments.filter(obj => obj.placeId === locality.originLocality.id);
     return (
@@ -26,7 +27,12 @@ export default class Locality extends Component {
           />
         )}
         {venues.map(venue =>
-          <Venue key={venue.node.id} venue={venue.node} attachments={attachments} />
+          <Venue
+            key={venue.node.id}
+            venue={venue.node}
+            attachments={attachments}
+            tripId={tripId}
+          />
         )}
       </div>
     );
