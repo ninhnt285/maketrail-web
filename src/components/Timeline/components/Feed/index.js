@@ -8,6 +8,9 @@ import CommentBox from 'components/CommentBox';
 import FeedHeader from 'components/FeedHeader';
 import Attachment from 'components/Attachment';
 import DeleteFeedMutation from 'mutations/Feed/DeleteFeedMutation';
+import Modal from 'components/Modal';
+
+import AddFeedForm from '../AddFeedForm';
 
 import styles from './Feed.scss';
 
@@ -15,18 +18,21 @@ class Feed extends Component {
   static propTypes = {
     feed: PropTypes.object.isRequired,
     parentId: PropTypes.string,
+    places: PropTypes.array,
   };
 
   static defaultProps = {
-    parentId: null
+    parentId: null,
+    places: [],
   }
   constructor(props) {
     super(props);
 
-    this.state = { showComment: false };
+    this.state = { showComment: false, showEditModal: false, };
 
     this.onShowComment = this.onShowComment.bind(this);
   }
+
   onDeleteFeed() {
     const deleteFeedMutation = new DeleteFeedMutation({
       feedId: this.props.feed.id,
@@ -40,6 +46,13 @@ class Feed extends Component {
   onShowComment() {
     this.setState({ showComment: true });
   }
+  showEditModal() {
+    this.setState({ showEditModal: true });
+  }
+
+  hideEditModal() {
+    this.setState({ showEditModal: false });
+  }
   render() {
     const { feed } = this.props;
     const attachments = feed.attachments.edges;
@@ -50,9 +63,22 @@ class Feed extends Component {
           <div className={styles.actions}>
             <IconButton name='expand_more' id={`action_feed_${feed.id}`} />
             <Menu target={`action_feed_${feed.id}`} align='right'>
-              <MenuItem>Edit</MenuItem>
+              <MenuItem onClick={() => this.showEditModal()}>Edit</MenuItem>
               <MenuItem onClick={() => this.onDeleteFeed()}>Delete</MenuItem>
+
             </Menu>
+            <Modal
+              showModal={this.state.showEditModal}
+              onCloseModal={() => this.hideEditModal()}
+              title='Edit post'
+            >
+              <AddFeedForm
+                parentId={this.props.parentId}
+                feed={feed}
+                places={this.props.places}
+                onUpdated={() => this.hideEditModal()}
+              />
+            </Modal>
           </div>
           <FeedHeader
             user={feed.from}
@@ -126,6 +152,12 @@ export default Relay.createContainer(Feed, {
           edges {
             cursor
             node {
+              ... on Photo {
+                id
+              }
+              ... on Video {
+                id
+              }
               ${Attachment.getFragment('attachment')}
             }
           }

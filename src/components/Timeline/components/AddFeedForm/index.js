@@ -6,6 +6,7 @@ import Dropzone from 'react-dropzone';
 
 import AddAttachmentMutation from 'mutations/Attachment/AddAttachmentMutation';
 import AddFeedMutation from 'mutations/Feed/AddFeedMutation';
+import UpdateFeedMutation from 'mutations/Feed/UpdateFeedMutation';
 
 import LocalityFinder from 'components/LocalityFinder';
 import PlaceFinder from 'components/PlaceFinder';
@@ -16,27 +17,41 @@ export default class AddFeedForm extends Component {
   static propTypes = {
     parentId: PropTypes.string,
     places: PropTypes.array,
+    feed: PropTypes.object,
+    onUpdated: PropTypes.func,
   };
 
   static defaultProps = {
     parentId: null,
     places: [],
+    feed: null,
+    onUpdated: null,
   };
 
   constructor(props) {
     super(props);
-
-    this.state = {
-      text: '',
-      attachments: [],
-      placeId: '',
-      placeName: '',
-      isShowCheckinBox: false,
-    };
-
+    const { feed } = props;
+    if (feed) {
+      this.state = {
+        text: feed.text,
+        attachments: [],
+        placeId: feed.placeId,
+        placeName: feed.placeName,
+        isShowCheckinBox: false,
+      };
+    } else {
+      this.state = {
+        text: '',
+        attachments: [],
+        placeId: '',
+        placeName: '',
+        isShowCheckinBox: false,
+      };
+    }
     this.onDrop = this.onDrop.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onUpdate = this.onUpdate.bind(this);
   }
 
   onDrop(acceptedFiles) {
@@ -92,6 +107,32 @@ export default class AddFeedForm extends Component {
       }
     });
   }
+  onUpdate() {
+    const attachmentIds = [];
+    this.props.feed.attachments.edges.map((attachment) => {
+      attachmentIds.push(attachment.node.id);
+      return true;
+    });
+    this.state.attachments.map((attachment) => {
+      attachmentIds.push(attachment.id);
+      return true;
+    });
+    console.log(this.props.feed.attachments, attachmentIds);
+    const updateFeedMutation = new UpdateFeedMutation({
+      feedId: this.props.feed.id,
+      text: this.state.text,
+      placeId: this.state.placeId,
+      placeName: this.state.placeName,
+      attachmentIds
+    });
+    // const _that = this;
+    Relay.Store.commitUpdate(updateFeedMutation, {
+      onSuccess: () => {
+        this.setState({ text: '', attachments: [], placeId: '', placeName: '' });
+        this.props.onUpdated();
+      }
+    });
+  }
   onAddLocality(localityId, name) {
     this.setState({ placeId: localityId, placeName: name, isShowCheckinBox: false });
   }
@@ -142,7 +183,12 @@ export default class AddFeedForm extends Component {
           </Dropzone>
           <Button colored raised ripple onClick={() => this.onShowCheckinBox()}>Check in</Button>
           <br />
-          <Button style={{ marginTop: '10px' }} colored raised ripple onClick={this.onSubmit}>Submit</Button>
+          {!this.props.feed &&
+            <Button style={{ marginTop: '10px' }} colored raised ripple onClick={this.onSubmit}>Submit</Button>
+          }
+          {this.props.feed &&
+            <Button style={{ marginTop: '10px' }} colored raised ripple onClick={this.onUpdate}>Update</Button>
+          }
         </div>
       </div>
     );
