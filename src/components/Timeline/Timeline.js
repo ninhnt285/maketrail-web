@@ -47,6 +47,7 @@ class Timeline extends Component {
           <Feed
             key={feed.id}
             feed={feed}
+            parentId={this.props.parentId}
           />
         )}
       </div>

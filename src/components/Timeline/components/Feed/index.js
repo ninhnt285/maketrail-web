@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import { IconButton, Menu, MenuItem } from 'react-mdl';
 
 import FeedLinks from 'components/FeedLinks';
 import CommentBox from 'components/CommentBox';
 import FeedHeader from 'components/FeedHeader';
 import Attachment from 'components/Attachment';
+import DeleteFeedMutation from 'mutations/Feed/DeleteFeedMutation';
 
 import styles from './Feed.scss';
 
 class Feed extends Component {
   static propTypes = {
-    feed: PropTypes.object.isRequired
+    feed: PropTypes.object.isRequired,
+    parentId: PropTypes.string,
   };
 
+  static defaultProps = {
+    parentId: null
+  }
   constructor(props) {
     super(props);
 
@@ -21,7 +27,16 @@ class Feed extends Component {
 
     this.onShowComment = this.onShowComment.bind(this);
   }
+  onDeleteFeed() {
+    const deleteFeedMutation = new DeleteFeedMutation({
+      feedId: this.props.feed.id,
+      parentId: this.props.parentId,
+    });
 
+    Relay.Store.commitUpdate(
+      deleteFeedMutation
+    );
+  }
   onShowComment() {
     this.setState({ showComment: true });
   }
@@ -32,6 +47,13 @@ class Feed extends Component {
     return (
       <div className={styles.root}>
         <div className={styles.content}>
+          <div className={styles.actions}>
+            <IconButton name='expand_more' id={`action_feed_${feed.id}`} />
+            <Menu target={`action_feed_${feed.id}`} align='right'>
+              <MenuItem>Edit</MenuItem>
+              <MenuItem onClick={() => this.onDeleteFeed()}>Delete</MenuItem>
+            </Menu>
+          </div>
           <FeedHeader
             user={feed.from}
             timestamp={feed.createdAt}
