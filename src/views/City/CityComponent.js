@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Menu, MenuItem } from 'react-mdl';
+import PropTypes from 'prop-types';
 import Rating from 'react-rating';
 
 import CategoryIcon from 'components/CategoryIcon';
@@ -8,11 +9,12 @@ import FeaturedLocations from './components/FeaturedLocations';
 import styles from './City.scss';
 
 export default class City extends Component {
+  static propTypes = {
+    viewer: PropTypes.object.isRequired
+  }
   render() {
-    const city = {
-      name: 'Paris',
-      previewPhotoUrl: 'http://static.maketrail.com/noImage/trip/9%s.jpg'
-    };
+    const city = this.props.viewer.Locality;
+    console.log(city);
 
     const trips = [
       { id: '1', name: 'Trip 1' },
@@ -66,6 +68,7 @@ export default class City extends Component {
           </Menu>
 
           <h1 className={styles.title}>{city.name}</h1>
+          <div className={styles.description}>{city.description}</div>
           <div className={`${styles.detailRow} ${styles.rating}`}>
             <h4>Score: </h4>
             <Rating

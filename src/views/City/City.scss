@@ -23,9 +23,12 @@
   h1.title {
     font-weight: bold;
     font-size: 18px;
+    margin: 0 0 5px;
+  }
+  .description {
+    font-size: 14px;
     margin: 0 0 10px;
   }
-
   .addBtn {
     @extend .smallBtn;
     position: absolute;

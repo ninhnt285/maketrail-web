@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Menu, MenuItem } from 'react-mdl';
+import PropTypes from 'prop-types';
 import Rating from 'react-rating';
 
 import CategoryIcon from 'components/CategoryIcon';
@@ -8,12 +9,12 @@ import FeaturedTrips from './components/FeaturedTrips';
 import styles from './Location.scss';
 
 export default class Location extends Component {
+  static propTypes = {
+    viewer: PropTypes.object.isRequired
+  }
   render() {
-    const location = {
-      name: 'Eiffel Tower',
-      previewPhotoUrl: 'http://static.maketrail.com/noImage/trip/9%s.jpg'
-    };
-
+    const location = this.props.viewer.Venue;
+    location.rating /= 2.0;
     const trips = [
       { id: '1', name: 'Trip 1' },
       { id: '2', name: 'Trip 2' }
@@ -70,12 +71,12 @@ export default class Location extends Component {
             <h4>Score: </h4>
             <Rating
               style={{ position: 'relative', top: '-2px' }}
-              placeholderRate={3.5}
+              placeholderRate={location.rating}
               empty={<img src={require('assets/rating/star-grey.png')} className='icon' alt='grey_star' />}
               placeholder={<img src={require('assets/rating/star-red.png')} className='icon' alt='red_star' />}
               full={<img src={require('assets/rating/star-yellow.png')} className='icon' alt='yellow_star' />}
             />
-            <span style={{ paddingLeft: '5px' }}>(3.5/5.0)</span>
+            <span style={{ paddingLeft: '5px' }}>({location.rating}/5.0)</span>
           </div>
 
           <div className={`${styles.detailRow} ${styles.highlights}`}>
