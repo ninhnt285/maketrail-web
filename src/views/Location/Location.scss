@@ -1,0 +1,47 @@
+@import 'src/variables.scss';
+
+.root {
+  max-width: 600px;
+  margin: 0 auto;
+
+  .coverImage {
+    position: relative;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .content {
+    @extend .borderBox;
+    margin-bottom: 12px;
+    padding: 12px;
+    position: relative;
+  }
+
+  h1.title {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 10px;
+  }
+
+  .addBtn {
+    @extend .smallBtn;
+    position: absolute;
+    right: 18px;
+    top: 12px;
+  }
+
+  .detailRow {
+    margin-bottom: 10px;
+
+    h4 {
+      margin: 0 10px 0 0;
+      font-size: 14px;
+      font-weight: bold;
+      display: inline-block;
+      line-height: 1.5;
+    }
+  }
+}
