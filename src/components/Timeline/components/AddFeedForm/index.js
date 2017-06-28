@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Textfield, Button } from 'react-mdl';
+import { Textfield, Button, IconButton } from 'react-mdl';
 import Dropzone from 'react-dropzone';
 
 import AddAttachmentMutation from 'mutations/Attachment/AddAttachmentMutation';
@@ -116,7 +116,14 @@ export default class AddFeedForm extends Component {
           </div>
         }
         {this.state.placeId &&
-          <div className={styles.checkinAddressBox}> — at <span className={styles.checkinAddress}>{this.state.placeName}</span>.</div>
+          <div className={styles.checkinAddressBox}>
+            <div style={{ display: 'inline-block' }}> — at <span className={styles.checkinAddress}>{this.state.placeName}</span>.</div>
+            <IconButton
+              name='highlight_off'
+              className={styles.checkInClear}
+              onClick={() => this.setState({ placeId: '', placeName: '' })}
+            />
+          </div>
         }
         {this.state.attachments.length > 0 &&
           <div className={styles.previewWrapper}>

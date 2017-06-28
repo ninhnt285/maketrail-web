@@ -24,6 +24,7 @@ class UpdateTripLocalityMutation extends Relay.Mutation {
         errors
         tripLocality {
           arrivalTime
+          weatherIcon
         }
       }
     `;

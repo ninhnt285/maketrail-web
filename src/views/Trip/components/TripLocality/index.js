@@ -48,6 +48,7 @@ class TripLocality extends Component {
           tripLocalityId={this.props.tripLocality.id}
           locality={this.props.tripLocality.originLocality}
           arrivalTime={this.props.tripLocality.arrivalTime}
+          weatherIcon={this.props.tripLocality.weatherIcon}
           index={this.props.index}
         />
 
@@ -101,6 +102,7 @@ export default Relay.createContainer(TripLocality, {
       fragment on TripLocality {
         id
         arrivalTime
+        weatherIcon
         originLocality {
           id
           ${Locality.getFragment('locality')}
