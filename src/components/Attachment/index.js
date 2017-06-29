@@ -85,33 +85,31 @@ class Attachment extends Component {
               </video>
             }
             {this.props.feed &&
-              <div>
-                <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
-                  <FeedHeader
-                    user={feed.from}
-                    timestamp={feed.createdAt}
-                    privacy={feed.privacy}
-                    placeName={attachment.placeName}
-                    placeId={attachment.placeId}
+              <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
+                <FeedHeader
+                  user={feed.from}
+                  timestamp={feed.createdAt}
+                  privacy={feed.privacy}
+                  placeName={attachment.placeName}
+                  placeId={attachment.placeId}
+                />
+                {singlePhoto &&
+                  <FeedLinks
+                    onShowComment={this.onShowComment}
+                    parentId={feed.id}
+                    isLiked={feed.isLiked}
+                    statistics={feed.statistics}
                   />
-                  {singlePhoto &&
-                    <FeedLinks
-                      onShowComment={this.onShowComment}
-                      parentId={feed.id}
-                      isLiked={feed.isLiked}
-                      statistics={feed.statistics}
-                    />
-                  }
-                  {!singlePhoto &&
-                    <FeedLinks
-                      onShowComment={this.onShowComment}
-                      parentId={parentId}
-                      isLiked={attachment.isLiked}
-                      statistics={attachment.statistics}
-                    />
-                  }
-                  <CommentBox showComment={this.state.showComment} parentId={parentId} />
-                </div>
+                }
+                {!singlePhoto &&
+                  <FeedLinks
+                    onShowComment={this.onShowComment}
+                    parentId={parentId}
+                    isLiked={attachment.isLiked}
+                    statistics={attachment.statistics}
+                  />
+                }
+                <CommentBox showComment={this.state.showComment} parentId={parentId} />
               </div>
             }
           </div>

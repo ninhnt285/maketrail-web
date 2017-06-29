@@ -11,7 +11,7 @@ class UpdateFeedMutation extends Relay.Mutation {
       placeId: this.props.placeId,
       placeName: this.props.placeName,
       text: this.props.text,
-      attachmentIds: this.props.attachmentIds,
+      attachments: this.props.attachmentIds,
     };
     return variables;
   }

@@ -37,7 +37,6 @@ export default class Venue extends Component {
             if (response.addAttachment) {
               const addAttachmentPayload = response.addAttachment;
               if (addAttachmentPayload.attachment) {
-                console.log(addAttachmentPayload.attachment);
                 const attachments = this.state.attachments;
                 attachments.push(addAttachmentPayload.attachment);
                 _that.setState({ attachments });
