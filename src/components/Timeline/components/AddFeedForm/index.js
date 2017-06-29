@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Textfield, Button, IconButton } from 'react-mdl';
-import Dropzone from 'react-dropzone';
+import { Textfield, Button, IconButton, Spinner } from 'react-mdl';
 
-import AddAttachmentMutation from 'mutations/Attachment/AddAttachmentMutation';
 import AddFeedMutation from 'mutations/Feed/AddFeedMutation';
 import UpdateFeedMutation from 'mutations/Feed/UpdateFeedMutation';
 
 import LocalityFinder from 'components/LocalityFinder';
 import PlaceFinder from 'components/PlaceFinder';
+import UploadAttachment from 'components/UploadAttachment';
 
 import styles from './AddFeedForm.scss';
 
@@ -38,6 +37,7 @@ export default class AddFeedForm extends Component {
         placeId: feed.placeId,
         placeName: feed.placeName,
         isShowCheckinBox: false,
+        isShowSpinner: false,
       };
     } else {
       this.state = {
@@ -46,40 +46,20 @@ export default class AddFeedForm extends Component {
         placeId: '',
         placeName: '',
         isShowCheckinBox: false,
+        isShowSpinner: false,
       };
     }
-    this.onDrop = this.onDrop.bind(this);
     this.onTextChange = this.onTextChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+    this.onUploadedAttachment = this.onUploadedAttachment.bind(this);
   }
 
-  onDrop(acceptedFiles) {
-    const _that = this;
-    acceptedFiles.map((file) => {
-      const addAttachmentMutation = new AddAttachmentMutation({
-        file
-      });
-      Relay.Store.commitUpdate(
-        addAttachmentMutation,
-        {
-          onSuccess: (response) => {
-            if (response.addAttachment) {
-              const addAttachmentPayload = response.addAttachment;
-              if (addAttachmentPayload.attachment) {
-                const attachments = this.state.attachments.slice();
-                attachments.push(addAttachmentPayload.attachment);
-                _that.setState({ attachments });
-              }
-            }
-          }
-        }
-      );
-
-      return true;
-    });
+  onUploadedAttachment(attachment) {
+    const attachments = this.state.attachments.slice();
+    attachments.push(attachment);
+    this.setState({ attachments, isShowSpinner: false });
   }
-
   onTextChange(event) {
     this.setState({ text: event.target.value });
   }
@@ -136,6 +116,9 @@ export default class AddFeedForm extends Component {
   onAddLocality(localityId, name) {
     this.setState({ placeId: localityId, placeName: name, isShowCheckinBox: false });
   }
+  showSpinner() {
+    this.setState({ isShowSpinner: true });
+  }
   render() {
     return (
       <div className={styles.root}>
@@ -166,22 +149,25 @@ export default class AddFeedForm extends Component {
             />
           </div>
         }
-        {this.state.attachments.length > 0 &&
-          <div className={styles.previewWrapper}>
-            {this.state.attachments.map(attachment =>
-              <img
-                key={attachment.id}
-                src={attachment.previewUrl.replace('%s', '_150_square')}
-                alt={attachment.caption}
-              />
-            )}
-          </div>
-        }
+        <div className={styles.previewWrapper}>
+          {this.state.attachments.map(attachment =>
+            <img
+              key={attachment.id}
+              src={attachment.previewUrl.replace('%s', '_150_square')}
+              alt={attachment.caption}
+            />
+          )}
+          {this.state.isShowSpinner &&
+            <div className={styles.spinnerWrap}>
+              <Spinner className={styles.spinner} singleColor />
+            </div>
+          }
+        </div>
         <div className={styles.func}>
-          <Dropzone className={styles.uploadArea} onDrop={this.onDrop}>
-            <Button colored raised ripple>Photo/Video</Button>
-          </Dropzone>
-          <Button colored raised ripple onClick={() => this.onShowCheckinBox()}>Check in</Button>
+          <UploadAttachment onUploaded={this.onUploadedAttachment} onDrop={() => this.showSpinner()}>
+            <Button colored raised ripple onClick={() => null}>Photo/Video</Button>
+          </UploadAttachment>
+          <Button colored raised ripple style={{ marginLeft: '10px' }}onClick={() => this.onShowCheckinBox()}>Check in</Button>
           <br />
           {!this.props.feed &&
             <Button style={{ marginTop: '10px' }} colored raised ripple onClick={this.onSubmit}>Submit</Button>

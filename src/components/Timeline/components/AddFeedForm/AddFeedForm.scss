@@ -27,6 +27,16 @@
       box-shadow: 0 0 5px #666;
     }
   }
+  .spinnerWrap {
+    width: 80px;
+    height: 80px;
+    margin: 0 8px 8px 0;
+    text-align: center;
+    display: inline-block;
+    .spinner {
+      margin-top: 25px;
+    }
+  }
   .checkinAddressBox{
     margin-bottom: 10px;
     .checkinAddress {

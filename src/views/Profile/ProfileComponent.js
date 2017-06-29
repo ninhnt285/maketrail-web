@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Button, Tabs, Tab } from 'react-mdl';
+import { Button, Tabs, Tab, IconButton, Menu, MenuItem } from 'react-mdl';
 
 import Map from 'components/Map';
 import Timeline from 'components/Timeline';
+import UpdateUserMutation from 'mutations/User/UpdateUserMutation';
 import FollowMutation from 'mutations/Follow/FollowMutation';
 import UnfollowMutation from 'mutations/Follow/UnfollowMutation';
+import UploadAttachment from 'components/UploadAttachment';
 
 import Trip from './components/Trip';
 import styles from './Profile.scss';
@@ -20,12 +22,31 @@ export default class ProfileComponent extends Component {
     super(props);
 
     this.state = {
-      activeTab: 0
+      activeTab: 0,
+      profilePicUrl: props.viewer.User.profilePicUrl
     };
 
     this.onFollow = this.onFollow.bind(this);
+    this.onUploadedAttachment = this.onUploadedAttachment.bind(this);
+    this.onUpdateUserImage = this.onUpdateUserImage.bind(this);
   }
-
+  onUploadedAttachment(attachment) {
+    this.onUpdateUserImage(attachment.filePathUrl);
+  }
+  onUpdateUserImage(profilePicUrl) {
+    const updateUserMutation = new UpdateUserMutation({
+      profilePicUrl
+    });
+    Relay.Store.commitUpdate(
+      updateUserMutation,
+      {
+        onSuccess: () => {
+          this.setState({ profilePicUrl });
+          return false;
+        }
+      }
+    );
+  }
   onFollow() {
     const followMutation = new FollowMutation({
       userId: this.props.viewer.User.id
@@ -75,9 +96,16 @@ export default class ProfileComponent extends Component {
           <Map style={{ height: '300px' }} userId={user.id} />
           <div className={styles.timelineHeadline}>
             <div className={styles.userAvatar}>
-              <img src={user.profilePicUrl.replace('%s', '_500_square')} alt={user.fullName} />
+              <img src={this.state.profilePicUrl.replace('%s', '_500_square')} alt={user.fullName} />
             </div>
-
+            <div className={styles.userSetting}>
+              <IconButton className={styles.settingBtn} name='settings' id='settings' />
+              <Menu target='settings' align='right'>
+                <UploadAttachment multiple={false} onUploaded={this.onUploadedAttachment}>
+                  <MenuItem>Upload Avatar</MenuItem>
+                </UploadAttachment>
+              </Menu>
+            </div>
             <div className={styles.actions}>
               {!user.isFollowed && (user.id !== me.id) &&
                 <Button onClick={this.onFollow} colored raised ripple className={styles.addFriend}>Follow</Button>

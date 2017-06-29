@@ -41,7 +41,15 @@
       display: block;
     }
   }
-
+  .userSetting {
+    position: absolute;
+    right: 15px;
+    margin-top: 0;
+    top: -40px;
+    i {
+      color: white;
+    }
+  }
   .actions {
     bottom: 60px;
     padding: 0;
@@ -63,5 +71,12 @@
   .tripsBlock {
     width: 100%;
     margin: 12px auto;
+  }
+  .uploadArea {
+    width: auto !important;
+    height: auto !important;
+    display: inline-block !important;
+    border: none !important;
+    margin-right: 10px;
   }
 }
