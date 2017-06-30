@@ -8,6 +8,7 @@ import LoginComponent from 'views/Login/LoginComponent';
 import RegisterComponent from 'views/Register/RegisterComponent';
 import TripsContainer from 'views/Trips/TripsContainer';
 import TripContainer from 'views/Trip/TripContainer';
+import SettingContainer from 'views/Setting/SettingContainer';
 import ProfileContainer from 'views/Profile/ProfileContainer';
 import PhotosContainer from 'views/Photos/PhotosContainer';
 import ExploreContainer from 'views/Explore/ExploreContainer';
@@ -23,6 +24,7 @@ export default (
     <Route path='/city/:cityId' component={CityContainer} queries={ViewerQuery} />
     <Route path='/location/:locationId' component={LocationContainer} queries={ViewerQuery} />
     <Route path='/trips' component={TripsContainer} queries={ViewerQuery} />
+    <Route path='/setting' component={SettingContainer} queries={ViewerQuery} />
     <Route path='/trip/:tripId' component={TripContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId' component={ProfileContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId/photos' components={PhotosContainer} queries={ViewerQuery} />

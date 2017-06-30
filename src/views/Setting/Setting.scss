@@ -1,0 +1,16 @@
+.root {
+  width: 400px;
+  margin: auto;
+  max-width: 100%;
+
+  p.separator {
+    padding-top: 10px;
+    border-top: 1px solid #555;
+    margin-bottom: 5px;
+  }
+  .changePasswordBtn {
+    padding: 0 2px;
+    text-transform: none;
+    font-style: italic;
+  }
+}
