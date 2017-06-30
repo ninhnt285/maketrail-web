@@ -1,34 +1,17 @@
-:global {
-  .banner-section {
-    position: relative;
-    height: 800px;
-    width: auto;
-    background-color: #f3f3f3;
-    background: url('assets/slide01.png') center 30% no-repeat;
-    background-size: cover;
+.root {
+  .coverImage {
+    width: 100%;
+    height: auto;
   }
 
-  .linesol-slogan {
-    font-size: 60px;
-    padding-top: 160px;
+  .content {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: calc(100vh - 130px);
   }
 
-  .logo-font {
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    line-height: 1;
-    color: #004159;
-    font-weight: bold;
-  }
-
-  @media (max-width: 900px) {
-    .banner-section {
-      height: 350px;
-    }
-
-    .linesol-slogan {
-      font-size: 26px;
-      margin: 0 16px;
-      padding-top: 24px;
-    }
+  .featuredTrips {
+    margin-top: 24px;
   }
 }

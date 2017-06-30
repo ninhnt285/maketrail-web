@@ -28,9 +28,12 @@
     float: right;
     vertical-align: top;
     a {
-      color: #222;
+      color: #fff;
       line-height: 40px;
       padding: 0px 20px;
+    }
+    .dropMenu a {
+      color: #222;
     }
     .name {
       display: inline-block;
