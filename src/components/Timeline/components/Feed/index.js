@@ -154,9 +154,13 @@ export default Relay.createContainer(Feed, {
             node {
               ... on Photo {
                 id
+                previewUrl
+                caption
               }
               ... on Video {
                 id
+                previewUrl
+                caption
               }
               ${Attachment.getFragment('attachment')}
             }

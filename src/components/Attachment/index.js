@@ -112,6 +112,17 @@ class Attachment extends Component {
                 <CommentBox showComment={this.state.showComment} parentId={parentId} />
               </div>
             }
+            {!this.props.feed &&
+              <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
+                <FeedLinks
+                  onShowComment={this.onShowComment}
+                  parentId={parentId}
+                  isLiked={attachment.isLiked}
+                  statistics={attachment.statistics}
+                />
+                <CommentBox showComment={this.state.showComment} parentId={parentId} />
+              </div>
+            }
           </div>
         </Modal>
       </button>

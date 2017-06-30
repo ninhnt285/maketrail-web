@@ -31,9 +31,14 @@ export default class AddFeedForm extends Component {
     super(props);
     const { feed } = props;
     if (feed) {
+      const attachments = [];
+      feed.attachments.edges.map((attachment) => {
+        attachments.push(attachment.node);
+        return true;
+      });
       this.state = {
         text: feed.text,
-        attachments: [],
+        attachments,
         placeId: feed.placeId,
         placeName: feed.placeName,
         isShowCheckinBox: false,
@@ -89,10 +94,10 @@ export default class AddFeedForm extends Component {
   }
   onUpdate() {
     const attachmentIds = [];
-    this.props.feed.attachments.edges.map((attachment) => {
-      attachmentIds.push(attachment.node.id);
-      return true;
-    });
+    // this.props.feed.attachments.edges.map((attachment) => {
+    //   attachmentIds.push(attachment.node.id);
+    //   return true;
+    // });
     this.state.attachments.map((attachment) => {
       attachmentIds.push(attachment.id);
       return true;
