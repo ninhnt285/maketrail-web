@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Badge, IconButton, Menu, MenuItem } from 'react-mdl';
 import { Link } from 'react-router';
 
-import UserImage from 'components/UserImage';
+// import UserImage from 'components/UserImage';
 
 import styles from './Notifications.scss';
 
@@ -19,7 +19,7 @@ class Notifications extends Component {
     return (
       <div className={styles.root}>
         {notifications.length > 0 &&
-          <Badge text={notifications.length === 0} overlap>
+          <Badge text={notifications.length} overlap>
             <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
           </Badge>
         }
@@ -32,12 +32,16 @@ class Notifications extends Component {
           </MenuItem>
           {notifications.length > 0 &&
             notifications.map(notification =>
-              <MenuItem key={notification.id}>
+              <MenuItem key={notification.node.id}>
                 <Link to='/'>
-                  <UserImage user={notification.from} wrappLink={false} />
                   <div className={styles.notificationContent}>
-                    <b>{(notification.from.__typename === 'User') ? notification.from.fullName : notification.from.name}</b>
-                    &nbsp;<span>{notification.type}</span>
+                    {notification.node.from.map(from =>
+                      <b key={from.id}>{(from.__typename === 'User') ? from.fullName : ''} </b>
+                    )}
+                    <span>{notification.node.type} </span>
+                    {notification.node.from.map(from =>
+                      <b key={from.id}>{(from.__typename === 'Trip') ? from.name : ''}</b>
+                    )}
                   </div>
                 </Link>
               </MenuItem>

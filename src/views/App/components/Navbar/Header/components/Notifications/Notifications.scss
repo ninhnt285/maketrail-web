@@ -3,7 +3,9 @@
 .root {
   display: inline-block;
   position: relative;
-
+  a {
+    color: black;
+  }
   .notificationBtn {
     overflow: visible;
     width: 36px;
@@ -32,6 +34,7 @@
   .notificationContent {
     padding-left: 8px;
     display: inline-block;
+    color: black !important;
   }
 
   .title {
