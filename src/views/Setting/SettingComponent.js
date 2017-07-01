@@ -56,7 +56,6 @@ export default class Login extends React.Component {
       changePasswordMutation,
       {
         onSuccess: (response) => {
-          console.log(response);
           if (!response.changePassword.success) {
             return this.setState({ errorChangePassword: 'Error' });
           }

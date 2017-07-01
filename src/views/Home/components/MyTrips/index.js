@@ -36,7 +36,6 @@ export default class MyTrips extends Component {
             this.context.router.push('/trips');
             // const addTripPayload = response.addTrip;
             // if (addTripPayload.edge) {
-            //   console.log('router push', router);
             //   router.push(`/trip/${addTripPayload.edge.node.id}`);
             // }
           }

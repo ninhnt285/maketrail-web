@@ -25,7 +25,6 @@ export default class PlaceFinder extends Component {
   }
   render() {
     const { results } = this.state;
-    console.log('PlaceFinder', results);
     return (
       <div className={extendClassName(this.props, styles.root)}>
         {(results.length > 0) &&

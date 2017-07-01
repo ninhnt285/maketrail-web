@@ -14,7 +14,6 @@ export default class City extends Component {
   }
   render() {
     const city = this.props.viewer.Locality;
-    console.log(city);
 
     const trips = [
       { id: '1', name: 'Trip 1' },

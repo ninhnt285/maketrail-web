@@ -102,7 +102,6 @@ export default class AddFeedForm extends Component {
       attachmentIds.push(attachment.id);
       return true;
     });
-    console.log(this.props.feed.attachments, attachmentIds);
     const updateFeedMutation = new UpdateFeedMutation({
       feedId: this.props.feed.id,
       text: this.state.text,

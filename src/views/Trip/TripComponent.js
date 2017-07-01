@@ -98,7 +98,7 @@ export default class TripComponent extends React.Component {
     Relay.Store.commitUpdate(
       deleteTripMutation,
       {
-        onSuccess: (response) => {
+        onSuccess: () => {
           this.context.router.goBack();
           return false;
         }

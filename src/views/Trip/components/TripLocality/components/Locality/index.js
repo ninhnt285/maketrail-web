@@ -41,8 +41,7 @@ class Locality extends Component {
   onCloseModal(modalId) {
     this.setState({ [modalId]: false });
   }
-  onChangedDate(weatherIcon) {
-    console.log('tripLocality', weatherIcon);
+  onChangedDate() {
     this.setState({ showCalendar: false });
   }
   render() {
@@ -83,7 +82,7 @@ class Locality extends Component {
             tripLocalityId={this.props.tripLocalityId}
             location={this.props.locality.location}
             selectedDateUnix={this.props.arrivalTime}
-            onChangedDate={weatherIcon => this.onChangedDate(weatherIcon)}
+            onChangedDate={() => this.onChangedDate()}
           />
         </Modal>
 
