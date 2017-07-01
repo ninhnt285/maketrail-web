@@ -48,7 +48,16 @@ export default class App extends React.Component {
 
     if (!user) {
       const path = this.props.location.pathname;
-      if (['/', '/login', '/register'].indexOf(path) === -1) {
+      let redirect = true;
+      if (path.indexOf('/password/reset') !== -1) {
+        redirect = false;
+      }
+
+      if (['/', '/login', '/register', '/password/request'].indexOf(path) !== -1) {
+        redirect = false;
+      }
+
+      if (redirect) {
         localStorage.removeItem('accessToken');
         location.href = '/';
       }
