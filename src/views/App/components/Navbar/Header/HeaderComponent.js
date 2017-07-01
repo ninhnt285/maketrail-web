@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Button, Menu, MenuItem } from 'react-mdl';
 import { Link } from 'react-router';
 
-// import Notifications from './components/Notifications';
+import Notifications from './components/Notifications';
 import styles from './Header.scss';
 // import notificationStyles from './components/Notifications/Notifications.scss';
 
@@ -46,7 +46,7 @@ export default class HeaderComponent extends React.Component {
             {/* <Link className={notificationStyles.notificationBtn} to='/explore'>
               <IconButton style={{ color: '#FFF' }} name='map' />
             </Link> */}
-            {/* <Notifications /> */}
+            <Notifications />
             <Button className={styles.name} id='user_menu'>
               <div className={styles.shortName}>{sortName}</div>
               <div className={styles.fullname}>{fullName}</div>

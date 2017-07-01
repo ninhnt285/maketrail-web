@@ -36,7 +36,8 @@ class Notifications extends Component {
                 <Link to='/'>
                   <UserImage user={notification.from} wrappLink={false} />
                   <div className={styles.notificationContent}>
-                    <span>{notification.type}</span>
+                    <b>{(notification.from.__typename === 'User') ? notification.from.fullName : notification.from.name}</b>
+                    &nbsp;<span>{notification.type}</span>
                   </div>
                 </Link>
               </MenuItem>
@@ -73,6 +74,10 @@ export default Relay.createContainer(Notifications, {
                     username
                     fullName
                     profilePicUrl
+                  }
+                  ... on Trip {
+                    id
+                    name
                   }
                 }
                 type
