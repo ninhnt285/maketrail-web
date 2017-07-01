@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Badge, IconButton, Menu, MenuItem } from 'react-mdl';
 import { Link } from 'react-router';
 
-// import UserImage from 'components/UserImage';
+// import UserImage from 'components/UserImage';33
 
 import styles from './Notifications.scss';
 
