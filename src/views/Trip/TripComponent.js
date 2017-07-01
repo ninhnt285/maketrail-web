@@ -79,6 +79,17 @@ export default class TripComponent extends React.Component {
       }
     );
   }
+  onExportVideo(event) {
+    event.preventDefault();
+    const updateTripMutation = new UpdateTripMutation({
+      id: this.props.viewer.Trip.id,
+      exportedVideo: true,
+    });
+
+    Relay.Store.commitUpdate(
+      updateTripMutation
+    );
+  }
 
   onInviteFriends() {
     window.FB.ui({
@@ -187,7 +198,7 @@ export default class TripComponent extends React.Component {
           <IconButton className={styles.settingBtn} name='settings' id='tripSettings' />
           <Menu target='tripSettings' align='right'>
             <MenuItem onClick={() => this.onEditTrip()}>Edit Name</MenuItem>
-            <MenuItem>Export video</MenuItem>
+            <MenuItem onClick={event => this.onExportVideo(event)}>Export video</MenuItem>
             <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>
             <MenuItem onClick={this.onDeleteTrip}>Delete</MenuItem>
           </Menu>

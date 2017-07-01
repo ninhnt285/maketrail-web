@@ -17,7 +17,9 @@ class UpdateTripMutation extends Relay.Mutation {
     if (this.props.isPublished) {
       variables.isPublished = this.props.isPublished;
     }
-
+    if (this.props.exportedVideo) {
+      variables.exportedVideo = this.props.exportedVideo;
+    }
     return variables;
   }
 
@@ -29,6 +31,7 @@ class UpdateTripMutation extends Relay.Mutation {
         trip {
           name
           isPublished
+          exportedVideo
         }
       }
     `;
