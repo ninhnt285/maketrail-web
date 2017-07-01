@@ -36,7 +36,7 @@ class Notifications extends Component {
                 <Link to='/'>
                   <UserImage user={notification.from} wrappLink={false} />
                   <div className={styles.notificationContent}>
-                    <b>{notification.from.fullName}</b> <span>{notification.type}</span>
+                    <span>{notification.type}</span>
                   </div>
                 </Link>
               </MenuItem>
