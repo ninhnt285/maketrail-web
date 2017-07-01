@@ -2,6 +2,7 @@
 import React from 'react';
 import Relay from 'react-relay';
 import { Grid, Cell, Textfield, Button } from 'react-mdl';
+import { Link } from 'react-router';
 
 import Page from 'components/Page/PageComponent';
 import LoginMutation from 'mutations/Login/LoginMutation';
@@ -136,7 +137,7 @@ export default class Login extends React.Component {
               <Cell col={12} style={{ textAlign: 'right' }}>
                 <Button primary>Login</Button>
               </Cell>
-
+              <Link to='/password/request'>Forgor Password</Link>
               <p className={styles.separator}>Or login with</p>
               <Button style={{ color: 'white' }} colored raised ripple onClick={this.onFacebookLogin}>
                 Facebook

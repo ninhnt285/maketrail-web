@@ -1,0 +1,33 @@
+@import 'src/variables.scss';
+
+.root {
+  @extend .borderBox;
+  width: 600px;
+  max-width: 100%;
+  background-color: #FFF;
+  margin: 0 auto;
+  min-height: calc(100vh - 130px);
+  box-sizing: border-box;
+  border-width: 0 1px;
+  padding: 12px;
+
+  .heading {
+    margin: 0 0 40px;
+    font-size: 24px;
+  }
+
+  .content {
+    width: 300px;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .cell {
+    width: 100%;
+  }
+
+  .submitBtn {
+    color: #FFF;
+    float: right;
+  }
+}
