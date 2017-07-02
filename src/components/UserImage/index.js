@@ -23,10 +23,7 @@ export default class UserImage extends Component {
 
     let userImage = null;
     let profilePicUrl = user.profilePicUrl;
-    profilePicUrl = SERVER_RESOURCE_URL + profilePicUrl;
     const SERVER_RESOURCE_URL2 = SERVER_RESOURCE_URL + SERVER_RESOURCE_URL;
-    console.log(profilePicUrl);
-    console.log(SERVER_RESOURCE_URL2);
     if (profilePicUrl && profilePicUrl.includes(SERVER_RESOURCE_URL2)) {
       profilePicUrl = profilePicUrl.substring(SERVER_RESOURCE_URL.length);
     }
