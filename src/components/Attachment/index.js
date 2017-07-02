@@ -56,7 +56,7 @@ class Attachment extends Component {
       >
         {(attachment.__typename === 'Photo') &&
           <img
-            src={singlePhoto ? attachment.filePathUrl.replace('%s', '') : attachment.previewUrl.replace('%s', '_500_square')}
+            src={singlePhoto ? attachment.filePathUrl.replace('%s', '_1000') : attachment.previewUrl.replace('%s', '_500_square')}
             alt={attachment.name}
           />
         }
@@ -74,7 +74,7 @@ class Attachment extends Component {
           <div>
             {(attachment.__typename === 'Photo') &&
               <img
-                src={attachment.filePathUrl.replace('%s', '')} alt={attachment.name}
+                src={attachment.filePathUrl.replace('%s', '_1000')} alt={attachment.name}
                 style={{ display: 'inline-block', maxWidth: 'calc(100% - 300px)' }}
               />
             }
