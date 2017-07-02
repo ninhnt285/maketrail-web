@@ -3,8 +3,10 @@ import Relay from 'react-relay';
 import PropTypes from 'prop-types';
 import { Button, Tabs, Tab, IconButton, Menu, MenuItem } from 'react-mdl';
 
+import { SERVER_RESOURCE_URL } from 'config';
 import Map from 'components/Map';
 import Timeline from 'components/Timeline';
+import UserImage from 'components/UserImage';
 import UpdateUserMutation from 'mutations/User/UpdateUserMutation';
 import FollowMutation from 'mutations/Follow/FollowMutation';
 import UnfollowMutation from 'mutations/Follow/UnfollowMutation';
@@ -23,7 +25,6 @@ export default class ProfileComponent extends Component {
 
     this.state = {
       activeTab: 0,
-      profilePicUrl: props.viewer.User.profilePicUrl
     };
 
     this.onFollow = this.onFollow.bind(this);
@@ -33,18 +34,17 @@ export default class ProfileComponent extends Component {
   onUploadedAttachment(attachment) {
     this.onUpdateUserImage(attachment.filePathUrl);
   }
-  onUpdateUserImage(profilePicUrl) {
+  onUpdateUserImage(picUrl) {
+    let profilePicUrl = picUrl;
+    if (profilePicUrl.charAt(SERVER_RESOURCE_URL) !== -1) {
+      profilePicUrl = profilePicUrl.substring(SERVER_RESOURCE_URL.length);
+    }
     const updateUserMutation = new UpdateUserMutation({
-      profilePicUrl
+      profilePicUrl,
+      userId: this.props.viewer.User.id
     });
     Relay.Store.commitUpdate(
-      updateUserMutation,
-      {
-        onSuccess: () => {
-          this.setState({ profilePicUrl });
-          return false;
-        }
-      }
+      updateUserMutation
     );
   }
   onFollow() {
@@ -95,17 +95,19 @@ export default class ProfileComponent extends Component {
         <div className={styles.profileCover}>
           <Map style={{ height: '300px' }} userId={user.id} />
           <div className={styles.timelineHeadline}>
-            <div className={styles.userAvatar}>
-              <img src={this.state.profilePicUrl.replace('%s', '_500_square')} alt={user.fullName} />
+            <div className={styles.userAvatarWrap}>
+              <UserImage user={user} className={styles.userAvatar} size={160} wrappLink={false} />
             </div>
-            <div className={styles.userSetting}>
-              <IconButton className={styles.settingBtn} name='settings' id='settings' />
-              <Menu target='settings' align='right'>
-                <UploadAttachment multiple={false} onUploaded={this.onUploadedAttachment}>
-                  <MenuItem>Upload Avatar</MenuItem>
-                </UploadAttachment>
-              </Menu>
-            </div>
+            {(user.id === me.id) &&
+              <div className={styles.userSetting}>
+                <IconButton className={styles.settingBtn} name='settings' id='settings' />
+                <Menu target='settings' align='right'>
+                  <UploadAttachment multiple={false} onUploaded={this.onUploadedAttachment}>
+                    <MenuItem>Upload Avatar</MenuItem>
+                  </UploadAttachment>
+                </Menu>
+              </div>
+            }
             <div className={styles.actions}>
               {!user.isFollowed && (user.id !== me.id) &&
                 <Button onClick={this.onFollow} colored raised ripple className={styles.addFriend}>Follow</Button>

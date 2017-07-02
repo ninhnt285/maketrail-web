@@ -34,6 +34,7 @@ export default class Login extends React.Component {
     }
     const updateUserMutation = new UpdateUserMutation({
       fullName: this.state.fullName,
+      userId: this.props.viewer.user.id,
     });
     Relay.Store.commitUpdate(
       updateUserMutation

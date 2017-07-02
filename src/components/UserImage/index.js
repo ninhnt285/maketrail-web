@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
+import { SERVER_RESOURCE_URL } from 'config';
 import { extendClassName, extendStyle } from 'libs/component';
 
 import styles from './UserImage.scss';
@@ -19,11 +19,20 @@ export default class UserImage extends Component {
   };
 
   render() {
-    const { user } = this.props;
+    const { user, size } = this.props;
 
     let userImage = null;
-    if (user.profilePicUrl) {
-      userImage = (<img src={`${user.profilePicUrl.replace('%s', '_50_square')}`} alt={user.username} />);
+    let profilePicUrl = user.profilePicUrl;
+    const SERVER_RESOURCE_URL2 = SERVER_RESOURCE_URL + SERVER_RESOURCE_URL;
+    if (profilePicUrl && profilePicUrl.includes(SERVER_RESOURCE_URL2)) {
+      profilePicUrl = profilePicUrl.substring(SERVER_RESOURCE_URL.length);
+    }
+    if (profilePicUrl) {
+      if (size > 50) {
+        userImage = (<img src={`${profilePicUrl.replace('%s', '_500_square')}`} alt={user.username} />);
+      } else {
+        userImage = (<img src={`${profilePicUrl.replace('%s', '_50_square')}`} alt={user.username} />);
+      }
     } else {
       const sortName = this.props.user.fullName.match(/\b\w/g).join('').substring(0, 2);
       userImage = (<span>{sortName}</span>);

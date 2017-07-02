@@ -21,7 +21,7 @@
     min-height: 41px;
   }
 
-  .userAvatar {
+  .userAvatarWrap {
     position: absolute;
     left: 15px;
     margin-top: 0;
@@ -32,7 +32,7 @@
     display: block;
     padding: 1px;
 
-    img {
+    .userAvatar {
       width: 160px;
       height: 160px;
       background-color: #fff;

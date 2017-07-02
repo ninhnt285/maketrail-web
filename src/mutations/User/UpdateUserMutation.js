@@ -26,6 +26,16 @@ class UpdateUserMutation extends Relay.Mutation {
           profilePicUrl
           fullName
         }
+        viewer {
+          user {
+            profilePicUrl
+            fullName
+          }
+          User (id:  "${this.props.userId}") {
+            profilePicUrl
+            fullName
+          }
+        }
       }
     `;
   }
@@ -34,7 +44,7 @@ class UpdateUserMutation extends Relay.Mutation {
     return [
       {
         type: 'FIELDS_CHANGE',
-        fieldIDs: { user: null }
+        fieldIDs: { viewer: 'viewer-fixed' }
       }
     ];
   }
