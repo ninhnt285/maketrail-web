@@ -35,13 +35,7 @@ class Notifications extends Component {
               <MenuItem key={notification.node.id}>
                 <Link to='/'>
                   <div className={styles.notificationContent}>
-                    {notification.node.from.map(from =>
-                      <b key={from.id}>{(from.__typename === 'User') ? from.fullName : ''} </b>
-                    )}
                     <span>{notification.node.type} </span>
-                    {notification.node.from.map(from =>
-                      <b key={from.id}>{(from.__typename === 'Trip') ? from.name : ''}</b>
-                    )}
                   </div>
                 </Link>
               </MenuItem>
@@ -71,19 +65,6 @@ export default Relay.createContainer(Notifications, {
             edges {
               node {
                 id
-                from {
-                  __typename
-                  ... on User {
-                    id
-                    username
-                    fullName
-                    profilePicUrl
-                  }
-                  ... on Trip {
-                    id
-                    name
-                  }
-                }
                 type
               }
             }
@@ -93,3 +74,24 @@ export default Relay.createContainer(Notifications, {
     `
   }
 });
+//
+// from {
+//   __typename
+//   ... on User {
+//     id
+//     username
+//     fullName
+//     profilePicUrl
+//   }
+//   ... on Trip {
+//     id
+//     name
+//   }
+// }
+// {notification.node.from.map(from =>
+//   <b key={from.id}>{(from.__typename === 'User') ? from.fullName : ''} </b>
+// )}
+// <span>{notification.node.type} </span>
+// {notification.node.from.map(from =>
+//   <b key={from.id}>{(from.__typename === 'Trip') ? from.name : ''}</b>
+// )}
