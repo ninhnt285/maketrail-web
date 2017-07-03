@@ -19,6 +19,7 @@ export default Relay.createContainer(Trip, {
           name
           isPublished
           previewPhotoUrl
+          recentExportedVideo
           members(first: 10) {
             edges {
               node {

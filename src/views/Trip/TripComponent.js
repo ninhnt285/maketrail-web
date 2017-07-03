@@ -173,12 +173,14 @@ export default class TripComponent extends React.Component {
     return (
       <div className={styles.root}>
         <div className={styles.tripCover}>
-          {localities.length > 0 &&
-            <div className={styles.videoContainer}>
-              <iframe width='1280' height='720' src='https://www.youtube-nocookie.com/embed/3lx9n19PfE0?rel=0&amp;showinfo=0' frameBorder='0' />
-            </div>
+          {Trip.recentExportedVideo &&
+            <video controls className={styles.videoCover}>
+              <source src={Trip.recentExportedVideo} type='video/mp4' />
+              <div>Your browser does not support HTML5 video.</div>
+            </video>
           }
-          {localities.length === 0 &&
+
+          {!Trip.recentExportedVideo &&
             <img src={Trip.previewPhotoUrl.replace('%s', '')} alt={Trip.name} />
           }
         </div>
