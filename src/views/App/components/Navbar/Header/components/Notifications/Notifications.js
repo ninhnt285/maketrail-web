@@ -88,7 +88,7 @@ export default Relay.createContainer(Notifications, {
 //     name
 //   }
 // }
-// {notification.node.from.map(from =>
+// {notification.node.from.map(from =   >
 //   <b key={from.id}>{(from.__typename === 'User') ? from.fullName : ''} </b>
 // )}
 // <span>{notification.node.type} </span>
