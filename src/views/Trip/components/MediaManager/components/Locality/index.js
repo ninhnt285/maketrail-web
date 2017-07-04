@@ -60,7 +60,7 @@ export default class Locality extends Component {
         {attachmentsOfLocality.map(node =>
           <Attachment
             key={node.id}
-            className={styles.attachment}
+            className={styles.attachmentBox}
             attachment={node}
           />
         )}

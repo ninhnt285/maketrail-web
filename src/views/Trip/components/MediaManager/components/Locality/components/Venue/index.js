@@ -58,7 +58,7 @@ export default class Venue extends Component {
         {attachmentsOfVenue.map(node =>
           <Attachment
             key={node.id}
-            className={styles.attachment}
+            className={styles.attachmentBox}
             attachment={node}
           />
         )}

@@ -18,10 +18,18 @@
     display: inline-block;
     box-sizing: border-box;
     padding: 1px;
+    border: none;
+    background: none;
   }
 
   .addBtn {
-    background-color: #EEE;
+    button {
+      margin: 0;
+      padding: 0;
+      border: none;
+      background-color: #EEE;
+      cursor: pointer;
+    }
 
     .previewImg {
       padding: 30%;
@@ -33,12 +41,12 @@
     height: 100%;
     box-sizing: border-box;
   }
+
   .uploadArea {
     width: auto !important;
     height: auto !important;
     display: inline-block !important;
     border: none !important;
-    margin-right: 10px;
   }
 }
 
