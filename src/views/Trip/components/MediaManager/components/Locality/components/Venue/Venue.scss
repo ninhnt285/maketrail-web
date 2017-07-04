@@ -29,6 +29,7 @@
       border: none;
       background-color: #EEE;
       cursor: pointer;
+      width: 100%;
     }
 
     .previewImg {
@@ -43,7 +44,7 @@
   }
 
   .uploadArea {
-    width: auto !important;
+    width: 100% !important;
     height: auto !important;
     display: inline-block !important;
     border: none !important;
