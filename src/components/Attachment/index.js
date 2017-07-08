@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
@@ -14,21 +15,31 @@ class Attachment extends Component {
   static propTypes = {
     attachment: PropTypes.object.isRequired,
     singlePhoto: PropTypes.bool,
-    feed: PropTypes.object
+    feed: PropTypes.object,
+    showDelete: PropTypes.bool
   };
 
   static defaultProps = {
     singlePhoto: false,
     feed: null,
+    showDelete: false
   };
+
   constructor(props) {
     super(props);
     this.state = { showModal: false, showComment: true };
+    this.onDeleteClicked = this.onDeleteClicked.bind(this);
+    this.showModal = this.showModal.bind(this);
   }
 
   onShowComment() {
     this.setState({ showComment: true });
   }
+
+  onDeleteClicked(e) {
+    e.preventDefault();
+  }
+
   showModal() {
     this.setState({ showModal: true });
   }
@@ -36,6 +47,7 @@ class Attachment extends Component {
   hideModal() {
     this.setState({ showModal: false });
   }
+
   render() {
     const { attachment, singlePhoto, feed } = this.props;
     let defaultStyle = {};
@@ -49,23 +61,28 @@ class Attachment extends Component {
       typeVideo = `video/${attachment.filePathUrl.substring(attachment.filePathUrl.length - 3, attachment.filePathUrl.length)}`;
     }
     return (
-      <button
+      <div
         style={extendStyle(this.props, defaultStyle)}
         className={extendClassName(this.props, styles.root)}
-        onClick={() => this.showModal()}
       >
-        {(attachment.__typename === 'Photo') &&
-          <img
-            src={singlePhoto ? attachment.filePathUrl.replace('%s', '_1000') : attachment.previewUrl.replace('%s', '_500_square')}
-            alt={attachment.name}
-          />
+        {this.props.showDelete &&
+          <a className={styles.deleteBtn} onClick={this.onDeleteClicked}>x</a>
         }
-        {(attachment.__typename === 'Video') &&
-          <video width='100%' controls>
-            <source src={attachment.filePathUrl} type={typeVideo} />
-            <div>Your browser does not support HTML5 video.</div>
-          </video>
-        }
+        <div className={styles.wrapper} onClick={() => this.showModal()}>
+          {(attachment.__typename === 'Photo') &&
+            <img
+              src={singlePhoto ? attachment.filePathUrl.replace('%s', '_1000') : attachment.previewUrl.replace('%s', '_500_square')}
+              alt={attachment.name}
+            />
+          }
+          {(attachment.__typename === 'Video') &&
+            <video width='100%' controls>
+              <source src={attachment.filePathUrl} type={typeVideo} />
+              <div>Your browser does not support HTML5 video.</div>
+            </video>
+          }
+        </div>
+
         <Modal
           showModal={this.state.showModal}
           onCloseModal={() => this.hideModal()}
@@ -125,7 +142,7 @@ class Attachment extends Component {
             }
           </div>
         </Modal>
-      </button>
+      </div>
     );
   }
 }

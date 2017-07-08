@@ -60,6 +60,7 @@ export default class Venue extends Component {
             key={node.id}
             className={styles.attachmentBox}
             attachment={node}
+            showDelete
           />
         )}
         <div className={`${styles.attachmentBox} ${styles.addBtn}`}>

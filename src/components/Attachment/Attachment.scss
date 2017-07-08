@@ -1,14 +1,35 @@
 .root {
+  position: relative;
   border-radius: 2px;
   background-color: #999;
   cursor: pointer;
 
-  img {
-    width: 100%;
-    height: auto;
+  .wrapper {
+    img {
+      width: 100%;
+      height: auto;
+    }
+    video {
+      width: 100%;
+      height: auto;
+    }
   }
-  video {
-    width: 100%;
-    height: auto;
+
+  .deleteBtn {
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 1px;
+    background-color: #FF0000;
+    color: #FFF;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border: none;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+    cursor: pointer;
   }
 }
