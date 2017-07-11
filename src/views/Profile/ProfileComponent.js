@@ -93,7 +93,9 @@ export default class ProfileComponent extends Component {
     return (
       <div className={styles.root}>
         <div className={styles.profileCover}>
-          <div style={{ height: '300px' }} />
+          <div>
+            <img src={user.map} alt={user.username} className={styles.map} />
+          </div>
           <div className={styles.timelineHeadline}>
             <div className={styles.userAvatarWrap}>
               <UserImage user={user} className={styles.userAvatar} size={160} wrappLink={false} />
