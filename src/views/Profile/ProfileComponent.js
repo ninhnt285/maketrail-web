@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Tabs, Tab, IconButton, Menu, MenuItem } from 'react-mdl';
 
 import { SERVER_RESOURCE_URL } from 'config';
-import Map from 'components/Map';
+// import Map from 'components/Map';
 import Timeline from 'components/Timeline';
 import UserImage from 'components/UserImage';
 import UpdateUserMutation from 'mutations/User/UpdateUserMutation';
@@ -93,7 +93,7 @@ export default class ProfileComponent extends Component {
     return (
       <div className={styles.root}>
         <div className={styles.profileCover}>
-          <Map style={{ height: '300px' }} userId={user.id} />
+          <div style={{ height: '300px' }} />
           <div className={styles.timelineHeadline}>
             <div className={styles.userAvatarWrap}>
               <UserImage user={user} className={styles.userAvatar} size={160} wrappLink={false} />

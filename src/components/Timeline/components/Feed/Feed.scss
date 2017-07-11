@@ -37,4 +37,14 @@
     padding: 0;
     border: none;
   }
+  .feedShare {
+    margin: 10px 0 0 10px;
+    border-left: 2px #bababa solid;
+    padding-left: 10px;
+  }
+  .func :global {
+    .mdl-button{
+      color: #FFF;
+    }
+  }
 }

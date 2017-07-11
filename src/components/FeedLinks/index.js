@@ -10,10 +10,14 @@ import styles from './FeedLinks.scss';
 export default class FeedLinks extends Component {
   static propTypes = {
     onShowComment: PropTypes.func.isRequired,
+    onShare: PropTypes.func,
     parentId: PropTypes.string.isRequired,
     isLiked: PropTypes.bool.isRequired,
     statistics: PropTypes.object.isRequired,
   };
+  static defaultProps = {
+    onShare: null
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -45,6 +49,11 @@ export default class FeedLinks extends Component {
       }
     });
   }
+  onShare() {
+    if (this.props.onShare !== null) {
+      this.props.onShare();
+    }
+  }
   render() {
     const { isLiked, likeCount, shareCount, commentCount } = this.state;
     let statistics = '';
@@ -67,7 +76,7 @@ export default class FeedLinks extends Component {
             <button className={styles.isLiked} onClick={() => this.onDeleteLike()}>Like</button>
           }
           <button className={styles.link} onClick={this.props.onShowComment}>Comment</button>
-          <button className={styles.link}>Share</button>
+          <button className={styles.link} onClick={() => this.onShare()}>Share</button>
         </div>
       </div>
     );

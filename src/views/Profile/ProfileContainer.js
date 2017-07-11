@@ -19,6 +19,7 @@ export default Relay.createContainer(Profile, {
           id
           username
           fullName
+          map
           isFollowed
           profilePicUrl
           trips(first: 100) {
