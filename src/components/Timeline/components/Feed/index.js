@@ -12,6 +12,7 @@ import DeleteFeedMutation from 'mutations/Feed/DeleteFeedMutation';
 import Modal from 'components/Modal';
 
 import AddFeedForm from '../AddFeedForm';
+import FeedShare from './components/FeedShare';
 
 import styles from './Feed.scss';
 
@@ -117,40 +118,8 @@ class Feed extends Component {
             placeId={feed.placeId}
           />
           <p className={styles.status}>{feed.text}</p>
-          {(feed.type === 'SHARE') && (feed.parent.id) &&
-            <div className={styles.feedShare}>
-              <FeedHeader
-                user={feed.parent.from}
-                timestamp={feed.parent.createdAt}
-                privacy={feed.parent.privacy}
-                placeName={feed.parent.placeName}
-                placeId={feed.parent.placeId}
-              />
-              <p className={styles.status}>{feed.parent.text}</p>
-              {feed.parent.attachments.edges.length > 0 &&
-                <div className={styles.attachmentWrapper}>
-                  {feed.parent.attachments.edges.length === 1 &&
-                    <Attachment
-                      className={styles.attachment}
-                      attachment={feed.parent.attachments.edges[0].node}
-                      singlePhoto
-                      feed={feed}
-                    />
-                  }
-
-                  {feed.parent.attachments.edges.length > 1 &&
-                    feed.parent.attachments.edges.map(edge =>
-                      <Attachment
-                        key={edge.cursor}
-                        className={styles.attachment}
-                        attachment={edge.node}
-                        feed={feed}
-                      />
-                    )
-                  }
-                </div>
-              }
-            </div>
+          {(feed.type === 'SHARE') && (feed.parent) &&
+            <FeedShare parent={feed.parent} />
           }
           {attachments.length > 0 &&
             <div className={styles.attachmentWrapper}>
@@ -240,39 +209,7 @@ export default Relay.createContainer(Feed, {
         placeName
         type
         parent {
-          id
-          text
-          privacy
-          createdAt
-          isLiked
-          placeId
-          placeName
-          from {
-            ... on User {
-              id
-              username
-              fullName
-              profilePicUrl
-            }
-          }
-          attachments(first: 5) {
-            edges {
-              cursor
-              node {
-                ... on Photo {
-                  id
-                  previewUrl
-                  caption
-                }
-                ... on Video {
-                  id
-                  previewUrl
-                  caption
-                }
-                ${Attachment.getFragment('attachment')}
-              }
-            }
-          }
+          ${FeedShare.getFragment('parent')}
         }
         from {
           ... on User {
