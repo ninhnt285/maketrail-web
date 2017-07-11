@@ -30,13 +30,12 @@ class AddShareMutation extends Relay.Mutation {
   }
 
   getConfigs() {
-    // const rangeBehaviors = ({ toId }) => {
-    //   if (toId === this.props.parentId) {
-    //     return 'prepend';
-    //   }
-    //   return 'ignore';
-    // };
-    const rangeBehaviors = () => 'prepend';
+    const rangeBehaviors = () => {
+      if (this.props.onShowFeed) {
+        return 'prepend';
+      }
+      return 'ignore';
+    };
     return [
       {
         type: 'RANGE_ADD',

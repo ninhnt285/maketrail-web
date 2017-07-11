@@ -49,6 +49,7 @@ class Timeline extends Component {
             feed={feed}
             parentId={this.props.parentId}
             places={this.props.places}
+            userId={this.props.viewer.user.id}
           />
         )}
       </div>
@@ -65,6 +66,9 @@ export default Relay.createContainer(Timeline, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
+        user {
+          id
+        }
         allFeeds(first: $count, toId: $parentId) {
           edges {
             node {

@@ -20,11 +20,13 @@ class Feed extends Component {
     feed: PropTypes.object.isRequired,
     parentId: PropTypes.string,
     places: PropTypes.array,
+    userId: PropTypes.string,
   };
 
   static defaultProps = {
     parentId: null,
     places: [],
+    userId: null,
   }
   constructor(props) {
     super(props);
@@ -46,9 +48,11 @@ class Feed extends Component {
   }
 
   onShare() {
+    const onShowFeed = ((this.props.parentId === null) || (this.props.parentId === this.props.userId));
     const addShareMutation = new AddShareMutation({
       parentId: this.props.feed.id,
       text: this.state.textShare,
+      onShowFeed,
     });
 
     Relay.Store.commitUpdate(addShareMutation, {
