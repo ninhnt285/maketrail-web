@@ -1,13 +1,15 @@
 import React from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Tabs, Tab, Grid, Cell, IconButton, Button, Menu, MenuItem } from 'react-mdl';
+import { Tabs, Tab, Grid, Cell, IconButton, Button, Menu, MenuItem, Textfield } from 'react-mdl';
 
 import LocalityFinder from 'components/LocalityFinder';
 import Timeline from 'components/Timeline';
 import AddTripLocalityMutation from 'mutations/TripLocality/AddTripLocalityMutation';
 import UpdateTripMutation from 'mutations/Trip/UpdateTripMutation';
 import DeleteTripMutation from 'mutations/Trip/DeleteTripMutation';
+import AddShareMutation from 'mutations/Feed/AddShareMutation';
+import Modal from 'components/Modal';
 
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
@@ -28,6 +30,8 @@ export default class TripComponent extends React.Component {
       activeTab: 0,
       name: this.props.viewer.Trip.name,
       isInEditName: (this.props.viewer.Trip.name === 'Our Trip 2017'),
+      showShareModal: false,
+      textShare: '',
     };
 
     this.onAddLocality = this.onAddLocality.bind(this);
@@ -116,6 +120,23 @@ export default class TripComponent extends React.Component {
       }
     );
   }
+  onShare() {
+    // const onShowFeed = ((this.props.parentId === null) || (this.props.parentId === this.props.userId));
+    const addShareMutation = new AddShareMutation({
+      parentId: this.props.viewer.Trip.id,
+      text: this.state.textShare,
+      onShowFeed: false,
+    });
+
+    Relay.Store.commitUpdate(addShareMutation, {
+      onSuccess: () => {
+        this.setState({ textShare: '', showShareModal: false });
+      }
+    });
+  }
+  onTextShareChange(event) {
+    this.setState({ textShare: event.target.value });
+  }
   handleTripNameChange = (event) => {
     this.setState({
       name: event.target.value,
@@ -199,6 +220,32 @@ export default class TripComponent extends React.Component {
           </form>
           <IconButton className={styles.settingBtn} name='settings' id='tripSettings' />
           <Menu target='tripSettings' align='right'>
+            <MenuItem onClick={() => this.setState({ showShareModal: true })}>Share now</MenuItem>
+            <Modal
+              showModal={this.state.showShareModal}
+              onCloseModal={() => this.setState({ showShareModal: false })}
+              title='Share post'
+            >
+              <div style={{ width: '100%' }}>
+                <Textfield
+                  value={this.state.textShare}
+                  onChange={event => this.onTextShareChange(event)}
+                  label="What's on your mind?"
+                  rows={2}
+                  style={{ width: '100%' }}
+                />
+                <div style={{ position: 'relative', width: '100%', display: 'block' }}>
+                  <img style={{ width: '100%', height: 'auto' }}src={Trip.previewPhotoUrl.replace('%s', '')} alt='Trip Cover' />
+                  <div style={{ margin: '0', padding: '10px', color: 'white', position: 'absolute', backgroundColor: 'rgba(0, 0, 0, 0.75)', bottom: '0', width: 'calc(100% - 20px)' }}>
+                    {Trip.name}
+                  </div>
+                </div>
+                <div className={styles.func}>
+                  <Button style={{ marginTop: '10px', color: '#fff' }} colored raised ripple onClick={() => this.onShare()}>Submit</Button>
+                  <Button style={{ marginTop: '10px', marginLeft: '10px', color: '#fff' }} raised ripple onClick={() => this.setState({ showShareModal: false })}>Cancel</Button>
+                </div>
+              </div>
+            </Modal>
             <MenuItem onClick={() => this.onEditTrip()}>Edit Name</MenuItem>
             <MenuItem onClick={event => this.onExportVideo(event)}>Export video</MenuItem>
             <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>

@@ -2,4 +2,33 @@
   margin: 10px 0 0 10px;
   border-left: 2px #bababa solid;
   padding-left: 10px;
+  .trip {
+    position: relative;
+    display: block;
+    min-height: 110px;
+    margin-bottom: 10px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+
+    p {
+      color: #FFF;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 0px;
+      line-height: 1.5;
+    }
+  }
+
+  .tripDetail {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    padding: 10px;
+    box-sizing: border-box;
+  }
 }

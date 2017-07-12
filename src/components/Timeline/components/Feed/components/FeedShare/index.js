@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 import FeedHeader from 'components/FeedHeader';
 import Attachment from 'components/Attachment';
@@ -16,6 +17,14 @@ class FeedShare extends Component {
     const { parent } = this.props;
     return (
       <div className={styles.root}>
+        {parent.__typename === 'Trip' &&
+          <Link key={parent.id} className={styles.trip} to={`/trip/${parent.id}`}>
+            <img src={parent.previewPhotoUrl.replace('%s', '')} alt='Trip Cover' />
+            <div className={styles.tripDetail}>
+              <p>{parent.name}</p>
+            </div>
+          </Link>
+        }
         {parent.__typename === 'Feed' &&
           <div>
             <FeedHeader
@@ -61,6 +70,11 @@ export default Relay.createContainer(FeedShare, {
     parent: () => Relay.QL`
       fragment on ObjectType {
         __typename
+        ... on Trip {
+          id
+          name
+          previewPhotoUrl
+        }
         ... on Feed {
           id
           text
