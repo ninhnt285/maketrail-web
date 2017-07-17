@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Badge, IconButton, Menu, MenuItem } from 'react-mdl';
+import Relay from 'react-relay';
+import { Badge, IconButton, Menu, MenuItem, Button } from 'react-mdl';
 import { SERVER_URL } from 'config';
 import { Link } from 'react-router';
+
+import AnswerInviteMutation from 'mutations/Notification/AnswerInviteMutation';
 
 import styles from './Notifications.scss';
 
@@ -14,6 +17,20 @@ export default class Notifications extends Component {
       isLoaded: false,
     };
     this.init();
+  }
+  onAnswerInvite(index, choice) {
+    const notifications = this.state.notifications;
+    const answerInviteMutation = new AnswerInviteMutation({
+      notificationId: notifications[index].node.id,
+      choice
+    });
+
+    Relay.Store.commitUpdate(answerInviteMutation, {
+      onSuccess: () => {
+        notifications[index].node.isAnswered = true;
+        this.setState({ notifications });
+      }
+    });
   }
   init() {
     const accessToken = localStorage.getItem('accessToken');
@@ -33,6 +50,15 @@ export default class Notifications extends Component {
                           node {
                             id
                             type
+                            story
+                            link
+                            to {
+                              __typename
+                              ... on Trip {
+                                id
+                                name
+                              }
+                            }
                             from {
                               __typename
                               ... on User {
@@ -58,7 +84,6 @@ export default class Notifications extends Component {
       this.setState({ notifications: responseJson.data.viewer.allNotifications.data.edges, isLoaded: true });
     });
   }
-
   render() {
     const { notifications, isLoaded } = this.state;
     if (!isLoaded) {
@@ -74,22 +99,22 @@ export default class Notifications extends Component {
         {notifications.length === 0 &&
           <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
         }
-        <Menu target='global_notifications' align='right'>
+        <Menu target='global_notifications' align='right' className={styles.notificationWrap}>
           <MenuItem className={styles.title}>
             Notifications
           </MenuItem>
           {notifications.length > 0 &&
-            notifications.map(notification =>
-              <MenuItem key={notification.node.id}>
-                <Link to='/'>
+            notifications.map((notification, index) =>
+              <MenuItem key={notification.node.id} className={styles.notificationItem}>
+                <Link to={notification.node.link}>
                   <div className={styles.notificationContent}>
-                    {notification.node.from.map(from =>
-                      <b key={from.id}>{(from.__typename === 'User') ? from.fullName : ''} </b>
-                    )}
-                    <span>{notification.node.type} </span>
-                    {notification.node.from.map(from =>
-                      <b key={from.id}>{(from.__typename === 'Trip') ? from.name : ''}</b>
-                    )}
+                    <span>{notification.node.story} </span>
+                    {(notification.node.type === 'inviteToTrip') && (!notification.node.isAnswered) &&
+                      <div className={styles.notificationFunc}>
+                        <Button colored raised ripple style={{ marginLeft: '10px' }}onClick={() => this.onAnswerInvite(index, true)}>Accept</Button>
+                        <Button raised ripple style={{ marginLeft: '10px' }}onClick={() => this.onAnswerInvite(index, false)}>Ignore</Button>
+                      </div>
+                    }
                   </div>
                 </Link>
               </MenuItem>

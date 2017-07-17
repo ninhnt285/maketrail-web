@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 import { IconButton, Menu, MenuItem, Textfield, Button } from 'react-mdl';
 
 import FeedLinks from 'components/FeedLinks';
@@ -22,17 +23,19 @@ class Feed extends Component {
     parentId: PropTypes.string,
     places: PropTypes.array,
     userId: PropTypes.string,
+    showComment: PropTypes.bool,
   };
 
   static defaultProps = {
     parentId: null,
     places: [],
     userId: null,
+    showComment: false,
   }
   constructor(props) {
     super(props);
 
-    this.state = { textShare: '', showComment: false, showEditModal: false, showShareModal: false };
+    this.state = { textShare: '', showComment: this.props.showComment, showEditModal: false, showShareModal: false };
 
     this.onShowComment = this.onShowComment.bind(this);
   }
@@ -93,6 +96,11 @@ class Feed extends Component {
           <div className={styles.actions}>
             <IconButton name='expand_more' id={`action_feed_${feed.id}`} />
             <Menu target={`action_feed_${feed.id}`} align='right'>
+              <MenuItem>
+                <Link className={styles.linkFeed} to={`/feed/${feed.id}`} target='_blank'>
+                  Open in new tab
+                </Link>
+              </MenuItem>
               <MenuItem onClick={() => this.showEditModal()}>Edit</MenuItem>
               <MenuItem onClick={() => this.onDeleteFeed()}>Delete</MenuItem>
 

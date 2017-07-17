@@ -35,8 +35,14 @@
     padding-left: 8px;
     display: inline-block;
     color: black !important;
+    .notificationFunc {
+      display: inline-block;
+    }
   }
-
+  .notificationWrap {
+    width: auto !important;
+    height: auto !important;
+  }
   .title {
     min-width: 230px;
     font-weight: bold;
@@ -45,6 +51,10 @@
     &:hover {
       background-color: transparent;
     }
+  }
+  .notificationItem {
+    height: auto;
+    width: auto;
   }
 
   .viewMore {
