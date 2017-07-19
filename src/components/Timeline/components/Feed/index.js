@@ -131,25 +131,16 @@ class Feed extends Component {
           }
           {attachments.length > 0 &&
             <div className={styles.attachmentWrapper}>
-              {attachments.length === 1 &&
+              {attachments.map(edge =>
                 <Attachment
+                  key={edge.cursor}
                   className={styles.attachment}
-                  attachment={attachments[0].node}
-                  singlePhoto
+                  attachment={edge.node}
+                  singlePhoto={(attachments.length === 1)}
                   feed={feed}
+                  onShare={(attachments.length === 1) ? (() => this.showShareModal()) : null}
                 />
-              }
-
-              {attachments.length > 1 &&
-                attachments.map(edge =>
-                  <Attachment
-                    key={edge.cursor}
-                    className={styles.attachment}
-                    attachment={edge.node}
-                    feed={feed}
-                  />
-                )
-              }
+              )}
             </div>
           }
         </div>
@@ -188,6 +179,7 @@ class Feed extends Component {
                   key={edge.cursor}
                   style={{ display: 'inline-block', width: '150px', height: '150px', marginRight: '2px' }}
                   attachment={edge.node}
+                  singlePhoto={(attachments.length === 1)}
                   feed={feed}
                 />
               )}

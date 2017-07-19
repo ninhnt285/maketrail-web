@@ -15,8 +15,24 @@ class FeedShare extends Component {
 
   render() {
     const { parent } = this.props;
+    let typeVideo = '';
+    if (parent.__typename === 'Video') {
+      typeVideo = `video/${parent.filePathUrl.substring(parent.filePathUrl.length - 3, parent.filePathUrl.length)}`;
+    }
     return (
       <div className={styles.root}>
+        {parent.__typename === 'Photo' &&
+          <img
+            src={parent.filePathUrl.replace('%s', '_1000')}
+            alt={parent.name}
+          />
+        }
+        {parent.__typename === 'Video' &&
+          <video width='100%' controls>
+            <source src={parent.filePathUrl} type={typeVideo} />
+            <div>Your browser does not support HTML5 video.</div>
+          </video>
+        }
         {parent.__typename === 'Trip' &&
           <Link key={parent.id} className={styles.trip} to={`/trip/${parent.id}`}>
             <img src={parent.previewPhotoUrl.replace('%s', '')} alt='Trip Cover' />
@@ -37,25 +53,15 @@ class FeedShare extends Component {
             <p className={styles.status}>{parent.text}</p>
             {parent.attachments.edges.length > 0 &&
               <div className={styles.attachmentWrapper}>
-                {parent.attachments.edges.length === 1 &&
+                {parent.attachments.edges.map(edge =>
                   <Attachment
+                    key={edge.cursor}
                     className={styles.attachment}
-                    attachment={parent.attachments.edges[0].node}
-                    singlePhoto
+                    attachment={edge.node}
+                    singlePhoto={(parent.attachments.edges.length === 1)}
                     feed={parent}
                   />
-                }
-
-                {parent.attachments.edges.length > 1 &&
-                  parent.attachments.edges.map(edge =>
-                    <Attachment
-                      key={edge.cursor}
-                      className={styles.attachment}
-                      attachment={edge.node}
-                      feed={parent}
-                    />
-                  )
-                }
+                )}
               </div>
             }
           </div>
@@ -70,6 +76,16 @@ export default Relay.createContainer(FeedShare, {
     parent: () => Relay.QL`
       fragment on ObjectType {
         __typename
+        ... on Photo {
+          id
+          name
+          filePathUrl
+        }
+        ... on Video {
+          id
+          name
+          filePathUrl
+        }
         ... on Trip {
           id
           name

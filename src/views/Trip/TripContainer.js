@@ -14,6 +14,9 @@ export default Relay.createContainer(Trip, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
+        user {
+          id
+        }
         Trip(id: $tripId) {
           id
           name

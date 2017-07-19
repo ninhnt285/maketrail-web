@@ -29,7 +29,7 @@ export default class TripComponent extends React.Component {
     this.state = {
       activeTab: 0,
       name: this.props.viewer.Trip.name,
-      isInEditName: (this.props.viewer.Trip.name === 'Our Trip 2017'),
+      isInEditName: false,
       showShareModal: false,
       textShare: '',
     };

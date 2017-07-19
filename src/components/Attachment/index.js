@@ -5,9 +5,11 @@ import PropTypes from 'prop-types';
 
 import { extendClassName, extendStyle } from 'libs/component';
 
+import { Textfield, Button } from 'react-mdl';
 import Modal from 'components/Modal';
 import FeedLinks from 'components/FeedLinks';
 import CommentBox from 'components/CommentBox';
+import AddShareMutation from 'mutations/Feed/AddShareMutation';
 import FeedHeader from '../FeedHeader';
 import styles from './Attachment.scss';
 
@@ -16,22 +18,46 @@ class Attachment extends Component {
     attachment: PropTypes.object.isRequired,
     singlePhoto: PropTypes.bool,
     feed: PropTypes.object,
-    showDelete: PropTypes.bool
+    showDelete: PropTypes.bool,
+    onShare: PropTypes.func,
   };
 
   static defaultProps = {
     singlePhoto: false,
     feed: null,
+    onShare: null,
     showDelete: false
   };
 
   constructor(props) {
     super(props);
-    this.state = { showModal: false, showComment: true };
+    this.state = { showModal: false, showComment: true, showShareModal: false, textShare: '' };
     this.onDeleteClicked = this.onDeleteClicked.bind(this);
     this.showModal = this.showModal.bind(this);
   }
+  onShareSubmit() {
+    const addShareMutation = new AddShareMutation({
+      parentId: this.props.attachment.id,
+      text: this.state.textShare,
+      onShowFeed: false,
+    });
 
+    Relay.Store.commitUpdate(addShareMutation, {
+      onSuccess: () => {
+        this.setState({ textShare: '', showShareModal: false });
+      }
+    });
+  }
+  onTextShareChange(event) {
+    this.setState({ textShare: event.target.value });
+  }
+  showShareModal() {
+    this.setState({ showShareModal: true });
+  }
+
+  hideShareModal() {
+    this.setState({ showShareModal: false });
+  }
   onShowComment() {
     this.setState({ showComment: true });
   }
@@ -47,7 +73,13 @@ class Attachment extends Component {
   hideModal() {
     this.setState({ showModal: false });
   }
-
+  onShare() {
+    if (this.props.onShare != null) {
+      this.props.onShare();
+    } else {
+      this.showShareModal();
+    }
+  }
   render() {
     const { attachment, singlePhoto, feed } = this.props;
     let defaultStyle = {};
@@ -101,7 +133,7 @@ class Attachment extends Component {
                 <div>Your browser does not support HTML5 video.</div>
               </video>
             }
-            {this.props.feed &&
+            {feed &&
               <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
                 <FeedHeader
                   user={feed.from}
@@ -116,6 +148,7 @@ class Attachment extends Component {
                     parentId={feed.id}
                     isLiked={feed.isLiked}
                     statistics={feed.statistics}
+                    onShare={() => this.onShare()}
                   />
                 }
                 {!singlePhoto &&
@@ -124,22 +157,57 @@ class Attachment extends Component {
                     parentId={parentId}
                     isLiked={attachment.isLiked}
                     statistics={attachment.statistics}
+                    onShare={() => this.onShare()}
                   />
                 }
                 <CommentBox showComment={this.state.showComment} parentId={parentId} />
               </div>
             }
-            {!this.props.feed &&
+            {!feed &&
               <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
                 <FeedLinks
                   onShowComment={this.onShowComment}
                   parentId={parentId}
                   isLiked={attachment.isLiked}
                   statistics={attachment.statistics}
+                  onShare={() => this.onShare()}
                 />
                 <CommentBox showComment={this.state.showComment} parentId={parentId} />
               </div>
             }
+          </div>
+        </Modal>
+        <Modal
+          showModal={this.state.showShareModal}
+          onCloseModal={() => this.hideShareModal()}
+          title={`Share ${attachment.__typename}`}
+        >
+          <div>
+            <Textfield
+              value={this.state.textShare}
+              onChange={event => this.onTextShareChange(event)}
+              label="What's on your mind?"
+              rows={2}
+              style={{ width: '100%' }}
+            />
+            <div style={{ marginLeft: '10px', borderLeft: '2px #bababa solid', paddingLeft: '10px' }}>
+            {(attachment.__typename === 'Photo') &&
+              <img
+                src={singlePhoto ? attachment.filePathUrl.replace('%s', '_1000') : attachment.previewUrl.replace('%s', '_500_square')}
+                alt={attachment.name}
+              />
+            }
+            {(attachment.__typename === 'Video') &&
+              <video width='100%' controls>
+                <source src={attachment.filePathUrl} type={typeVideo} />
+                <div>Your browser does not support HTML5 video.</div>
+              </video>
+            }
+            </div>
+            <div className={styles.func}>
+              <Button style={{ marginTop: '10px', color: '#fff' }} colored raised ripple onClick={() => this.onShareSubmit()}>Submit</Button>
+              <Button style={{ marginTop: '10px', marginLeft: '10px', color: '#fff' }} raised ripple onClick={() => this.hideShareModal()}>Cancel</Button>
+            </div>
           </div>
         </Modal>
       </div>
