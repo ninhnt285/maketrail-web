@@ -120,6 +120,12 @@ export default class TripComponent extends React.Component {
       }
     );
   }
+  onShareFb() {
+    window.FB.ui({
+      method: 'share',
+      href: window.location.href,
+    });
+  }
   onShare() {
     // const onShowFeed = ((this.props.parentId === null) || (this.props.parentId === this.props.userId));
     const addShareMutation = new AddShareMutation({
@@ -221,6 +227,7 @@ export default class TripComponent extends React.Component {
           <IconButton className={styles.settingBtn} name='settings' id='tripSettings' />
           <Menu target='tripSettings' align='right'>
             <MenuItem onClick={() => this.setState({ showShareModal: true })}>Share now</MenuItem>
+            <MenuItem onClick={() => this.onShareFb()}>Share to Facebook</MenuItem>
             <Modal
               showModal={this.state.showShareModal}
               onCloseModal={() => this.setState({ showShareModal: false })}

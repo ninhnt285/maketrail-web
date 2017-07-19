@@ -151,6 +151,7 @@ class Feed extends Component {
           statistics={feed.statistics}
           feed={feed}
           onShare={() => this.showShareModal()}
+          linkForShare={`/feed/${feed.id}`}
         />
         <Modal
           showModal={this.state.showShareModal}

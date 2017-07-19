@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
+import { Menu, MenuItem } from 'react-mdl';
 
+import { WEBSITE_URL, SERVER_RESOURCE_URL } from 'config';
 import AddLikeMutation from 'mutations/Feed/AddLikeMutation';
 import DeleteLikeMutation from 'mutations/Feed/DeleteLikeMutation';
 
@@ -14,9 +16,13 @@ export default class FeedLinks extends Component {
     parentId: PropTypes.string.isRequired,
     isLiked: PropTypes.bool.isRequired,
     statistics: PropTypes.object.isRequired,
+    linkForShare: PropTypes.string,
+    isInModal: PropTypes.bool,
   };
   static defaultProps = {
-    onShare: null
+    onShare: null,
+    linkForShare: null,
+    isInModal: false,
   }
   constructor(props) {
     super(props);
@@ -49,6 +55,16 @@ export default class FeedLinks extends Component {
       }
     });
   }
+  onShareFb() {
+    let href = this.props.linkForShare;
+    if ((href.indexOf(WEBSITE_URL) === -1) && (href.indexOf(SERVER_RESOURCE_URL) === -1)) {
+      href = WEBSITE_URL + href;
+    }
+    window.FB.ui({
+      method: 'share',
+      href,
+    });
+  }
   onShare() {
     if (this.props.onShare !== null) {
       this.props.onShare();
@@ -56,8 +72,8 @@ export default class FeedLinks extends Component {
   }
   render() {
     const { isLiked, likeCount, shareCount, commentCount } = this.state;
+    const { linkForShare, parentId, isInModal } = this.props;
     let statistics = '';
-
     statistics = (likeCount > 0) ? `${statistics} ${likeCount} like${(likeCount > 1) ? 's' : ''}` : statistics;
     if ((statistics) && (commentCount > 0)) { statistics = `${statistics} ${'\u22C5'}`; }
     statistics = (commentCount > 0) ? `${statistics} ${commentCount} comment${(commentCount > 1) ? 's' : ''}` : statistics;
@@ -76,7 +92,18 @@ export default class FeedLinks extends Component {
             <button className={styles.isLiked} onClick={() => this.onDeleteLike()}>Like</button>
           }
           <button className={styles.link} onClick={this.props.onShowComment}>Comment</button>
-          <button className={styles.link} onClick={() => this.onShare()}>Share</button>
+          {(linkForShare === null) &&
+            <button className={styles.link} onClick={() => this.onShare()}>Share</button>
+          }
+          {(linkForShare !== null) &&
+            <div style={{ display: 'inline-block' }}>
+              <button className={styles.link} id={`action_feed_link_${parentId}_${isInModal}`}>Share</button>
+              <Menu target={`action_feed_link_${parentId}_${isInModal}`} align='left'>
+                <MenuItem onClick={() => this.onShare()}>Share on my wall</MenuItem>
+                <MenuItem onClick={() => this.onShareFb()}>Share to Facebook</MenuItem>
+              </Menu>
+            </div>
+          }
         </div>
       </div>
     );

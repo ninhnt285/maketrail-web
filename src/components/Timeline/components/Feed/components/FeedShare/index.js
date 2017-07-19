@@ -23,12 +23,13 @@ class FeedShare extends Component {
       <div className={styles.root}>
         {parent.__typename === 'Photo' &&
           <img
+            className={styles.attachmentSingle}
             src={parent.filePathUrl.replace('%s', '_1000')}
             alt={parent.name}
           />
         }
         {parent.__typename === 'Video' &&
-          <video width='100%' controls>
+          <video width='100%' controls className={styles.attachmentSingle}>
             <source src={parent.filePathUrl} type={typeVideo} />
             <div>Your browser does not support HTML5 video.</div>
           </video>
