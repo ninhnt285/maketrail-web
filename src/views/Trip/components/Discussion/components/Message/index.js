@@ -12,7 +12,6 @@ export default class Message extends Component {
 
   render() {
     const { message } = this.props;
-
     return (
       <div className={styles.root}>
         <div className={styles.userImage} />
