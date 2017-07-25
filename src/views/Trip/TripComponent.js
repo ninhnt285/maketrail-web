@@ -14,6 +14,7 @@ import Modal from 'components/Modal';
 import TripLocality from './components/TripLocality';
 import MemberManager from './components/MemberManager';
 import MediaManager from './components/MediaManager';
+import Discussion from './components/Discussion';
 import styles from './Trip.scss';
 
 export default class TripComponent extends React.Component {
@@ -31,6 +32,7 @@ export default class TripComponent extends React.Component {
       name: this.props.viewer.Trip.name,
       isInEditName: false,
       showShareModal: false,
+      showMemberModal: false,
       textShare: '',
     };
 
@@ -149,7 +151,7 @@ export default class TripComponent extends React.Component {
     });
   }
   render() {
-    const { Trip } = this.props.viewer;
+    const { Trip, user } = this.props.viewer;
     const localities = Trip.localities.edges;
     let content = null;
     switch (this.state.activeTab) {
@@ -178,18 +180,18 @@ export default class TripComponent extends React.Component {
         break;
       case 2:
         content = (
-          <MemberManager
+          <MediaManager
+            attachments={Trip.allAttachments}
+            localities={Trip.localities.edges}
             tripId={Trip.id}
-            members={Trip.members}
           />
         );
         break;
       case 3:
         content = (
-          <MediaManager
-            attachments={Trip.allAttachments}
-            localities={Trip.localities.edges}
+          <Discussion
             tripId={Trip.id}
+            userId={user.id}
           />
         );
         break;
@@ -254,6 +256,7 @@ export default class TripComponent extends React.Component {
               </div>
             </Modal>
             <MenuItem onClick={() => this.onEditTrip()}>Edit Name</MenuItem>
+            <MenuItem onClick={() => this.setState({ showMemberModal: true })}>Members Manager</MenuItem>
             <MenuItem onClick={event => this.onExportVideo(event)}>Export video</MenuItem>
             <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>
             <MenuItem onClick={this.onDeleteTrip}>Delete</MenuItem>
@@ -272,10 +275,19 @@ export default class TripComponent extends React.Component {
         <Tabs className={styles.headerTab} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
           <Tab>Timeline</Tab>
           <Tab>Plan</Tab>
-          <Tab>Members</Tab>
           <Tab>Photos/Videos</Tab>
+          <Tab>Discussion</Tab>
         </Tabs>
-
+        <Modal
+          showModal={this.state.showMemberModal}
+          onCloseModal={() => this.setState({ showMemberModal: false })}
+          title='Members Manager'
+        >
+          <MemberManager
+            tripId={Trip.id}
+            members={Trip.members}
+          />
+        </Modal>
         {content}
       </div>
     );

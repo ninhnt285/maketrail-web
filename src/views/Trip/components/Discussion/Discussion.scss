@@ -1,0 +1,18 @@
+.root {
+  margin-top: 12px;
+
+  .messagesWrap {
+    background-color: white;
+    height: 500px;
+    overflow: auto;
+  }
+  .formMessage {
+    background-color: #FFF;
+    height: 60px;
+    margin: 10px 0;
+    padding: 0 10px;
+    :global(.mdl-textfield) {
+      width: 100%;
+    }
+  }
+}
