@@ -1,43 +1,46 @@
 import React, { Component } from 'react';
+import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
 
 import { extendClassName, extendStyle } from 'libs/component';
+import ViewerQuery from 'routes/ViewerQuery';
 
-import styles from './UserFullName.scss';
+import UserFullName from './UserFullName';
+import UserFullNameComponent from './UserFullNameComponent';
 
-export default class UserFullName extends Component {
+export default class UserFullNameRoot extends Component {
   static propTypes = {
-    user: PropTypes.object.isRequired,
+    userId: PropTypes.string,
+    user: PropTypes.object,
     fontSize: PropTypes.number,
-    wrappLink: PropTypes.bool
+    wrappLink: PropTypes.bool,
   };
-
   static defaultProps = {
+    userId: null,
+    user: null,
     fontSize: 14,
     wrappLink: true
-  };
-
+  }
   render() {
-    const { user } = this.props;
-
-    let userFullName = (<span className={styles.fullName}>{user.fullName}</span>);
-
-    if (this.props.wrappLink) {
-      userFullName = (
-        <Link to={`/profile/${user.id}`}>
-          {userFullName}
-        </Link>
+    if (this.props.userId === null) {
+      return (
+        <UserFullNameComponent
+          user={this.props.user}
+          fontSize={this.props.fontSize}
+          wrappLink={this.props.wrappLink}
+          className={extendClassName(this.props)}
+          style={extendStyle(this.props, {})}
+        />
       );
     }
-
     return (
-      <div
-        className={extendClassName(this.props, `${styles.root}`)}
-        style={extendStyle(this.props, { fontSize: this.props.fontSize })}
-      >
-        {userFullName}
-      </div>
+      <Relay.RootContainer
+        Component={UserFullName}
+        route={{ queries: ViewerQuery, name: 'ViewerQuery', params: { userId: this.props.userId } }}
+        renderFetched={data =>
+          <UserFullName {...data} {...this.props} />
+        }
+      />
     );
   }
 }

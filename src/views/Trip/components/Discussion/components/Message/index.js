@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-// import UserImage from 'components/UserImage';
+import UserImage from 'components/UserImage';
+import UserFullName from 'components/UserFullName';
 
 import styles from './Message.scss';
 
 export default class Message extends Component {
   static propTypes = {
-    message: PropTypes.object.isRequired
+    message: PropTypes.object.isRequired,
   }
-
   render() {
     const { message } = this.props;
     return (
       <div className={styles.root}>
-        <div className={styles.userImage} />
+        <UserImage userId={message.fromId} className={styles.userImage} />
         <div className={styles.userDetail}>
-          <div className={styles.userName}>User</div>
+          <UserFullName className={styles.userName} userId={message.fromId} />
           <div>{message.message}</div>
         </div>
       </div>

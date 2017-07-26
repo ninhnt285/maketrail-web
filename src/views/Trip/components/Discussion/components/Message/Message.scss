@@ -1,17 +1,10 @@
 .root {
-  padding-bottom: 10px;
+  padding: 10px;
   margin-bottom: 10px;
-  &:last-child {
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-  }
 
   .userImage {
     float: left;
     background-color: #eee;
-    height: 40px;
-    width: 40px;
-    margin: 5px;
   }
 
   .userDetail {
