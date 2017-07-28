@@ -19,7 +19,7 @@ class UserInfo extends Component {
     return (
       <div className={styles.root}>
         <div className={styles.mapCover}>
-          <img src={mapCover} alt='Map' />
+          <img src={user.map} alt={user.username} className={styles.map} />
         </div>
         <div className={styles.content}>
           <div className={styles.userAvatar}>
@@ -49,6 +49,7 @@ export default Relay.createContainer(UserInfo, {
         username
         fullName
         profilePicUrl
+        map
       }
     `
   }

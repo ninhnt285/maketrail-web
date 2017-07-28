@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Tabs, Tab, IconButton, Menu, MenuItem } from 'react-mdl';
 
 import { SERVER_RESOURCE_URL } from 'config';
-// import Map from 'components/Map';
+import Map from 'components/Map';
 import Timeline from 'components/Timeline';
 import UserImage from 'components/UserImage';
 import UpdateUserMutation from 'mutations/User/UpdateUserMutation';
@@ -64,7 +64,6 @@ export default class ProfileComponent extends Component {
 
   render() {
     const { user: me, User: user } = this.props.viewer;
-
     let content = null;
     switch (this.state.activeTab) {
       case 0:
@@ -94,7 +93,7 @@ export default class ProfileComponent extends Component {
       <div className={styles.root}>
         <div className={styles.profileCover}>
           <div>
-            <img src={user.map} alt={user.username} className={styles.map} />
+            <Map userId={this.props.viewer.User.id} className={styles.map} />
           </div>
           <div className={styles.timelineHeadline}>
             <div className={styles.userAvatarWrap}>
