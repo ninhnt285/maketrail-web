@@ -1,0 +1,15 @@
+.root {
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  width: calc(100% - 40px);
+  left: 0;
+  z-index: 99;
+  background-color: rgba(238, 238, 238, 0.8);
+  .userName {
+    float: left;
+    margin-right: 5px;
+  }
+  .message {
+  }
+}

@@ -5,6 +5,7 @@ import io from 'socket.io-client';
 import { Textfield } from 'react-mdl';
 import { SERVER_CHAT_URL } from 'config';
 
+import Notify from './components/Notify';
 import Message from './components/Message';
 import styles from './Discussion.scss';
 
@@ -20,6 +21,7 @@ export default class Discussion extends Component {
     this.state = {
       messages: [],
       users: [],
+      notify: null,
       text: '',
     };
 
@@ -36,14 +38,12 @@ export default class Discussion extends Component {
     });
     socket.on('chat', (response) => {
       const messages = this.state.messages;
-      messages.unshift({ fromId: response.from, message: response.message });
+      messages.unshift(response.message);
       this.setState({ messages });
     });
-    socket.on('notify', (response) => {
-      const messages = this.state.messages;
-      messages.unshift({ fromId: response.from, message: response.message });
-      this.setState({ messages });
-    });
+    socket.on('notify', response =>
+      this.setState({ notify: response })
+    );
   }
 
   componentDidUpdate() {
@@ -90,11 +90,15 @@ export default class Discussion extends Component {
   render() {
     const messages = this.state.messages.slice(0);
     messages.reverse();
+    const notify = this.state.notify;
     return (
       <div className={styles.root}>
+        {notify &&
+          <Notify notify={notify} />
+        }
         <div className={styles.messagesWrap}>
           {messages.map(message =>
-            <Message message={message} />
+            <Message message={message} key={message.id} />
           )}
           <div ref={(div) => { this.messagesWrap = div; }} />
         </div>
