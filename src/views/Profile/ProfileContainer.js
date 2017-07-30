@@ -22,6 +22,10 @@ export default Relay.createContainer(Profile, {
           map
           isFollowed
           profilePicUrl
+          mapAreas {
+            code
+            status
+          }
           trips(first: 100) {
             edges {
               node {

@@ -49,7 +49,7 @@ class Map extends Component {
 
   getAreaData() {
     const areaColors = ['#999999', '#0000FF', '#67b7dc'];
-    return this.props.viewer.mapAreas.map(area => ({
+    return this.props.viewer.User.mapAreas.map(area => ({
       id: area.code,
       color: areaColors[area.status]
     }));
@@ -89,10 +89,11 @@ export default Relay.createContainer(Map, {
   fragments: {
     viewer: () => Relay.QL`
       fragment on Viewer {
-        mapAreas(id: $mapId, userId: $userId) {
-          code
-          name
-          status
+        User(id: $userId) {
+          mapAreas(parentId: $mapId) {
+            code
+            status
+          }
         }
       }
     `
