@@ -1,21 +1,243 @@
+@import 'src/variables.scss';
+
+.container {
+  @extend .container;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .root {
-  max-width: 1200px;
   margin: 0 auto;
   background-color: #FFF;
-  padding-bottom: 12px;
+}
+
+// Top Content
+.topContent {
+  width: 100%;
+  position: relative;
+
+  .innerBg {
+    position: relative;
+    z-index: 1;
+    color: #FFF;
+    padding: 120px 0 170px 0;
+  }
+
+  .text {
+    padding-top: 120px;
+    color: #FFF;
+  }
+
+  .backstretch {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    overflow: hidden;
+    background-color: rgb(15,11,12);
+  }
+
+  .slogan {
+    font-size: 38px;
+    font-weight: 100;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .description {
+    margin: 20px 0 10px 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  // Register Box
+  .formTop {
+    overflow: hidden;
+    padding: 0 25px 15px 25px;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+  }
+
+  .formTopLeft {
+    float: left;
+    width: 75%;
+    padding-top: 25px;
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 300;
+      color: #555;
+      line-height: 30px;
+    }
+    p {
+      color: #888;
+      margin: 0 0 10px;
+    }
+  }
+
+  .formTopRight {
+    float: left;
+    width: 25%;
+    padding-top: 5px;
+    font-size: 70px;
+    color: #eee;
+    line-height: 100px;
+    text-align: right;
+  }
+
+  .formBottom {
+    padding: 25px 25px 30px 25px;
+    background: #eee;
+    text-align: left;
+  }
+
+  .submitBtn {
+    height: 50px;
+    padding: 0 20px;
+    line-height: 50px;
+    font-size: 16px;
+  }
 
   .coverImage {
     width: 100%;
     height: auto;
   }
+}
 
-  .content {
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
+.featureSection {
+  .title {
+    margin-top: 60px;
+    padding-bottom: 30px;
+    text-align: center;
   }
 
-  .featuredTrips {
-    margin-top: 24px;
+  h2 {
+    margin: 10px 0;
+    font-size: 38px;
+    font-weight: 100;
+    color: #555;
+    line-height: 50px;
+  }
+
+  .divider {
+    width: 100%;
+    max-width: 200px;
+    height: 1px;
+    background-color: #ddd;
+    display: inline-block;
+  }
+}
+
+// Trip Maker Features
+.tripMaker {
+  padding-bottom: 80px;
+
+  .featureBox {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+
+    h3 {
+      margin-top: 15px;
+      font-size: 22px;
+      font-weight: 300;
+      color: #555;
+      line-height: 30px;
+    }
+
+    p {
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: #888;
+      font-weight: 300;
+    }
+  }
+
+  .featureBoxGrey {
+    background-color: #f8f8f8;
+  }
+
+  .featureBoxIcon {
+    width: 80px;
+    height: 80px;
+    color: #019299;
+  }
+}
+
+// Export Video
+.exportVideo {
+  padding-bottom: 60px;
+  background: #f8f8f8;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+
+  .description {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  p {
+    color: #888;
+    font-size: 16px;
+    line-height: 25px;
+    margin: 0 0 20px 0;
+  }
+}
+
+.videoContainer {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+.videoContainer iframe,
+.videoContainer object,
+.videoContainer embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+// Export Map
+.exportMap {
+  padding-bottom: 60px;
+
+  .description {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  p {
+    color: #888;
+    font-size: 16px;
+    line-height: 25px;
+    margin: 0 0 20px 0;
+  }
+
+  .svgMap img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .topContent {
+    .innerBg {
+      padding: 60px 0 110px 0;
+    }
+
+    .text {
+      padding-top: 0px;
+      padding-bottom: 60px;
+    }
   }
 }

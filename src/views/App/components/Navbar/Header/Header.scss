@@ -9,7 +9,7 @@
   position: fixed;
   top: 0px;
   width: 100%;
-  z-index: 1;
+  z-index: 10;
 
 
   .logo {
@@ -28,7 +28,7 @@
     float: right;
     vertical-align: top;
     position: relative;
-    
+
     a {
       color: #fff;
       line-height: 40px;
