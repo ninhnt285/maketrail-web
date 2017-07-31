@@ -89,7 +89,10 @@ class Feed extends Component {
   render() {
     const { feed } = this.props;
     const attachments = feed.attachments.edges;
-
+    let feedType = feed.type.toLowerCase();
+    if (feedType === 'share') {
+      feedType = 'post';
+    }
     return (
       <div className={styles.root}>
         <div className={styles.content}>
@@ -97,7 +100,7 @@ class Feed extends Component {
             <IconButton name='expand_more' id={`action_feed_${feed.id}`} />
             <Menu target={`action_feed_${feed.id}`} align='right'>
               <MenuItem>
-                <Link className={styles.linkFeed} to={`/feed/${feed.id}`} target='_blank'>
+                <Link className={styles.linkFeed} to={`/${feedType}/${feed.id}`} target='_blank'>
                   Open in new tab
                 </Link>
               </MenuItem>
@@ -146,12 +149,12 @@ class Feed extends Component {
         </div>
         <FeedLinks
           onShowComment={this.onShowComment}
-          parentId={feed.id}
-          isLiked={feed.isLiked}
-          statistics={feed.statistics}
+          parentId={(feedType === 'post') ? feed.id : attachments[0].node.id}
+          isLiked={(feedType === 'post') ? feed.isLiked : attachments[0].node.isLiked}
+          statistics={(feedType === 'post') ? feed.statistics : attachments[0].node.statistics}
           feed={feed}
           onShare={() => this.showShareModal()}
-          linkForShare={`/feed/${feed.id}`}
+          linkForShare={`/${feedType}/${feed.id}`}
         />
         <Modal
           showModal={this.state.showShareModal}
@@ -191,7 +194,7 @@ class Feed extends Component {
             </div>
           </div>
         </Modal>
-        <CommentBox showComment={this.state.showComment} parentId={feed.id} />
+        <CommentBox showComment={this.state.showComment} parentId={(feedType === 'post') ? feed.id : attachments[0].node.id} />
       </div>
     );
   }
@@ -231,13 +234,32 @@ export default Relay.createContainer(Feed, {
             node {
               ... on Photo {
                 id
-                previewUrl
+                name
+                placeId
+                placeName
                 caption
+                previewUrl
+                filePathUrl
+                isLiked
+                statistics {
+                  likeCount
+                  commentCount
+                }
               }
+
               ... on Video {
                 id
-                previewUrl
+                name
+                placeId
+                placeName
                 caption
+                previewUrl
+                filePathUrl
+                isLiked
+                statistics {
+                  likeCount
+                  commentCount
+                }
               }
               ${Attachment.getFragment('attachment')}
             }

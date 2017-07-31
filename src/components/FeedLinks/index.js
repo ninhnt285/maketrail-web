@@ -14,8 +14,8 @@ export default class FeedLinks extends Component {
     onShowComment: PropTypes.func.isRequired,
     onShare: PropTypes.func,
     parentId: PropTypes.string.isRequired,
-    isLiked: PropTypes.bool.isRequired,
-    statistics: PropTypes.object.isRequired,
+    isLiked: PropTypes.bool,
+    statistics: PropTypes.object,
     linkForShare: PropTypes.string,
     isInModal: PropTypes.bool,
   };
@@ -23,14 +23,16 @@ export default class FeedLinks extends Component {
     onShare: null,
     linkForShare: null,
     isInModal: false,
+    statistics: null,
+    isLiked: false,
   }
   constructor(props) {
     super(props);
     this.state = {
       isLiked: this.props.isLiked,
-      likeCount: this.props.statistics.likeCount,
-      commentCount: this.props.statistics.commentCount,
-      shareCount: this.props.statistics.shareCount,
+      likeCount: (this.props.statistics) ? this.props.statistics.likeCount : 0,
+      commentCount: (this.props.statistics) ? this.props.statistics.commentCount : 0,
+      shareCount: (this.props.statistics) ? this.props.statistics.shareCount : 0,
     };
   }
   onDeleteLike() {

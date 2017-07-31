@@ -32,6 +32,9 @@ export default (
     <Route path='/setting' component={SettingContainer} queries={ViewerQuery} />
     <Route path='/trip/:tripId' component={TripContainer} queries={ViewerQuery} />
     <Route path='/feed/:feedId' component={FeedContainer} queries={ViewerQuery} />
+    <Route path='/post/:feedId' component={FeedContainer} queries={ViewerQuery} />
+    <Route path='/photo/:feedId' component={FeedContainer} queries={ViewerQuery} />
+    <Route path='/video/:feedId' component={FeedContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId' component={ProfileContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId/photos' component={PhotosContainer} queries={ViewerQuery} />
     <Redirect from='*' to='/' />

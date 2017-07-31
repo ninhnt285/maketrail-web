@@ -86,7 +86,6 @@ class Attachment extends Component {
     let parentId = attachment.id;
     if (singlePhoto) {
       defaultStyle = { width: '100%', height: 'auto' };
-      parentId = feed.id;
     }
     let typeVideo = '';
     if (attachment.__typename === 'Video') {
@@ -142,28 +141,15 @@ class Attachment extends Component {
                   placeName={attachment.placeName}
                   placeId={attachment.placeId}
                 />
-                {singlePhoto &&
-                  <FeedLinks
-                    onShowComment={this.onShowComment}
-                    parentId={feed.id}
-                    isLiked={feed.isLiked}
-                    statistics={feed.statistics}
-                    onShare={() => this.onShare()}
-                    isInModal
-                    linkForShare={`/feed/${feed.id}`}
-                  />
-                }
-                {!singlePhoto &&
-                  <FeedLinks
-                    onShowComment={this.onShowComment}
-                    parentId={parentId}
-                    isLiked={attachment.isLiked}
-                    statistics={attachment.statistics}
-                    onShare={() => this.onShare()}
-                    isInModal
-                    linkForShare={attachment.filePathUrl.replace('%s', '_1000')}
-                  />
-                }
+                <FeedLinks
+                  onShowComment={this.onShowComment}
+                  parentId={parentId}
+                  isLiked={attachment.isLiked}
+                  statistics={attachment.statistics}
+                  onShare={() => this.onShare()}
+                  isInModal
+                  linkForShare={attachment.filePathUrl.replace('%s', '_1000')}
+                />
                 <CommentBox showComment={this.state.showComment} parentId={parentId} />
               </div>
             }
