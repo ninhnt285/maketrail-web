@@ -132,41 +132,25 @@ class Attachment extends Component {
                 <div>Your browser does not support HTML5 video.</div>
               </video>
             }
-            {feed &&
-              <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
-                <FeedHeader
-                  user={feed.from}
-                  timestamp={feed.createdAt}
-                  privacy={feed.privacy}
-                  placeName={attachment.placeName}
-                  placeId={attachment.placeId}
-                />
-                <FeedLinks
-                  onShowComment={this.onShowComment}
-                  parentId={parentId}
-                  isLiked={attachment.isLiked}
-                  statistics={attachment.statistics}
-                  onShare={() => this.onShare()}
-                  isInModal
-                  linkForShare={attachment.filePathUrl.replace('%s', '_1000')}
-                />
-                <CommentBox showComment={this.state.showComment} parentId={parentId} />
-              </div>
-            }
-            {!feed &&
-              <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
-                <FeedLinks
-                  onShowComment={this.onShowComment}
-                  parentId={parentId}
-                  isLiked={attachment.isLiked}
-                  statistics={attachment.statistics}
-                  onShare={() => this.onShare()}
-                  isInModal
-                  linkForShare={attachment.filePathUrl.replace('%s', '_1000')}
-                />
-                <CommentBox showComment={this.state.showComment} parentId={parentId} />
-              </div>
-            }
+            <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
+              <FeedHeader
+                user={attachment.from}
+                timestamp={attachment.createdAt}
+                privacy={0}
+                placeName={attachment.placeName}
+                placeId={attachment.placeId}
+              />
+              <FeedLinks
+                onShowComment={this.onShowComment}
+                parentId={parentId}
+                isLiked={attachment.isLiked}
+                statistics={attachment.statistics}
+                onShare={() => this.onShare()}
+                isInModal
+                linkForShare={attachment.filePathUrl.replace('%s', '_1000')}
+              />
+              <CommentBox showComment={this.state.showComment} parentId={parentId} />
+            </div>
           </div>
         </Modal>
         <Modal
@@ -221,9 +205,18 @@ export default Relay.createContainer(Attachment, {
           previewUrl
           filePathUrl
           isLiked
+          createdAt
           statistics {
             likeCount
             commentCount
+          }
+          from {
+            ... on User {
+              id
+              username
+              fullName
+              profilePicUrl
+            }
           }
         }
 
@@ -236,9 +229,18 @@ export default Relay.createContainer(Attachment, {
           previewUrl
           filePathUrl
           isLiked
+          createdAt
           statistics {
             likeCount
             commentCount
+          }
+          from {
+            ... on User {
+              id
+              username
+              fullName
+              profilePicUrl
+            }
           }
         }
       }

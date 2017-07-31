@@ -1,0 +1,54 @@
+.root {
+  border: 1px solid;
+  border-color: #e5e6e9 #dfe0e4 #d0d1d5;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+  .content {
+    padding: 12px;
+    background-color: #FFFFFF;
+    position: relative;
+  }
+  .actions {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+    z-index: 2;
+  }
+  .photoPreview {
+    width: 100%;
+    height: auto;
+  }
+
+  .status {
+    margin-bottom: 5px;
+  }
+
+  .attachmentWrapper {
+    min-height: 150px;
+  }
+
+  .attachment {
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    padding: 0;
+    border: none;
+  }
+  .feedShare {
+    margin: 10px 0 0 10px;
+    border-left: 2px #bababa solid;
+    padding-left: 10px;
+  }
+  .func :global {
+    .mdl-button{
+      color: #FFF;
+    }
+  }
+  .linkFeed {
+    color: rgba(0, 0, 0, 0.87);
+  }
+}

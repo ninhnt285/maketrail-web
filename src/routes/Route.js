@@ -9,6 +9,7 @@ import RegisterComponent from 'views/Register/RegisterComponent';
 import TripsContainer from 'views/Trips/TripsContainer';
 import TripContainer from 'views/Trip/TripContainer';
 import FeedContainer from 'views/Feed/FeedContainer';
+import AttachmentContainer from 'views/Attachment/AttachmentContainer';
 import SettingContainer from 'views/Setting/SettingContainer';
 import ProfileContainer from 'views/Profile/ProfileContainer';
 import PhotosContainer from 'views/Photos/PhotosContainer';
@@ -33,8 +34,8 @@ export default (
     <Route path='/trip/:tripId' component={TripContainer} queries={ViewerQuery} />
     <Route path='/feed/:feedId' component={FeedContainer} queries={ViewerQuery} />
     <Route path='/post/:feedId' component={FeedContainer} queries={ViewerQuery} />
-    <Route path='/photo/:feedId' component={FeedContainer} queries={ViewerQuery} />
-    <Route path='/video/:feedId' component={FeedContainer} queries={ViewerQuery} />
+    <Route path='/photo/:attachmentId' component={AttachmentContainer} queries={ViewerQuery} />
+    <Route path='/video/:attachmentId' component={AttachmentContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId' component={ProfileContainer} queries={ViewerQuery} />
     <Route path='/profile/:userId/photos' component={PhotosContainer} queries={ViewerQuery} />
     <Redirect from='*' to='/' />

@@ -100,7 +100,7 @@ class Feed extends Component {
             <IconButton name='expand_more' id={`action_feed_${feed.id}`} />
             <Menu target={`action_feed_${feed.id}`} align='right'>
               <MenuItem>
-                <Link className={styles.linkFeed} to={`/${feedType}/${feed.id}`} target='_blank'>
+                <Link className={styles.linkFeed} to={(feedType === 'post') ? `/${feedType}/${feed.id}` : `/${feedType}/${attachments[0].node.id}`} target='_blank'>
                   Open in new tab
                 </Link>
               </MenuItem>
@@ -154,7 +154,7 @@ class Feed extends Component {
           statistics={(feedType === 'post') ? feed.statistics : attachments[0].node.statistics}
           feed={feed}
           onShare={() => this.showShareModal()}
-          linkForShare={`/${feedType}/${feed.id}`}
+          linkForShare={(feedType === 'post') ? `/${feedType}/${feed.id}` : `/${feedType}/${attachments[0].node.id}`}
         />
         <Modal
           showModal={this.state.showShareModal}
