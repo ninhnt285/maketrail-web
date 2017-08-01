@@ -92,7 +92,7 @@ export default class Notifications extends Component {
     return (
       <div className={styles.root}>
         {notifications.length > 0 &&
-          <Badge text={notifications.length} overlap>
+          <Badge text={notifications.unread} overlap>
             <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
           </Badge>
         }

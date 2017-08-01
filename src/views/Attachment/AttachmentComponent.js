@@ -87,13 +87,15 @@ export default class AttachmentComponent extends Component {
               <MenuItem onClick={() => this.onDeleteAttachment()}>Delete</MenuItem>
             </Menu>
           </div>
-          <FeedHeader
-            user={attachment.from}
-            timestamp={attachment.createdAt}
-            privacy={0}
-            placeName={attachment.placeName}
-            placeId={attachment.placeId}
-          />
+          {(attachment.from) &&
+            <FeedHeader
+              user={attachment.from}
+              timestamp={attachment.createdAt}
+              privacy={0}
+              placeName={attachment.placeName}
+              placeId={attachment.placeId}
+            />
+          }
           <p className={styles.status}>{attachment.caption}</p>
           <div className={styles.attachmentWrapper}>
             <Attachment
@@ -126,13 +128,15 @@ export default class AttachmentComponent extends Component {
               style={{ width: '100%' }}
             />
             <div style={{ marginLeft: '10px', borderLeft: '2px #bababa solid', paddingLeft: '10px' }}>
-              <FeedHeader
-                user={attachment.from}
-                timestamp={attachment.createdAt}
-                privacy={0}
-                placeName={attachment.placeName}
-                placeId={attachment.placeId}
-              />
+              {(attachment.from) &&
+                <FeedHeader
+                  user={attachment.from}
+                  timestamp={attachment.createdAt}
+                  privacy={0}
+                  placeName={attachment.placeName}
+                  placeId={attachment.placeId}
+                />
+              }
               <p className={styles.status}>{attachment.caption}</p>
               <div className={styles.attachmentWrapper}>
                 <Attachment

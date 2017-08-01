@@ -133,13 +133,15 @@ class Attachment extends Component {
               </video>
             }
             <div style={{ display: 'inline-block', width: '290px', marginLeft: '10px', verticalAlign: 'top' }}>
-              <FeedHeader
-                user={attachment.from}
-                timestamp={attachment.createdAt}
-                privacy={0}
-                placeName={attachment.placeName}
-                placeId={attachment.placeId}
-              />
+              {(attachment.from) &&
+                <FeedHeader
+                  user={attachment.from}
+                  timestamp={attachment.createdAt}
+                  privacy={0}
+                  placeName={attachment.placeName}
+                  placeId={attachment.placeId}
+                />
+              }
               <FeedLinks
                 onShowComment={this.onShowComment}
                 parentId={parentId}

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import UserImage from 'components/UserImage';
-import mapCover from 'assets/map_cover.png';
 
 import styles from './UserInfo.scss';
 
@@ -31,7 +30,7 @@ class UserInfo extends Component {
           <div className={styles.checkinInfo}>
             <p>Checked-in:</p>
             <ul>
-              <li>World: 4/196 Countries (2%)</li>
+              <li>World: {user.visitedNumber} Countries</li>
               <li>Vietnam: 12/63 Cities (19%)</li>
             </ul>
           </div>
@@ -50,6 +49,8 @@ export default Relay.createContainer(UserInfo, {
         fullName
         profilePicUrl
         map
+        visitedNumber
+        favouriteCountry
       }
     `
   }
