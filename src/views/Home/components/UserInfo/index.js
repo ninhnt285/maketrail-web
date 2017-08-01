@@ -31,7 +31,9 @@ class UserInfo extends Component {
             <p>Checked-in:</p>
             <ul>
               <li>World: {user.visitedNumber} Countries</li>
-              <li>Vietnam: 12/63 Cities (19%)</li>
+              {(user.favouriteCountry) &&
+                <li>{user.favouriteCountry}</li>
+              }
             </ul>
           </div>
         </div>
