@@ -1,13 +1,96 @@
 import React from 'react';
+import Relay from 'react-relay';
 
-import { Grid, Row, Col, FormGroup, FormControl, Button } from 'react-bootstrap';
+import { Grid, Row, Col, FormGroup, FormControl, Button, HelpBlock } from 'react-bootstrap';
 import { TiPencil, TiWeatherPartlySunny, TiMap, TiGlobeOutline, TiMessages, TiHomeOutline, TiCalculator } from 'react-icons/lib/ti';
+import RegisterMutation from 'mutations/Register/RegisterMutation';
 import coverImage from 'assets/bg1.jpg';
 import svgMap from 'assets/map.png';
 
 import styles from './Greeting.scss';
 
 export default class GreetingComponent extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fullName: '',
+      username: '',
+      password: '',
+      email: '',
+      serverErrors: []
+    };
+
+    this.handleTextfieldChange = this.handleTextfieldChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onSubmit = (event) => {
+    event.preventDefault();
+    const { fullName, username, email, password } = this.state;
+
+    if ((!fullName || !username || !email || !password)) {
+      this.setState({
+        serverErrors: [
+          'Something went wrong! Please try again!'
+        ]
+      });
+      return false;
+    }
+
+    const registerMutation = new RegisterMutation({
+      fullName,
+      username,
+      email,
+      password
+    });
+
+    Relay.Store.commitUpdate(
+      registerMutation,
+      {
+        onSuccess: (response) => {
+          if (!response.register) {
+            return this.setState({
+              serverErrors: [
+                'Something went wrong! Please try again!'
+              ]
+            });
+          }
+          const registerPayload = response.register;
+
+          if (!registerPayload.success) {
+            return this.setState({
+              serverErrors: registerPayload.errors
+            });
+          }
+
+          if (registerPayload.accessToken != null) {
+            localStorage.setItem('accessToken', registerPayload.accessToken);
+            location.href = '/';
+          }
+
+          return true;
+        },
+
+        onFailure: () => {
+          this.setState({
+            serverErrors: [
+              'Something went wrong! Please try again!'
+            ]
+          });
+        }
+      }
+    );
+
+    return true;
+  }
+
+  handleTextfieldChange = (event) => {
+    this.setState({
+      serverErrors: [],
+      [event.target.name]: event.target.value
+    });
+  }
+
   render() {
     return (
       <div className={styles.root}>
@@ -37,33 +120,44 @@ export default class GreetingComponent extends React.Component {
                       <FormGroup controlId='fullname'>
                         <FormControl
                           id='fullname'
+                          name='fullName'
                           type='text'
                           placeholder='Full Name'
+                          onChange={this.handleTextfieldChange}
                         />
                       </FormGroup>
                       <FormGroup controlId='username'>
                         <FormControl
                           id='username'
+                          name='username'
                           type='text'
                           placeholder='Username'
+                          onChange={this.handleTextfieldChange}
                         />
                       </FormGroup>
                       <FormGroup>
                         <FormControl
                           id='email'
+                          name='email'
                           type='email'
                           placeholder='Your Email'
+                          onChange={this.handleTextfieldChange}
                         />
                       </FormGroup>
                       <FormGroup>
                         <FormControl
                           id='password'
+                          name='password'
                           type='password'
                           placeholder='Password'
+                          onChange={this.handleTextfieldChange}
                         />
                       </FormGroup>
+                      <HelpBlock>
+                        {this.state.serverErrors[0]}
+                      </HelpBlock>
                       <FormGroup>
-                        <Button className={styles.submitBtn} bsStyle='info'>Submit</Button>
+                        <Button className={styles.submitBtn} bsStyle='info' onClick={this.onSubmit}>Submit</Button>
                       </FormGroup>
                     </form>
                   </div>
