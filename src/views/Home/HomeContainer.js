@@ -28,7 +28,11 @@ export default Relay.createContainer(Home, {
               username
               fullName
               profilePicUrl
-              isFollowed
+              relationship {
+                isFriend
+                isFollow
+                isSentRequest
+              }
             }
           }
         }

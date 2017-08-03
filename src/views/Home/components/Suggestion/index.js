@@ -33,7 +33,7 @@ export default class Suggestion extends Component {
                 <Link to={`/profile/${user.id}`}>{user.username}</Link>
                 <p>{user.fullName}</p>
               </div>
-              {!user.isFollowed &&
+              {!user.relationship.isFollow &&
                 <Button onClick={this.onFollow} colored raised ripple className={styles.followBtn}>Follow</Button>
               }
             </div>

@@ -110,10 +110,10 @@ export default class ProfileComponent extends Component {
               </div>
             }
             <div className={styles.actions}>
-              {!user.isFollowed && (user.id !== me.id) &&
+              {!user.relationship.isFollow && (user.id !== me.id) &&
                 <Button onClick={this.onFollow} colored raised ripple className={styles.addFriend}>Follow</Button>
               }
-              {user.isFollowed && (user.id !== me.id) &&
+              {user.relationship.isFollow && (user.id !== me.id) &&
                 <Button onClick={() => this.onUnfollow()} colored raised ripple className={styles.addFriend}>Unfollow</Button>
               }
             </div>

@@ -15,7 +15,9 @@ class UnfollowMutation extends Relay.Mutation {
     return Relay.QL`
       fragment on UnfollowPayload {
         user {
-          isFollowed
+          relationship {
+            isFollow
+          }
         }
       }
     `;

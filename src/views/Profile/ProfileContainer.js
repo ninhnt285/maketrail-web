@@ -20,7 +20,11 @@ export default Relay.createContainer(Profile, {
           username
           fullName
           map
-          isFollowed
+          relationship {
+            isFriend
+            isFollow
+            isSentRequest
+          }
           profilePicUrl
           mapAreas {
             code
