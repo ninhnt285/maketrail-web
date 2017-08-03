@@ -58,11 +58,12 @@
     padding: 0;
     position: absolute;
     right: 15px;
-    width: 120px;
   }
 
-  .addFriend {
+  .actionButton {
     color: #FFF;
+    display: inline-block;
+    margin-left: 15px;
   }
 
   .profileTabs {

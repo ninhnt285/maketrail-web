@@ -8,8 +8,10 @@ import Map from 'components/Map';
 import Timeline from 'components/Timeline';
 import UserImage from 'components/UserImage';
 import UpdateUserMutation from 'mutations/User/UpdateUserMutation';
-import FollowMutation from 'mutations/Follow/FollowMutation';
-import UnfollowMutation from 'mutations/Follow/UnfollowMutation';
+import FollowMutation from 'mutations/Relationship/FollowMutation';
+import UnfollowMutation from 'mutations/Relationship/UnfollowMutation';
+import AddFriendMutation from 'mutations/Relationship/AddFriendMutation';
+import UnfriendMutation from 'mutations/Relationship/UnfriendMutation';
 import UploadAttachment from 'components/UploadAttachment';
 
 import Trip from './components/Trip';
@@ -28,6 +30,9 @@ export default class ProfileComponent extends Component {
     };
 
     this.onFollow = this.onFollow.bind(this);
+    this.onAddFriend = this.onAddFriend.bind(this);
+    this.onUnfollow = this.onUnfollow.bind(this);
+    this.onUnfriend = this.onUnfriend.bind(this);
     this.onUploadedAttachment = this.onUploadedAttachment.bind(this);
     this.onUpdateUserImage = this.onUpdateUserImage.bind(this);
   }
@@ -46,6 +51,20 @@ export default class ProfileComponent extends Component {
     Relay.Store.commitUpdate(
       updateUserMutation
     );
+  }
+  onAddFriend() {
+    const addFriendMutation = new AddFriendMutation({
+      userId: this.props.viewer.User.id
+    });
+
+    Relay.Store.commitUpdate(addFriendMutation);
+  }
+  onUnfriend() {
+    const unfriendMutation = new UnfriendMutation({
+      userId: this.props.viewer.User.id
+    });
+
+    Relay.Store.commitUpdate(unfriendMutation);
   }
   onFollow() {
     const followMutation = new FollowMutation({
@@ -109,14 +128,35 @@ export default class ProfileComponent extends Component {
                 </Menu>
               </div>
             }
-            <div className={styles.actions}>
-              {!user.relationship.isFollow && (user.id !== me.id) &&
-                <Button onClick={this.onFollow} colored raised ripple className={styles.addFriend}>Follow</Button>
-              }
-              {user.relationship.isFollow && (user.id !== me.id) &&
-                <Button onClick={() => this.onUnfollow()} colored raised ripple className={styles.addFriend}>Unfollow</Button>
-              }
-            </div>
+            {(user.id !== me.id) &&
+              <div className={styles.actions}>
+                {user.relationship.isSentRequest &&
+                  <Button raised ripple className={styles.actionButton}>
+                    Friend Request Send
+                  </Button>
+                }
+                {!user.relationship.isFriend && !user.relationship.isSentRequest &&
+                  <Button onClick={this.onAddFriend} colored raised ripple className={styles.actionButton}>
+                    Add friend
+                  </Button>
+                }
+                {user.relationship.isFriend && !user.relationship.isSentRequest &&
+                  <Button onClick={this.onUnfriend} colored raised ripple className={styles.actionButton}>
+                    Unfriend
+                  </Button>
+                }
+                {!user.relationship.isFollow &&
+                  <Button onClick={this.onFollow} colored raised ripple className={styles.actionButton}>
+                    Follow
+                  </Button>
+                }
+                {user.relationship.isFollow &&
+                  <Button onClick={this.onUnfollow} colored raised ripple className={styles.actionButton}>
+                    Unfollow
+                  </Button>
+                }
+              </div>
+            }
 
             <Tabs className={styles.profileTabs} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
               <Tab>Timeline</Tab>

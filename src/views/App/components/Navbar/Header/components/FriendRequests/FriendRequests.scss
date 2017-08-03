@@ -6,7 +6,7 @@
   a {
     color: black;
   }
-  .notificationBtn {
+  .friendRequestsBtn {
     overflow: visible;
     width: 36px;
     height: 36px;
@@ -23,7 +23,7 @@
     }
   }
 
-  .notificationBtn[data-badge]::after {
+  .friendRequestsBtn[data-badge]::after {
     top: -2px;
     right: -2px;
     font-size: 10px;
@@ -31,20 +31,25 @@
     height: 18px;
   }
 
-  .notificationContent {
-    padding-left: 8px;
+  .friendRequestContent {
     display: inline-block;
     color: black !important;
+    vertical-align: center;
+    position: relative;
     width: 400px;
-    img {
-      margin-right: 10px;
+    .friendRequestFunc {
+      display: inline-block;
+      position: absolute;
+      top: 5px;
+      right: 0px;
     }
-    .notificationFunc {
-      display: block;
-      float: right;
+    .username {
+      font-weight: bold;
+      color: #365899;
+      margin-left: 10px;
     }
   }
-  .notificationWrap {
+  .friendRequestWrap {
     width: auto !important;
     height: auto !important;
   }
@@ -57,7 +62,7 @@
       background-color: transparent;
     }
   }
-  .notificationItem {
+  .friendRequestItem {
     height: auto;
     width: auto;
   }

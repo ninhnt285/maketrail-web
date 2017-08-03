@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import Relay from 'react-relay';
 import PropTypes from 'prop-types';
-import { Badge, IconButton, Menu, MenuItem } from 'react-mdl';
+import { Badge, IconButton, Menu, MenuItem, Button } from 'react-mdl';
 import { Link } from 'react-router';
 
-// import UserImage from 'components/UserImage';33
+import AnswerInviteMutation from 'mutations/Notification/AnswerInviteMutation';
 
 import styles from './Notifications.scss';
 
@@ -12,30 +12,49 @@ class Notifications extends Component {
   static propTypes = {
     viewer: PropTypes.object.isRequired
   };
+  onAnswerInvite(notificationId, choice) {
+    const answerInviteMutation = new AnswerInviteMutation({
+      notificationId,
+      choice
+    });
+
+    Relay.Store.commitUpdate(answerInviteMutation, {
+      onSuccess: () => {
+        this.forceUpdate();
+      }
+    });
+  }
 
   render() {
     const notifications = this.props.viewer.allNotifications.data.edges;
-
+    const unread = this.props.viewer.allNotifications.unread;
     return (
       <div className={styles.root}>
-        {notifications.length > 0 &&
-          <Badge text={notifications.length} overlap>
+        {unread > 0 &&
+          <Badge text={unread} overlap>
             <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
           </Badge>
         }
-        {notifications.length === 0 &&
+        {unread === 0 &&
           <IconButton className={styles.notificationBtn} name='public' id='global_notifications' />
         }
-        <Menu target='global_notifications' align='right'>
+        <Menu target='global_notifications' align='right' className={styles.notificationWrap}>
           <MenuItem className={styles.title}>
             Notifications
           </MenuItem>
           {notifications.length > 0 &&
             notifications.map(notification =>
-              <MenuItem key={notification.node.id}>
-                <Link to='/'>
+              <MenuItem key={notification.node.id} className={styles.notificationItem}>
+                <Link to={notification.node.link}>
                   <div className={styles.notificationContent}>
-                    <span>{notification.node.type} </span>
+                    <img src={`${notification.node.previewImage.replace('%s', '_50_square')}`} alt={notification.node.story} />
+                    <span>{notification.node.story}</span>
+                    {(notification.node.type === 'inviteToTrip') &&
+                      <div className={styles.notificationFunc}>
+                        <Button colored raised ripple style={{ marginLeft: '10px', color: '#fff' }}onClick={() => this.onAnswerInvite(notification.node.id, true)}>Accept</Button>
+                        <Button raised ripple style={{ marginLeft: '10px' }}onClick={() => this.onAnswerInvite(notification.node.id, false)}>Ignore</Button>
+                      </div>
+                    }
                   </div>
                 </Link>
               </MenuItem>
@@ -54,7 +73,6 @@ class Notifications extends Component {
     );
   }
 }
-
 export default Relay.createContainer(Notifications, {
   fragments: {
     viewer: () => Relay.QL`
@@ -66,6 +84,9 @@ export default Relay.createContainer(Notifications, {
               node {
                 id
                 type
+                story
+                link
+                previewImage
               }
             }
           }
@@ -74,24 +95,3 @@ export default Relay.createContainer(Notifications, {
     `
   }
 });
-//
-// from {
-//   __typename
-//   ... on User {
-//     id
-//     username
-//     fullName
-//     profilePicUrl
-//   }
-//   ... on Trip {
-//     id
-//     name
-//   }
-// }
-// {notification.node.from.map(from =   >
-//   <b key={from.id}>{(from.__typename === 'User') ? from.fullName : ''} </b>
-// )}
-// <span>{notification.node.type} </span>
-// {notification.node.from.map(from =>
-//   <b key={from.id}>{(from.__typename === 'Trip') ? from.name : ''}</b>
-// )}
