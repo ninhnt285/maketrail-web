@@ -191,7 +191,6 @@ export default class TripComponent extends React.Component {
         content = (
           <Discussion
             tripId={Trip.id}
-            userId={user.id}
           />
         );
         break;

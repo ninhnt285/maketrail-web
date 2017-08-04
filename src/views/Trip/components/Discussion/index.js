@@ -13,7 +13,6 @@ const socket = io(SERVER_CHAT_URL);
 export default class Discussion extends Component {
   static propTypes = {
     tripId: PropTypes.string.isRequired,
-    userId: PropTypes.string.isRequired,
   }
 
   constructor(props) {
@@ -30,8 +29,9 @@ export default class Discussion extends Component {
   }
 
   componentDidMount() {
-    const { userId, tripId } = this.props;
-    socket.emit('join', { userId, tripId });
+    const { tripId } = this.props;
+    const token = localStorage.getItem('accessToken');
+    socket.emit('join', { token, tripId });
     socket.on('messages', (response) => {
       const messages = response.messages;
       this.setState({ messages });
