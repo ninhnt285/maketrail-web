@@ -151,7 +151,7 @@ export default class TripComponent extends React.Component {
     });
   }
   render() {
-    const { Trip, user } = this.props.viewer;
+    const { Trip } = this.props.viewer;
     const localities = Trip.localities.edges;
     let content = null;
     switch (this.state.activeTab) {

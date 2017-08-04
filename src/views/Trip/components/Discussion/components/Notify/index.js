@@ -15,7 +15,7 @@ export default class Notify extends Component {
       isShowNotify: true,
     };
   }
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     this.setState({ isShowNotify: true });
   }
   componentDidUpdate() {
