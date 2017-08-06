@@ -2,6 +2,7 @@ import Relay from 'react-relay';
 
 import Profile from './ProfileComponent';
 import Trip from './components/Trip';
+import Friend from './components/Friend';
 
 export default Relay.createContainer(Profile, {
   initialVariables: {
@@ -35,6 +36,14 @@ export default Relay.createContainer(Profile, {
               node {
                 id
                 ${Trip.getFragment('trip')}
+              }
+            }
+          }
+          friends(first: 100) {
+            edges {
+              node {
+                id
+                ${Friend.getFragment('user')}
               }
             }
           }

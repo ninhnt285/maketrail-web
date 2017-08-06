@@ -7,6 +7,7 @@ import { SERVER_RESOURCE_URL } from 'config';
 import Map from 'components/Map';
 import Timeline from 'components/Timeline';
 import UserImage from 'components/UserImage';
+import UserFullName from 'components/UserFullName';
 import UpdateUserMutation from 'mutations/User/UpdateUserMutation';
 import FollowMutation from 'mutations/Relationship/FollowMutation';
 import UnfollowMutation from 'mutations/Relationship/UnfollowMutation';
@@ -15,6 +16,7 @@ import UnfriendMutation from 'mutations/Relationship/UnfriendMutation';
 import UploadAttachment from 'components/UploadAttachment';
 
 import Trip from './components/Trip';
+import Friend from './components/Friend';
 import styles from './Profile.scss';
 
 export default class ProfileComponent extends Component {
@@ -104,6 +106,19 @@ export default class ProfileComponent extends Component {
         );
         break;
       }
+      case 2: {
+        const { edges: friends } = user.friends;
+        content = (
+          <div className={styles.friendsBlock}>
+            {friends.length > 0 &&
+              friends.map(({ node: friend }) =>
+                <Friend key={friend.id} user={friend} />
+              )
+            }
+          </div>
+        );
+        break;
+      }
       default:
         content = null;
     }
@@ -118,6 +133,7 @@ export default class ProfileComponent extends Component {
             <div className={styles.userAvatarWrap}>
               <UserImage user={user} className={styles.userAvatar} size={160} wrappLink={false} />
             </div>
+            <UserFullName user={user} className={styles.userFullName} fontSize={28} wrappLink={false} />
             {(user.id === me.id) &&
               <div className={styles.userSetting}>
                 <IconButton className={styles.settingBtn} name='settings' id='settings' />
@@ -161,6 +177,7 @@ export default class ProfileComponent extends Component {
             <Tabs className={styles.profileTabs} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
               <Tab>Timeline</Tab>
               <Tab>Trips</Tab>
+              <Tab>Friends</Tab>
             </Tabs>
           </div>
         </div>
