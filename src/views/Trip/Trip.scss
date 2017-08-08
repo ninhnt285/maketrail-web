@@ -1,79 +1,112 @@
 @import 'src/variables.scss';
-
 .root {
-  max-width: 600px;
-  margin: 0 auto;
-
-  .tripCover {
-    position: relative;
-
-    img {
+  height: 100%;
+  position: relative;
+  .leftColumn {
+    width: 250px;
+    height: calc(100% - 50px);
+    border-right: 1px solid #CCC;
+    top: 50px;
+    position: fixed;
+    left: 0;
+    .memberManager {
       width: 100%;
-      height: auto;
-    }
-
-    .videoCover {
-      width: 100%;
-      height: auto;
-    }
-  }
-
-  .tripDetail {
-    @extend .borderBox;
-    margin-bottom: 12px;
-    padding: 12px;
-    position: relative;
-
-    .nameTrip {
-      font-size: 16px;
-      margin: 0;
-      padding: 0 0 5px 0;
-      width: calc(100% - 50px);
-      font-weight: bold;
-      text-shadow: 0 0 3px #FFF;
-      border-width: 0;
-      &:focus {
-        outline: none;
-        border-bottom-width: 1px;
-        border-bottom-color: rgb(0,188,212);
+      height: 200px;
+      .title {
+        position: relative;
+        line-height: 32px;
+        font-weight: bold;
+        font-size: 14px;
+        padding-left: 5px;
+        .addBtn {
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+      .memberWrap {
+        padding: 10px;
       }
     }
-    .settingBtn {
-      position: absolute;
-      right: 8px;
-      top: 8px;
+    .discussion {
+      width: 100%;
+      height: calc(100% - 200px);
     }
   }
+  .tripContent {
+    width: 600px;
+    margin-left: calc((100% - 600px + 250px)/2);
+    .tripCover {
+      position: relative;
 
-  .localities {
-    position: relative;
-    padding: 0px;
-    margin: 0 -8px;
-  }
+      img {
+        width: 100%;
+        height: auto;
+      }
 
-  .videoContainer {
-    position: relative;
-    padding-bottom: 56.25%;
-    padding-top: 30px;
-    height: 0;
-    overflow: hidden;
-  }
+      .videoCover {
+        width: 100%;
+        height: auto;
+      }
+    }
 
-  .videoContainer iframe,
-  .videoContainer object,
-  .videoContainer embed {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
+    .tripDetail {
+      @extend .borderBox;
+      margin-bottom: 12px;
+      padding: 12px;
+      position: relative;
 
-  .headerTab {
-    background-color: #FFF;
-  }
+      .nameTrip {
+        font-size: 16px;
+        margin: 0;
+        padding: 0 0 5px 0;
+        width: calc(100% - 50px);
+        font-weight: bold;
+        text-shadow: 0 0 3px #FFF;
+        border-width: 0;
+        &:focus {
+          outline: none;
+          border-bottom-width: 1px;
+          border-bottom-color: rgb(0,188,212);
+        }
+      }
+      .settingBtn {
+        position: absolute;
+        right: 8px;
+        top: 8px;
+      }
+    }
 
-  .timeline {
-    margin-top: 12px;
+    .localities {
+      position: relative;
+      padding: 0px;
+      margin: 0 -8px;
+    }
+
+    .videoContainer {
+      position: relative;
+      padding-bottom: 56.25%;
+      padding-top: 30px;
+      height: 0;
+      overflow: hidden;
+    }
+
+    .videoContainer iframe,
+    .videoContainer object,
+    .videoContainer embed {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .headerTab {
+      background-color: #FFF;
+    }
+
+    .timeline {
+      margin-top: 12px;
+    }
   }
 }

@@ -27,6 +27,7 @@ export default Relay.createContainer(Trip, {
             edges {
               node {
                 id
+                fullName
                 ${Member.getFragment('user')}
               }
             }
