@@ -21,7 +21,7 @@ export default class Notify extends Component {
   componentDidUpdate() {
     setTimeout(() => {
       this.setState({ isShowNotify: false });
-    }, 3000);
+    }, 4000);
   }
   render() {
     const { notify } = this.props;

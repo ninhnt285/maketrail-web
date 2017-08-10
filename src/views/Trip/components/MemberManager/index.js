@@ -11,7 +11,7 @@ import styles from './MemberManager.scss';
 export default class MemberManager extends Component {
   static propTypes = {
     tripId: PropTypes.string.isRequired,
-    members: PropTypes.object.isRequired
+    members: PropTypes.array.isRequired
   }
 
   constructor(props) {
@@ -32,14 +32,13 @@ export default class MemberManager extends Component {
   }
 
   render() {
-    const { edges: users } = this.props.members;
-
+    const { members } = this.props;
     return (
       <div className={styles.root}>
         <UserFinder onAddUser={this.onAddUser} />
-        {users.length > 0 &&
+        {members.length > 0 &&
           <div className={styles.memberList}>
-            {users.map(({ node: user }) =>
+            {members.map(({ node: user }) =>
               <Member key={user.id} user={user} />
             )}
           </div>

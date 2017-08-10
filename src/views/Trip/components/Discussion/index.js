@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import io from 'socket.io-client';
+import { Textfield, IconButton } from 'react-mdl';
 
-import { Textfield } from 'react-mdl';
 import { SERVER_CHAT_URL } from 'config';
+import Modal from 'components/Modal';
 
+import MemberManager from '../MemberManager';
+import Member from '../MemberManager/components/Member';
 import Notify from './components/Notify';
 import Message from './components/Message';
 import styles from './Discussion.scss';
@@ -13,6 +16,7 @@ const socket = io(SERVER_CHAT_URL);
 export default class Discussion extends Component {
   static propTypes = {
     tripId: PropTypes.string.isRequired,
+    members: PropTypes.array.isRequired,
   }
 
   constructor(props) {
@@ -22,6 +26,7 @@ export default class Discussion extends Component {
       users: [],
       notify: null,
       text: '',
+      showMemberModal: false,
     };
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -35,6 +40,10 @@ export default class Discussion extends Component {
     socket.on('messages', (response) => {
       const messages = response.messages;
       this.setState({ messages });
+    });
+    socket.on('users', (response) => {
+      const users = response.users;
+      this.setState({ users });
     });
     socket.on('chat', (response) => {
       const messages = this.state.messages;
@@ -59,57 +68,58 @@ export default class Discussion extends Component {
     this.setState({ text: event.target.value });
   }
 
-  // getUser(userId) {
-  //   const accessToken = localStorage.getItem('accessToken');
-  //   fetch(SERVER_URL, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: accessToken,
-  //     },
-  //     body: JSON.stringify({
-  //       query: `query {
-  //                 viewer {
-  //                   User(id: "${userId}") {
-  //                     id
-  //                     username
-  //                     fullName
-  //                     profilePicUrl
-  //                   }
-  //                 }
-  //               }`,
-  //     })
-  //   }).then(response => response.json())
-  //   .then((responseJson) => {
-  //     console.log(responseJson);
-  //     // const users = this.state.users;
-  //     // users[userId] = responseJson.data.viewer.User;
-  //     return responseJson.data.viewer.User;
-  //   });
-  // }
   render() {
+    const { tripId, members } = this.props;
     const messages = this.state.messages.slice(0);
     messages.reverse();
     const notify = this.state.notify;
     return (
       <div className={styles.root}>
-        {notify &&
-          <Notify notify={notify} />
-        }
-        <div className={styles.messagesWrap}>
-          {messages.map(message =>
-            <Message message={message} key={message.id} />
-          )}
-          <div ref={(div) => { this.messagesWrap = div; }} />
+        <div className={styles.memberManager}>
+          <div className={styles.title}>
+            Members
+            <IconButton className={styles.addBtn} name='add' onClick={() => this.setState({ showMemberModal: true })} />
+            <Modal
+              showModal={this.state.showMemberModal}
+              onCloseModal={() => this.setState({ showMemberModal: false })}
+              title='Members Manager'
+            >
+              <MemberManager
+                tripId={tripId}
+                members={members}
+              />
+            </Modal>
+          </div>
+          <div className={styles.memberWrap}>
+            {members.map(user =>
+              <div className={styles.member} key={user.node.id}>
+                <Member user={user.node} />
+                {(this.state.users.indexOf(user.node.id) !== -1) &&
+                  <div className={styles.memberVisible} />
+                }
+              </div>
+            )}
+          </div>
         </div>
-        <form onSubmit={this.onSubmit} className={styles.formMessage}>
-          <Textfield
-            value={this.state.text}
-            onChange={this.onTextChange}
-            label='Message ... '
-            floatingLabel
-          />
-        </form>
+        <div className={styles.discussion}>
+          {notify &&
+            <Notify notify={notify} />
+          }
+          <div className={styles.messagesWrap}>
+            {messages.map(message =>
+              <Message message={message} key={message.id} />
+            )}
+            <div ref={(div) => { this.messagesWrap = div; }} />
+          </div>
+          <form onSubmit={this.onSubmit} className={styles.formMessage}>
+            <Textfield
+              value={this.state.text}
+              onChange={this.onTextChange}
+              label='Message ... '
+              floatingLabel
+            />
+          </form>
+        </div>
       </div>
     );
   }

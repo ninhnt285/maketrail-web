@@ -74,7 +74,6 @@ export default class Notifications extends Component {
     if (!isLoaded) {
       return null;
     }
-    console.log('notifications', isLoaded);
     return (
       <div className={styles.root}>
         {unread > 0 &&

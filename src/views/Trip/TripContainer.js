@@ -27,7 +27,6 @@ export default Relay.createContainer(Trip, {
             edges {
               node {
                 id
-                fullName
                 ${Member.getFragment('user')}
               }
             }
@@ -39,6 +38,11 @@ export default Relay.createContainer(Trip, {
                 originLocality {
                   id
                   name
+                  googlePlaceId
+                  location {
+                    lat
+                    lng
+                  }
                 }
                 localityVenues(first: 100) {
                   edges {

@@ -45,9 +45,9 @@ export default class App extends React.Component {
 
   render() {
     const user = this.props.viewer.user;
+    const path = this.props.location.pathname;
 
     if (!user) {
-      const path = this.props.location.pathname;
       let redirect = true;
       if (path.indexOf('/password/reset') !== -1) {
         redirect = false;
@@ -62,14 +62,15 @@ export default class App extends React.Component {
         location.href = '/';
       }
     }
-
     return (
       <div className={styles.root}>
         <Header user={user} onClickUser={this.onClickUserMenu} />
         <div className={styles.content}>
           {this.props.children}
         </div>
-        <Footer />
+        {(path.indexOf('/trip/') === -1) &&
+          <Footer />
+        }
       </div>
     );
   }

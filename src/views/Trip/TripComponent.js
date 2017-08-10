@@ -11,9 +11,8 @@ import DeleteTripMutation from 'mutations/Trip/DeleteTripMutation';
 import AddShareMutation from 'mutations/Feed/AddShareMutation';
 import Modal from 'components/Modal';
 
+import Map from './components/Map';
 import TripLocality from './components/TripLocality';
-import MemberManager from './components/MemberManager';
-import Member from './components/MemberManager/components/Member';
 import MediaManager from './components/MediaManager';
 import Discussion from './components/Discussion';
 import styles from './Trip.scss';
@@ -155,7 +154,6 @@ export default class TripComponent extends React.Component {
     const { Trip } = this.props.viewer;
     const localities = Trip.localities.edges;
     const members = Trip.members.edges;
-    console.log(members);
     let content = null;
     switch (this.state.activeTab) {
       case 0:
@@ -198,15 +196,17 @@ export default class TripComponent extends React.Component {
       <div className={styles.root}>
         <div className={styles.tripContent}>
           <div className={styles.tripCover}>
-            {Trip.recentExportedVideo &&
+            {(this.state.activeTab === 0) &&
+              <img src={Trip.previewPhotoUrl.replace('%s', '')} alt={Trip.name} />
+            }
+            {(this.state.activeTab === 2) &&
               <video controls className={styles.videoCover}>
                 <source src={Trip.recentExportedVideo} type='video/mp4' />
                 <div>Your browser does not support HTML5 video.</div>
               </video>
             }
-
-            {!Trip.recentExportedVideo &&
-              <img src={Trip.previewPhotoUrl.replace('%s', '')} alt={Trip.name} />
+            {(this.state.activeTab === 1) &&
+              <Map tripId={Trip.id} localities={localities} />
             }
           </div>
 
@@ -252,7 +252,6 @@ export default class TripComponent extends React.Component {
                 </div>
               </Modal>
               <MenuItem onClick={() => this.onEditTrip()}>Edit Name</MenuItem>
-              <MenuItem onClick={() => this.setState({ showMemberModal: true })}>Members Manager</MenuItem>
               <MenuItem onClick={event => this.onExportVideo(event)}>Export video</MenuItem>
               <MenuItem onClick={() => this.onInviteFriends()}>Invite friends</MenuItem>
               <MenuItem onClick={this.onDeleteTrip}>Delete</MenuItem>
@@ -271,35 +270,12 @@ export default class TripComponent extends React.Component {
           <Tabs className={styles.headerTab} activeTab={this.state.activeTab} onChange={tabId => this.setState({ activeTab: tabId })} ripple>
             <Tab>Timeline</Tab>
             <Tab>Plan</Tab>
-            <Tab>Photos/Videos</Tab>
+            <Tab>Export Video</Tab>
           </Tabs>
           {content}
         </div>
         <div className={styles.leftColumn}>
-          <div className={styles.memberManager}>
-            <div className={styles.title}>
-              Members
-              <IconButton className={styles.addBtn} name='add' onClick={() => this.setState({ showMemberModal: true })} />
-              <Modal
-                showModal={this.state.showMemberModal}
-                onCloseModal={() => this.setState({ showMemberModal: false })}
-                title='Members Manager'
-              >
-                <MemberManager
-                  tripId={Trip.id}
-                  members={Trip.members}
-                />
-              </Modal>
-            </div>
-            <div className={styles.memberWrap}>
-              {members.map(user =>
-                <Member key={user.node.id} user={user.node} />
-              )}
-            </div>
-          </div>
-          <div className={styles.discussion}>
-            <Discussion tripId={Trip.id} />
-          </div>
+          <Discussion tripId={Trip.id} members={members} />
         </div>
       </div>
     );

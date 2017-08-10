@@ -1,25 +1,73 @@
+@import 'src/variables.scss';
+
 .root {
-  margin-top: 12px;
-  position: relative;
   height: 100%;
   width: 100%;
-  .messagesWrap {
-    height: calc(100% - 70px);
-    overflow-y: scroll;
-    overflow-x: hidden;
+  .memberManager {
     width: 100%;
-    border-top: 1px solid #CCC;
-    border-bottom: 1px solid #CCC;
+    height: 200px;
+    .title {
+      position: relative;
+      line-height: 32px;
+      font-weight: bold;
+      font-size: 14px;
+      padding-left: 5px;
+      .addBtn {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
+    }
+    .memberWrap {
+      padding: 10px;
+      .member {
+        position: relative;
+        margin-bottom: 10px;
+      }
+      .memberVisible {
+        position: absolute;
+        display: inline-block;
+        top: 20px;
+        right: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background-color: $blue;
+      }
+      .memberInvisible {
+        position: absolute;
+        display: inline-block;
+        top: 20px;
+        right: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 10px;
+        background-color: $gray;
+      }
+    }
   }
-  .formMessage {
-    height: 70px;
-    padding: 0px 10px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
+  .discussion {
     width: 100%;
-    :global(.mdl-textfield) {
+    height: calc(100% - 200px);
+    position: relative;
+    .messagesWrap {
+      height: calc(100% - 70px);
+      overflow-y: scroll;
+      overflow-x: hidden;
       width: 100%;
+      border-top: 1px solid #CCC;
+      border-bottom: 1px solid #CCC;
+    }
+    .formMessage {
+      height: 70px;
+      padding: 0px 10px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      :global(.mdl-textfield) {
+        width: 100%;
+      }
     }
   }
 }

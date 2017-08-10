@@ -26,6 +26,7 @@
     "react-dates": "^11.0.0",
     "react-dom": "^15.5.4",
     "react-dropzone": "^3.13.1",
+    "react-google-maps": "^7.2.0",
     "react-icons": "^2.2.5",
     "react-mdl": "^1.10.0",
     "react-modal": "^1.7.7",

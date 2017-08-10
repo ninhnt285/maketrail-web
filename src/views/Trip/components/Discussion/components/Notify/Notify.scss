@@ -2,14 +2,16 @@
   padding: 20px;
   position: absolute;
   top: 0;
-  width: calc(100% - 40px);
+  width: 100%;
   left: 0;
   z-index: 99;
-  background-color: rgba(238, 238, 238, 0.8);
+  background-color: rgba(0, 0, 0, 0.5);
   .userName {
     float: left;
     margin-right: 5px;
+    color: #FFF;
   }
   .message {
+    color: #FFF;
   }
 }
