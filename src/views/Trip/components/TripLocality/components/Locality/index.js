@@ -9,6 +9,7 @@ import Modal from 'components/Modal';
 import WeatherCalendar from 'components/WeatherCalendar';
 import CategoryIcon from 'components/CategoryIcon';
 import WeatherIcon from 'components/WeatherIcon';
+import RemoveTripLocalityMutation from 'mutations/TripLocality/RemoveTripLocalityMutation';
 
 import styles from './Locality.scss';
 
@@ -19,6 +20,7 @@ class Locality extends Component {
     arrivalTime: PropTypes.number.isRequired,
     weatherIcon: PropTypes.string,
     tripLocalityId: PropTypes.string.isRequired,
+    tripId: PropTypes.string.isRequired,
   };
   static defaultProps = {
     weatherIcon: 'sunny'
@@ -43,6 +45,15 @@ class Locality extends Component {
   }
   onChangedDate() {
     this.setState({ showCalendar: false });
+  }
+  onRemoveTripLocality() {
+    const { tripLocalityId, tripId } = this.props;
+    const removeTripLocalityMutation = new RemoveTripLocalityMutation({
+      tripLocalityId,
+      tripId
+    });
+
+    Relay.Store.commitUpdate(removeTripLocalityMutation);
   }
   render() {
     const { locality } = this.props;
@@ -101,7 +112,7 @@ class Locality extends Component {
               <Menu target={`actions_${this.props.tripLocalityId}`} align='right'>
                 <MenuItem onClick={this.onOpenModal.bind(this, 'showCalendar')}>Change Date</MenuItem>
                 <MenuItem>Edit Position</MenuItem>
-                <MenuItem>Remove</MenuItem>
+                <MenuItem onClick={() => this.onRemoveTripLocality()}>Remove</MenuItem>
               </Menu>
             </div>
 

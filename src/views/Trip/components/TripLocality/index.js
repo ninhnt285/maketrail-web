@@ -17,6 +17,7 @@ class TripLocality extends Component {
   static propTypes = {
     tripLocality: PropTypes.object.isRequired,
     index: PropTypes.number.isRequired,
+    tripId: PropTypes.string.isRequired,
   };
 
   constructor(props) {
@@ -45,6 +46,7 @@ class TripLocality extends Component {
     return (
       <div className={styles.root}>
         <Locality
+          tripId={this.props.tripId}
           tripLocalityId={this.props.tripLocality.id}
           locality={this.props.tripLocality.originLocality}
           arrivalTime={this.props.tripLocality.arrivalTime}

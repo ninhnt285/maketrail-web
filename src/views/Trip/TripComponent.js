@@ -172,7 +172,7 @@ export default class TripComponent extends React.Component {
             <Grid className={styles.localities}>
               {localities.map(({ node }, index) => (
                 <Cell key={node.id} col={12} tablet={8} phone={4}>
-                  <TripLocality tripLocality={node} index={index} />
+                  <TripLocality tripLocality={node} index={index} tripId={Trip.id} />
                 </Cell>
               ))}
             </Grid>
