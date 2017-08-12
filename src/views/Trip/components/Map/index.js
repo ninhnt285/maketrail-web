@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, Polyline } from 'react-google-maps';
 import withScriptjs from 'react-google-maps/lib/async/withScriptjs';
 
 import styles from './Map.scss';
@@ -10,14 +10,19 @@ export default class Map extends Component {
     // tripId: PropTypes.string.isRequired,
     localities: PropTypes.array.isRequired,
   }
-  initMap() {
-
+  constructor(props) {
+    super(props);
+    this.handleMapLoad = this.handleMapLoad.bind(this);
+  }
+  handleMapLoad(map) {
+    // map.fit
   }
   render() {
     const { localities } = this.props;
     let centerLat = (localities.length > 0) ? 0 : 38.9806016;
     let centerLng = (localities.length > 0) ? 0 : -107.8005045;
     const markers = [];
+    const cords = [];
     // const bounds = new google.maps.LatLngBounds();
     localities.map((locality) => {
       const originLocality = locality.node.originLocality;
@@ -25,6 +30,7 @@ export default class Map extends Component {
       centerLat += originLocality.location.lat;
       const marker = { position: originLocality.location, key: originLocality.name };
       markers.push(marker);
+      cords.push({ lat: originLocality.location.lat, lng: originLocality.location.lng });
       // bounds.extends(marker);
       return false;
     });
@@ -42,6 +48,10 @@ export default class Map extends Component {
         {props.markers.map(marker => (
           <Marker {...marker} />
         ))}
+        <Polyline
+          path={cords}
+          options={{ strokeColor: '#FF0000', strokeOpacity: 0.6, strokeWeight: 4 }}
+        />
       </GoogleMap>
     )));
     return (
@@ -59,6 +69,7 @@ export default class Map extends Component {
               Loading map
             </div>
           }
+          onMapLoad={this.handleMapLoad}
           markers={markers}
         />
       </div>
