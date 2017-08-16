@@ -28,7 +28,7 @@ export default class TripComponent extends React.Component {
     super(props);
 
     this.state = {
-      activeTab: 0,
+      activeTab: 1,
       name: this.props.viewer.Trip.name,
       isInEditName: false,
       showShareModal: false,

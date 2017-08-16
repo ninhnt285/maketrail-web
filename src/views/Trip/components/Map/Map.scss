@@ -2,4 +2,23 @@
   width: 100%;
   height: 100%;
   background-color: #CCC;
+  position: relative;
+  .listLocality {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    .locality {
+      background-color: #FFF;
+      padding: 0px !important;
+      min-height: 24px;
+      margin-bottom: 5px;
+      .localityButton {
+        width: 100%;
+        font-size: 12px !important;
+        padding: 5px !important;
+        height: auto;
+        line-height: 24px;
+      }
+    }
+  }
 }
